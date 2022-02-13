@@ -1,6 +1,5 @@
 name := """timlah-portfolio"""
 organization := "com.timlah"
-herokuAppName in Compile := "timlah-com"
 
 version := "1.0-SNAPSHOT"
 

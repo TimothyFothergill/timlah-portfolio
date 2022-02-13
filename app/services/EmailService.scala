@@ -9,7 +9,7 @@ class EmailService @Inject() (mailerClient: MailerClient) {
     val email = Email(
       subject   = "Enquiry from timlah.com",
       from      = f"$name <$address>",
-      to        = Seq("me@timlah.com"),
+      to        = Seq("timlah@timlah.com"),
       bodyText  = Some(f"$content"),
     )
     mailerClient.send(email)
