@@ -1,1 +1,1 @@
-web: sbt run -XX:+UseG1GC
+web: target/universal/stage/bin/timlah-portfolio -Dhttp.port=${PORT}
