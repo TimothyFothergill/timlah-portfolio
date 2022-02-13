@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/timlah-portfolio -Dhttp.port=${PORT}
+web: target/universal/stage/bin/timlah-portfolio -Dhttp.port=${PORT} -Dplay.http.secret.key="4T`AfSpVE=tFZEE67EQ&%s$VaL:v;CE~"
