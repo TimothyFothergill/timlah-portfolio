@@ -1,0 +1,45 @@
+@(projects: Seq[Project])
+
+@main("Timlah's Techs | Projects") {
+<h2>Projects</h2>
+<p>This is a non-exhaustive list of projects I've worked on: </p>
+<div class="accordion">
+@projects.zipWithIndex.map{case (project, i) =>
+    @if(i == 0) {
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading@i">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse@i" aria-expanded="true"
+                    aria-controls="collapse@i">
+                @project.title
+            </button>
+        </h2>
+        <div id="collapse@i" class="accordion-collapse collapse show"
+             aria-labelledby="heading@i">
+            <div class="accordion-body">
+                @project.description<br>
+                <a href="@project.url">Click here for @project.title</a>
+            </div>
+        </div>
+    </div>
+    }else{
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading@i">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse@i" aria-expanded="true"
+                    aria-controls="collapse@i">
+                @project.title
+            </button>
+        </h2>
+        <div id="collapse@i" class="accordion-collapse collapse"
+             aria-labelledby="heading@i">
+            <div class="accordion-body">
+                @project.description<br>
+                <a href="@project.url">Click here for @project.title</a>
+            </div>
+        </div>
+    </div>
+}
+</div>
+}
+}

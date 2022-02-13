@@ -1,0 +1,18 @@
+@import helper._
+@import models.ContactData
+
+@(contactForm: Form[ContactData])(implicit messagesProvider: MessagesProvider)
+
+@main("Timlah's Techs | Contact") {
+
+    <p>Reach out to me by filling out the contact form below: </p>
+
+    <div class="border">
+    @form(action = routes.HomeController.contact()) {
+        @inputText(contactForm("name"), Symbol("_label") -> "Name: ", 'size -> 30)
+        @inputText(contactForm("email"), Symbol("_label") -> "Email Address: ", 'size -> 30)
+        @textarea(contactForm("contents"), Symbol("_label") -> "Contents: ", 'rows -> 5, 'cols -> 60)
+        <button type="submit">Submit</button>
+    }
+    </div>
+}

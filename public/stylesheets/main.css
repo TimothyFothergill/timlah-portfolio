@@ -1,0 +1,60 @@
+main > .container {
+    padding: 60px 15px 0;
+}
+
+.nav-link {
+    color: #ff0000;
+}
+
+.nav-link:hover {
+    color: #9f0000;
+    text-decoration: underline;
+}
+
+.accordion-body {
+    background-color: rgba(0,0,0,0.95);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #3f0000;
+    color: #fff;
+}
+
+.accordion-button::after {
+
+}
+
+.index-large {
+    margin-left: 1em;
+}
+
+.index-medium {
+    margin-left: 2em;
+}
+
+.accordion-button {
+    background-color: #3f0000;
+    color: #fff;
+}
+
+.content {
+    margin-top: 10%;
+}
+
+.socials {
+    float:right;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
