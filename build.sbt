@@ -1,6 +1,7 @@
 name := """timlah-portfolio"""
 organization := "com.timlah"
 herokuAppName in Compile := "timlah-com"
+play.http.secret.key="4T`AfSpVE=tFZEE67EQ&%s$VaL:v;CE~"
 
 version := "1.0-SNAPSHOT"
 
