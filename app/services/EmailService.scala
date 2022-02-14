@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class EmailService @Inject() (mailerClient: MailerClient) {
 
-  def sendEmail(name: String, address: String, content: String) = {
+  def sendEmail(name: String, address: String, content: String): String = {
     val email = Email(
       subject   = "Enquiry from timlah.com",
       from      = f"$name <$address>",
