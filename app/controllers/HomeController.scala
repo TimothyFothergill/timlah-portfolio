@@ -34,17 +34,11 @@ class HomeController @Inject()(
         },
         submittedData => {
           val data = models.ContactData(submittedData.name, submittedData.email, submittedData.contents)
-          println(data.name)
-          data.email match {
-            case Some(data)     => println(data)
-            case None           => println("No email")
-          }
-          println(data.contents)
           emailService.sendEmail(
             data.name,
             data.email match {
               case Some(data) => data
-              case None => "No Email"
+              case None => "me@timlah.com"
             },
           data.contents)
           Redirect(routes.HomeController.contact())
