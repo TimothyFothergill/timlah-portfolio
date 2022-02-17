@@ -6,6 +6,10 @@ main > .container {
     color: #ff0000;
 }
 
+.footer{
+    text-align: center;
+}
+
 .nav-link:hover {
     color: #9f0000;
     text-decoration: underline;
@@ -20,16 +24,16 @@ main > .container {
     color: #fff;
 }
 
-.accordion-button::after {
-
-}
-
 .index-large {
     margin-left: 1em;
 }
 
 .index-medium {
     margin-left: 2em;
+}
+
+.index-paragraph {
+    margin-top: 2em;
 }
 
 .accordion-button {

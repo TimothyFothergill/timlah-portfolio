@@ -1,7 +1,8 @@
 package controllers
 
 import models.ContactData
-import play.api.i18n.I18nSupport
+import play.api.data._
+import play.api.i18n._
 import play.api.mvc._
 import services.{CurrentProjects, EmailService}
 
@@ -9,10 +10,10 @@ import javax.inject._
 
 @Singleton
 class HomeController @Inject()(
-  cc              : ControllerComponents,
+  cc              : MessagesControllerComponents,
   currentProjects : CurrentProjects,
   emailService    : EmailService
-) extends AbstractController(cc) with I18nSupport {
+) extends MessagesAbstractController(cc) {
 
     def index() = Action { implicit request: Request[AnyContent] =>
       Ok(views.html.index())
@@ -23,12 +24,18 @@ class HomeController @Inject()(
     }
 
     def projects() = Action { implicit request: Request[AnyContent] => {
-      Ok(views.html.projects(currentProjects.currentProjects()))
+      Ok(views.html.projects(currentProjects.currentProjects(), currentProjects.closedProjects()))
+    }
+  }
+  def contactPage() = Action { implicit request: MessagesRequest[AnyContent] => {
+      val boundForm = ContactData.contactForm
+      Ok(views.html.contact(boundForm))
     }
   }
 
-    def contact() = Action { implicit request: Request[AnyContent] => {
-      ContactData.contactForm.bindFromRequest.fold(
+    def contactSubmit() = Action { implicit request: MessagesRequest[AnyContent] => {
+      val boundForm = ContactData.contactForm.bindFromRequest()
+      boundForm.fold(
         formWithErrors => {
           BadRequest(views.html.contact(formWithErrors))
         },
@@ -41,7 +48,7 @@ class HomeController @Inject()(
               case None => "me@timlah.com"
             },
           data.contents)
-          Redirect(routes.HomeController.contact())
+          Redirect(routes.HomeController.index())
         }
       )
 

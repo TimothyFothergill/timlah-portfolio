@@ -1,17 +1,49 @@
 @import helper._
 @import models.ContactData
 
-@(contactForm: Form[ContactData])(implicit messagesProvider: MessagesProvider)
+@(contactForm: Form[_])(implicit request: MessagesRequestHeader)
 
 @main("Timlah's Techs | Contact") {
 
     <p>Reach out to me by filling out the contact form below: </p>
 
-    <div class="border">
-    @form(action = routes.HomeController.contact()) {
-        @inputText(contactForm("name"), Symbol("_label") -> "Name: ", 'size -> 30)
-        @inputText(contactForm("email"), Symbol("_label") -> "Email Address: ", 'size -> 30)
-        @textarea(contactForm("contents"), Symbol("_label") -> "Contents: ", 'rows -> 5, 'cols -> 60)
+<!--    <div class="content">-->
+<!--        @if(contactForm.hasErrors) {-->
+<!--        <div class="alert alert-danger" role="alert">-->
+<!--            <ul class="list">-->
+<!--                @contactForm.errors.map { error =>-->
+<!--                <li class="alert-danger"> @Messages(error.message, error.args: _*)</li>-->
+<!--                }-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        }-->
+<!--    </div>-->
+    <div class="content">
+        @form(action = routes.HomeController.contactSubmit()) {
+        @helper.CSRF.formField
+        @contactForm("name").hasErrors match {
+            case true => {
+                    <dt><label for="name">Name*: </label></dt>
+                    <input type="text" name="name" id="name" size="30" class="alert-danger">
+                    <dd class="error">This field is required</dd>
+                }
+            case _    => {
+                    <dt><label for="name">Name*: </label></dt>
+                    <input type="text" name="name" id="name" size="30">
+                }
+        }
+        <dt><label for="email">Email: </label></dt><input type="text" name="email" id="email" size="30">
+        @contactForm("contents").hasErrors match {
+        case true => {
+                    <dt><label for="contents">Contents*: </label></dt>
+                    <textarea name="contents" id="contents" rows="5" cols="60" class="alert-danger"></textarea><br>
+                    <dd class="error">This field is required</dd>
+                }
+            case _ => {
+                    <dt><label for="contents">Contents*: </label></dt>
+                    <textarea name="contents" id="contents" rows="5" cols="60"></textarea><br>
+                }
+        }
         <button type="submit">Submit</button>
     }
     </div>
