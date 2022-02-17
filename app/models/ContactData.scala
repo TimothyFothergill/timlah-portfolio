@@ -15,7 +15,7 @@ object ContactData {
   val contactForm: Form[ContactData] = Form(
    mapping(
     "name"      -> nonEmptyText           ,
-    "email"     -> optional(text)         ,
+    "email"     -> optional(email)        ,
     "contents"  -> nonEmptyText
    )(ContactData.apply)(ContactData.unapply))
 }
