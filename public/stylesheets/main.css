@@ -23,9 +23,15 @@ main > .container {
     background-color: #3f0000;
     color: #fff;
 }
+@keyframes zoom-left {
+    0%      {color: orange;     margin-left:-200px; }
+    100%    {color: white;      margin-left:1em;    }
+}
 
 .index-large {
     margin-left: 1em;
+    animation-name: zoom-left;
+    animation-duration: 3s;
 }
 
 .index-medium {
@@ -47,6 +53,26 @@ main > .container {
 
 .socials {
     float:right;
+}
+.socials a {
+    text-decoration: none;
+}
+.flashed-messages {
+    height: 20px;
+}
+#flash-success {
+    border-radius: 1em;
+    text-align: center;
+}
+
+dt label {
+    margin-top: 1em;
+}
+
+.success {
+    width: 100%;
+    margin-top: 2em;
+    background-color: .bg-success;
 }
 
 .bd-placeholder-img {
