@@ -11,7 +11,8 @@ libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 libraryDependencies += "com.typesafe.play" %% "play-mailer" % "8.0.1"
 libraryDependencies += "com.typesafe.play" %% "play-mailer-guice" % "8.0.1"
-
+libraryDependencies += "org.mongodb.scala" %% "mongo-scala-driver" % "2.9.0"
+libraryDependencies += "org.planet42" %% "laika-io" % "0.18.0"
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.timlah.controllers._"

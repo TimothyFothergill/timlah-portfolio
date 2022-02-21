@@ -3,7 +3,8 @@ main > .container {
 }
 
 .nav-link {
-    color: #ff0000;
+    color: orange;
+    font-size: 20px;
 }
 
 .footer{
@@ -19,9 +20,16 @@ main > .container {
     background-color: rgba(0,0,0,0.95);
 }
 
+.accordion-button {
+    background-color: #3f0000;
+    color: #fff;
+    font-size: 24px;
+}
+
 .accordion-button:not(.collapsed) {
     background-color: #3f0000;
     color: #fff;
+    font-size: 24px;
 }
 @keyframes zoom-left {
     0%      {color: orange;     margin-left:-200px; }
@@ -40,11 +48,6 @@ main > .container {
 
 .index-paragraph {
     margin-top: 2em;
-}
-
-.accordion-button {
-    background-color: #3f0000;
-    color: #fff;
 }
 
 .content {

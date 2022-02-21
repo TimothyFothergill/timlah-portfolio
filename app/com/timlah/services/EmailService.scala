@@ -1,4 +1,4 @@
-package services
+package com.timlah.services
 
 import play.api.libs.mailer._
 import javax.inject.Inject

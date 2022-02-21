@@ -1,4 +1,4 @@
-package models
+package com.timlah.models
 
 case class Project(
   title       : String,
