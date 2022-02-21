@@ -1,5 +1,5 @@
 @import helper._
-@import models.ContactData
+@import com.timlah.models.ContactData
 
 @(contactForm: Form[_], enquiryType: Seq[String])(implicit request: MessagesRequestHeader)
 
@@ -8,7 +8,7 @@
     <p>Reach out to me by filling out the contact form below: </p>
 
     <div class="content">
-        @form(action = routes.HomeController.contactSubmit()) {
+        @form(action = com.timlah.controllers.routes.HomeController.contactSubmit()) {
         @helper.CSRF.formField
         @contactForm("name").hasErrors match {
             case true => {

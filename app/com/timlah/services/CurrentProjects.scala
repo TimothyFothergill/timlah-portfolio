@@ -1,6 +1,6 @@
-package services
+package com.timlah.services
 
-import models.Project
+import com.timlah.models.Project
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
