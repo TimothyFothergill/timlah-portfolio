@@ -44,7 +44,7 @@ class HomeController @Inject()(
   }
 
   def latestBlog() = Action { implicit request: Request[AnyContent] =>
-    Ok(com.timlah.views.html.blog(blogService.createBlogPost(Author(1, "Timlah", Seq()), None, "This is my title", "This is a test blog post... trying newlines, too?")))
+    Ok(com.timlah.views.html.blog(blogService.createBlogPost(Author(1, "Timlah", Seq()), None, "Timlah's Techs Blog is Live", "This is a test blog post... trying newlines, too?")))
   }
 
   def contactSubmit() = Action { implicit request: MessagesRequest[AnyContent] => {
