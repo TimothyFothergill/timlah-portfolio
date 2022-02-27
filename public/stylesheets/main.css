@@ -1,3 +1,9 @@
+@media (min-width: 360px) {
+  body {
+    font-size: 1.0em;
+  }
+}
+
 main > .container {
     padding: 60px 15px 0;
 }
