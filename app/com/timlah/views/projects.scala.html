@@ -22,6 +22,10 @@
                     @project.description<br>
                     <a href="@project.url">Click here for @project.title</a>
                 </div>
+                <div class="accordion-body">
+                    Project Type: @for(icon <- project.projectTypes) {@icon.asString @icon.asIcon <br>}
+                    Last Updated: @project.lastUpdated.day/@project.lastUpdated.month/@project.lastUpdated.year
+                </div>
             </div>
         </div>
         }else{
@@ -38,6 +42,10 @@
                 <div class="accordion-body">
                     @project.description<br>
                     <a href="@project.url">Click here for @project.title</a>
+                </div>
+                <div class="accordion-body">
+                    Project Type: @for(icon <- project.projectTypes) {@icon.asString @icon.asIcon <br>}
+                    Final Update: @project.lastUpdated.day/@project.lastUpdated.month/@project.lastUpdated.year
                 </div>
             </div>
         </div>

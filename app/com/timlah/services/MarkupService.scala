@@ -23,11 +23,10 @@ class MarkupService {
     }
   }
 
-  def markdownStringToHTML(): Either[String, String] = {
-    transformer.transform("Welcome to the first post of hopefully many in my blog.") match {
+  def markdownStringToHTML(string: String): Either[String, String] = {
+    transformer.transform(string) match {
       case Left(_)  => Left("<Unable to render the post at this time.>")
       case Right(s) => Right(s)
     }
   }
-
 }
