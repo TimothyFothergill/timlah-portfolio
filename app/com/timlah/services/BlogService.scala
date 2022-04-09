@@ -26,4 +26,8 @@ class BlogService @Inject()(
       date          = dateTime.get
     )
   }
+
+  def getLatestBlogPost() = {
+    blogPostRepository
+  }
 }
