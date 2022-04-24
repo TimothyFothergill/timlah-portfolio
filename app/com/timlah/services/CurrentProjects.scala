@@ -15,7 +15,7 @@ class CurrentProjects {
         description = "Match Hiragana to the Romaji equivalent - This was my first personal project in Python using the Flask framework. NOTE: This is hosted on a free Heroku plan. It can take a while to load initially.",
         url         = "http://matchagana.herokuapp.com",
         projectTypes  = Seq(ProjectType.Python),
-        lastUpdated   = DateTime(2020,9,4)
+        lastUpdated   = DateTime(2022,4,24)
       )
     )
   }
