@@ -1,19 +1,14 @@
-Welcome to the first blog post on [Timlah's Techs](https://www.timlah.com).
+Recently, I stumbled across a Scala library called [Indigo](https://indigoengine.io), which is promoted as a game engine for functional programmers.
+I've wanted to practice functional development for some time, so I've decided to give it a try. Following along with the tutorials isn't
+too difficult, so I'm hoping before too long, I'll have a game I can embed on this website, written in Scala.  
   
-#### A bit of background
+Indigo uses one import and one line of [scala.js](https://www.scala-js.org), after which the implementation is purely Scala:
 
-This website is written in Scala, using the Play Framework. I decided to make a website for myself as I
-wanted something to work on in my spare time that wasn't just a large game project. The initial website was written in
-just 2 days, over a weekend. It went from not existing on the Saturday morning to live and deployed by the Monday morning.  
-  
-Over time, I'll be updating this blog to make sure I keep an archive of previous posts. To do this, I'll need to create
-a MongoDB instance, which will store the content of my articles.
-  
-For the curious amongst you, this blog post was written using Markdown. I'm using a Scala dependency called [Laika](https://planet42.github.io/Laika/downloads/laika-0.18-sbt.pdf). 
-Currently to get this blog up and running, I have a file in my `conf/` folder, called `latest-blog.md`. This method isn't as 
-feature rich as say a full editor, such as Wordpress, but it's something I developed myself, and it does, for now, a decent
-job.
-  
-### Thanks for reading
+```scala 
+import scala.scalajs.js.annotation.JSExportTopLevel
+@JSExportTopLevel("IndigoGame")
+```
 
-Over the coming months, expect a couple of more projects from me on this very website.
+There's some good documentation on the site, so I'm going to have a crack at this, see if I can't make a single-level for a platformer in it.  
+  
+I'll report my progress here once I've gotten somewhere!
