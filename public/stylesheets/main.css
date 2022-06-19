@@ -91,6 +91,10 @@ dt label {
     user-select: none;
 }
 
+.scala {
+    color: #B3B3B3;
+}
+
 @media (min-width: 768px) {
     .bd-placeholder-img-lg {
         font-size: 3.5rem;

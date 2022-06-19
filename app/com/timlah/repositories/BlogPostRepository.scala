@@ -12,7 +12,7 @@ class BlogPostRepository @Inject()(
   implicit executionContext: ExecutionContext,
   reactiveMongoApi: ReactiveMongoApi
 ) {
-  val collection: Future[BSONCollection] = reactiveMongoApi.database.map(db => db.collection("blog"))
+//  val collection: Future[BSONCollection] = reactiveMongoApi.database.map(db => db.collection("blog"))
 
   def mongoConnection() = {
     ???
