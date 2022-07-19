@@ -1,14 +1,5 @@
-Recently, I stumbled across a Scala library called [Indigo](https://indigoengine.io), which is promoted as a game engine for functional programmers.
-I've wanted to practice functional development for some time, so I've decided to give it a try. Following along with the tutorials isn't
-too difficult, so I'm hoping before too long, I'll have a game I can embed on this website, written in Scala.  
-  
-Indigo uses one import and one line of [scala.js](https://www.scala-js.org), after which the implementation is purely Scala:
+I've been working on a project in Unity recently. After attempting some work in [Indigo](https://indigoengine.io), I found I wasn't making the progress I wanted to. Nevertheless, I'll return to investigating that library at some point.
 
-```scala 
-import scala.scalajs.js.annotation.JSExportTopLevel
-@JSExportTopLevel("IndigoGame")
-```
+For now though, I've returned to Unity and I am hoping to have a prototype for a 3D RPG up on this website soon. 
 
-There's some good documentation on the site, so I'm going to have a crack at this, see if I can't make a single-level for a platformer in it.  
-  
-I'll report my progress here once I've gotten somewhere!
+Fingers crossed!
