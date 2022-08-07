@@ -12,10 +12,10 @@ class CurrentProjects {
     Seq(
       Project(
         title       = "Matchagana",
-        description = "Match Hiragana to the Romaji equivalent - This was my first personal project in Python using the Flask framework. NOTE: This is hosted on a free Heroku plan. It can take a while to load initially.",
-        url         = "http://matchagana.herokuapp.com",
+        description = "Match Hiragana to the Romaji equivalent - This was my first personal project in Python using the Flask framework. Latest update: New domain name!",
+        url         = "https://www.matchagana.com",
         projectTypes  = Seq(ProjectType.Python),
-        lastUpdated   = DateTime(2022,4,24)
+        lastUpdated   = DateTime(2022,8,4)
       )
     )
   }
