@@ -12,7 +12,7 @@ class BlogService @Inject()(
 ) {
 
   def createBlogPost(author: Author, coauthor: Option[Author], title: String): BlogPost = {
-    val dateTime = DateTime.fromIsoDateTimeString("2022-06-19T10:30:00.012Z")
+    val dateTime = DateTime.fromIsoDateTimeString("2022-08-13T10:30:00.012Z")
     val testMarkup = markupService.markdownFileToHTML()
     BlogPost(
       id            = blogPostRepository.newPostID(),
