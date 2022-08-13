@@ -1,5 +1,10 @@
-I've been working on a project in Unity recently. After attempting some work in [Indigo](https://indigoengine.io), I found I wasn't making the progress I wanted to. Nevertheless, I'll return to investigating that library at some point.
+Just like that, we now have a 3D RPG Prototype live online. It's not an incredible piece of art or anything out of the norm, but it's a working prototype, so I'm pretty happy about that.
 
-For now though, I've returned to Unity, where I am hoping to have a prototype for a 3D RPG up on this website within the next week.
+You can find a link to the prototype on the Projects page. Have a look, mess around with the prototype and feel free to leave some feedback on what you want to see next.
 
-Fingers crossed!
+I'll look to include some more information about the development process in the coming weeks and months, so stay tuned for more information and more updates to that project.
+
+In the interim, I'll also be looking to make some updates to this site, possibly looking at addressing this blog system and maybe adding Hugo in to manage this content.
+
+Until then, take care and happy tinkering.
+- Timlah
