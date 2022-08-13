@@ -11,6 +11,13 @@ class CurrentProjects {
   def currentProjects(): Seq[Project] = {
     Seq(
       Project(
+        title       = "3D RPG Prototype",
+        description = "A 3D RPG Prototype made in about a month. Will be working on semi-regular builds for this, so expect it to improve over time.",
+        url         = "https://play.unity.com/mg/other/3d-rpg-prototype",
+        projectTypes  = Seq(ProjectType.Unity),
+        lastUpdated   = DateTime(2022,8,13)
+      ),
+      Project(
         title       = "Matchagana",
         description = "Match Hiragana to the Romaji equivalent - This was my first personal project in Python using the Flask framework. Latest update: New domain name!",
         url         = "https://www.matchagana.com",
