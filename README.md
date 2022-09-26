@@ -1,4 +1,4 @@
-# Timlah's Techs
+# Timlah.com
 A simple portfolio website, designed to be efficient and clean.
 
 Notes:
