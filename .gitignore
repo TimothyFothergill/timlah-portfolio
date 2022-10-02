@@ -1,5 +1,6 @@
 logs
 target
+backup
 /.g8
 /.bsp
 /.idea
@@ -8,4 +9,5 @@ target
 /.project
 /.settings
 conf/application.conf
+conf/blog-backup.md
 /RUNNING_PID

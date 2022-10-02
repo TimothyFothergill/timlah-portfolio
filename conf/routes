@@ -8,7 +8,11 @@ GET     /                           com.timlah.controllers.HomeController.index(
 GET     /projects                   com.timlah.controllers.HomeController.projects()
 GET     /contact                    com.timlah.controllers.HomeController.contactPage()
 GET     /about                      com.timlah.controllers.HomeController.about()
-GET     /blog                       com.timlah.controllers.HomeController.latestBlog()
+
+GET     /blog                       com.timlah.controllers.HomeController.blogPosts()
+GET     /latest-blog                com.timlah.controllers.HomeController.latestBlog()
+GET     /blog/id/:id                com.timlah.controllers.HomeController.blogByID(id: Int)
+GET     /blog/slug/:slug            com.timlah.controllers.HomeController.blogBySlug(slug: String)
 
 POST    /contact                    com.timlah.controllers.HomeController.contactSubmit()
 

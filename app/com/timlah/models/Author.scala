@@ -6,8 +6,7 @@ import scala.language.postfixOps
 
 case class Author(
   id: Int,
-  username: String,
-  posts: Seq[BlogPost]
+  username: String
 )
 
 object Author {

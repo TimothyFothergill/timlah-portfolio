@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/timlah-portfolio -Dhttp.port=${PORT}
+web: target/universal/stage/bin/timlah-portfolio -Dhttp.port=${PORT} -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=$DATABASE_URL

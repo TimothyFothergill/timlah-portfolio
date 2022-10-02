@@ -13,10 +13,9 @@ libraryDependencies += "com.typesafe.play" %% "play-mailer" % "8.0.1"
 libraryDependencies += "com.typesafe.play" %% "play-mailer-guice" % "8.0.1"
 libraryDependencies += "org.planet42" %% "laika-io" % "0.18.0"
 libraryDependencies ++= Seq(
-  "org.reactivemongo" %% "play2-reactivemongo" % "0.20.13-play28",
-  "org.reactivemongo" %% "reactivemongo-play-json-compat" % "1.0.1-play28",
-  "org.reactivemongo" %% "reactivemongo-bson-compat" % "0.20.13",
-  "com.typesafe.play" %% "play-json-joda" % "2.7.4"
+  "com.typesafe.play" %% "play-json-joda" % "2.7.4",
+  "com.typesafe.play" %% "play-slick" % "5.0.0",
+  "org.postgresql" % "postgresql" % "42.2.12"
 )
 
 // Adds additional packages into Twirl
