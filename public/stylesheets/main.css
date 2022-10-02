@@ -58,6 +58,7 @@ main > .container {
 
 .content {
     margin-top: 10%;
+    margin-bottom: 10%;
 }
 
 .socials {
@@ -93,6 +94,15 @@ dt label {
 
 .scala {
     color: #B3B3B3;
+}
+
+.borderless {
+    border: 0;
+}
+
+.blog-list-header {
+    color: orange;
+    font-size: 24px;
 }
 
 @media (min-width: 768px) {
