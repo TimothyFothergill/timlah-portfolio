@@ -1,6 +1,6 @@
 package com.timlah.controllers
 
-import com.timlah.models.{Author, ContactData, EnquiryType}
+import com.timlah.models.{ContactData, EnquiryType}
 import com.timlah.repositories.BlogPostRepository
 import play.api.mvc._
 import com.timlah.services.{BlogService, CurrentProjects, EmailService, MarkupService}
@@ -10,7 +10,6 @@ import scala.concurrent.ExecutionContext
 
 @Singleton
 class HomeController @Inject()(
-  blogService        : BlogService,
   cc                 : MessagesControllerComponents,
   currentProjects    : CurrentProjects,
   emailService       : EmailService,
