@@ -9,13 +9,13 @@ import scala.concurrent._
 class ErrorHandler extends HttpErrorHandler {
   override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] = {
     Future.successful(
-      NotFound(com.timlah.views.html.notfound())
+      NotFound(com.timlah.views.html.error())
     )
   }
 
   def onServerError(request: RequestHeader, exception: Throwable): Future[Result] = {
     Future.successful(
-      InternalServerError(com.timlah.views.html.internalservererror())
+      InternalServerError(com.timlah.views.html.error())
     )
   }
 }
