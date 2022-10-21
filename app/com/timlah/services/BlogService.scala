@@ -28,6 +28,7 @@ class BlogService @Inject()(
   }
 
   def getLatestBlogPost() = {
-    blogPostRepository
+    val latest = blogPostRepository.getLatestBlogPost
+
   }
 }
