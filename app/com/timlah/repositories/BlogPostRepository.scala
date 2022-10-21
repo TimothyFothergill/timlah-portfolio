@@ -1,10 +1,5 @@
 package com.timlah.repositories
 
-// https://www.baeldung.com/scala/slick-intro for more info
-// Note: This is brittle at the moment. Using the "live" database on heroku to test. Shouldn't be doing this.
-// Note: If the connection doesn't work any more, double check variables on heroku.
-// Alternatively to the above, via terminal `heroku login` then `heroku config:get DATABASE_URL -a timlah-com`
-
 import akka.http.scaladsl.model.DateTime
 import com.timlah.models.{Author, BlogPost}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
@@ -58,7 +53,6 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
 
 class BlogPostTable(tag: Tag) extends Table[BlogPost](tag, "posts") {
 
-  implicit val authorFormat     : OFormat[Author] = Json.format[Author]
   implicit val configColumnType : JdbcType[Author] with BaseTypedType[Author] = MappedColumnType.base[Author, String](
     author => Json.stringify(Json.toJson(author)),
     column => Json.parse(column).as[Author]

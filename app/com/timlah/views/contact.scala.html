@@ -21,7 +21,17 @@
                     <input type="text" name="name" id="name" size="30">
                 }
         }
-        <dt><label for="email"  >Email:     </label></dt><input type="text" name="email" id="email" size="30">
+        @contactForm("email").hasErrors match {
+            case true => {
+                <dt><label for="email">Email*: </label></dt>
+                <input type="text" name="email" id="email" size="30" class="alert-danger">
+                <dd class="error">This field is required</dd>
+            }
+            case _    => {
+                <dt><label for="email">Email*: </label></dt>
+                <input type="text" name="email" id="email" size="30">
+            }
+        }
         @select(
             contactForm("enquiry"),
             enquiryType.toList.map(enquiry => (enquiry, enquiry)).reverse,

@@ -78,17 +78,15 @@ class HomeController @Inject()(
         submittedData => {
           val data = ContactData(submittedData.name, submittedData.email, submittedData.subject, submittedData.enquiry, submittedData.contents)
           emailService.sendEmail(
-              subject = data.subject match {
-                case Some(data) => data
-                case None => "Enquiry from timlah.com"
-              },
-              name = data.name,
-              address = data.email match {
-                case Some(data) => data
-                case None => "me@timlah.com"
-              },
+            subject = data.subject match {
+              case Some(data) => data
+              case None       => "Enquiry from timlah.com"
+            },
+            name = data.name,
+            address = data.email,
             enquiry = submittedData.enquiry,
-            content = data.contents
+            content = data.contents,
+            remoteAddress = request.remoteAddress
           )
           Redirect(routes.HomeController.index()).flashing("success" -> "Contact message sent, thank you.")
         }

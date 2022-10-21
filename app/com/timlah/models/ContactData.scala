@@ -7,9 +7,9 @@ import play.api.mvc.QueryStringBindable
 
 case class ContactData(
   name    : String        ,
-  email   : Option[String],
+  email   : String        ,
   subject : Option[String],
-  enquiry : String   ,
+  enquiry : String        ,
   contents: String
 )
 
@@ -17,7 +17,7 @@ object ContactData {
   val contactForm: Form[ContactData] = Form(
    mapping(
     "name"      -> nonEmptyText    ,
-    "email"     -> optional(email) ,
+    "email"     -> email           ,
     "subject"   -> optional(text)  ,
     "enquiry"   -> text            ,
     "contents"  -> nonEmptyText
