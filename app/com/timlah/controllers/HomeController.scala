@@ -1,21 +1,25 @@
 package com.timlah.controllers
 
+import com.timlah.connectors.WalkAboutWithMeConnector
 import com.timlah.models.{ContactData, EnquiryType}
 import com.timlah.repositories.BlogPostRepository
 import play.api.mvc._
-import com.timlah.services.{BlogService, CurrentProjects, EmailService, MarkupService}
+import com.timlah.services.{CurrentProjects, EmailService, MarkupService, WalkAboutWithMeService}
+import play.api.cache.Cached
 
 import javax.inject._
 import scala.concurrent.ExecutionContext
 
 @Singleton
 class HomeController @Inject()(
-  cc                 : MessagesControllerComponents,
-  currentProjects    : CurrentProjects,
-  emailService       : EmailService,
-  markupService      : MarkupService,
-  repository         : BlogPostRepository
-)(implicit executionContext: ExecutionContext) extends MessagesAbstractController(cc) {
+  cc                        : MessagesControllerComponents,
+  currentProjects           : CurrentProjects,
+  emailService              : EmailService,
+  markupService             : MarkupService,
+  repository                : BlogPostRepository,
+  walkAboutWithMeConnector  : WalkAboutWithMeConnector,
+  WalkAboutWithMeService    : WalkAboutWithMeService
+)(implicit executionContext: ExecutionContext, cached: Cached) extends MessagesAbstractController(cc) {
 
     def index() = Action { implicit request: Request[AnyContent] =>
       Ok(com.timlah.views.html.index())
@@ -23,6 +27,14 @@ class HomeController @Inject()(
 
     def about() = Action { implicit request: Request[AnyContent] =>
       Ok(com.timlah.views.html.about())
+    }
+
+    def walkaboutwithme() = cached.status(_ => "walkAboutWithMe", 200) {
+      Action.async { implicit request: Request[AnyContent] =>
+        val getFutureWalkAboutData = walkAboutWithMeConnector.getAllWalkAboutWithMeData
+        getFutureWalkAboutData.map(o => WalkAboutWithMeService.downloadImage(o.map(_.progressImageURL), o.map(_.date), "/public"))
+        getFutureWalkAboutData.map(i => Ok(com.timlah.views.html.walkaboutwithme(i)))
+      }
     }
 
     def projects() = Action { implicit request: Request[AnyContent] => {
