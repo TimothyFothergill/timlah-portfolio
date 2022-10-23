@@ -1,0 +1,35 @@
+@import com.timlah.models.WalkAboutWithMe
+@(data: Seq[WalkAboutWithMe])
+
+@main("Timlah's Techs | About") {
+<div class="content">
+    <h1>Walk About With Me</h1>
+    <p>Along with my work on improving my skills as a developer, I'm also working on improving my fitness levels.
+    Over the pandemic, I found myself more interested in Japanese culture thanks to a number of YouTubers and Twitch
+    streamers. In September, two of them went on a large bicycle ride, cycling a massive 500 miles across Hokkaido.
+    To further my own fitness, I'm doing an hour-long walk every day and tracking my progress by showing my progress.</p>
+
+    @data.zipWithIndex.map{case (walkAboutData, i) =>
+        @if(i == 0) {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading@i">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse@i" aria-expanded="true"
+                            aria-controls="collapse@i">
+                        @walkAboutData.date.replace("00:00:00 GMT","")
+                    </button>
+                </h2>
+                <div id="collapse@i" class="accordion-collapse collapse @if(i==0){show}"
+                     aria-labelledby="heading@i">
+                    <div class="accordion-body">
+                        <iframe width="560" height="315" src="@walkAboutData.videoURL.replace("watch?v=", "embed/")" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        @defining("/Walk " + walkAboutData.date.replace("00:00:00 GMT","") + ".png") { src =>
+                        <img src="@routes.Assets.versioned(src)" height="640">
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+}
