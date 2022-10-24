@@ -23,9 +23,7 @@
                      aria-labelledby="heading@i">
                     <div class="accordion-body">
                         <iframe width="560" height="315" src="@walkAboutData.videoURL.replace("watch?v=", "embed/")" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        @defining("images/walk-images/Walk " + walkAboutData.date.replace("00:00:00 GMT","") + ".png") { src =>
-                        <img src="@routes.Assets.at(src)" height="640">
-                        }
+                        <img src="@walkAboutData.progressImageURL" height="640">
                     </div>
                 </div>
             </div>
