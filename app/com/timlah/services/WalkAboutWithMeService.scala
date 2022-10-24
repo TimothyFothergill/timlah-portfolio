@@ -16,4 +16,8 @@ class WalkAboutWithMeService {
      })
    })
   }
+
+  def getImage(imageURL: String) = {
+
+  }
 }
