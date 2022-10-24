@@ -32,7 +32,7 @@ class HomeController @Inject()(
       Ok(com.timlah.views.html.about())
     }
 
-    def walkaboutwithme() = cached.status(_ => "walkAboutWithMe", 200, duration = 1.second) {
+    def walkaboutwithme() = cached.status(_ => "walkAboutWithMe", 200, duration = 5.minutes) {
       Action.async { implicit request: Request[AnyContent] =>
         val getFutureWalkAboutData = walkAboutWithMeConnector.getAllWalkAboutWithMeData
         getFutureWalkAboutData.map(o => WalkAboutWithMeService.downloadImage(o.map(_.progressImageURL), o.map(_.date), "/public/images/walk-images"))
