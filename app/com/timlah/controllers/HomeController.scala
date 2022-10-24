@@ -3,12 +3,14 @@ package com.timlah.controllers
 import com.timlah.connectors.WalkAboutWithMeConnector
 import com.timlah.models.{ContactData, EnquiryType}
 import com.timlah.repositories.BlogPostRepository
-import play.api.mvc._
 import com.timlah.services.{CurrentProjects, EmailService, MarkupService, WalkAboutWithMeService}
+
+import play.api.mvc._
 import play.api.cache.Cached
 
 import javax.inject._
 import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
 
 @Singleton
 class HomeController @Inject()(
@@ -29,7 +31,7 @@ class HomeController @Inject()(
       Ok(com.timlah.views.html.about())
     }
 
-    def walkaboutwithme() = cached.status(_ => "walkAboutWithMe", 200) {
+    def walkaboutwithme() = cached.status(_ => "walkAboutWithMe", 200, duration = 1.hour) {
       Action.async { implicit request: Request[AnyContent] =>
         val getFutureWalkAboutData = walkAboutWithMeConnector.getAllWalkAboutWithMeData
         getFutureWalkAboutData.map(o => WalkAboutWithMeService.downloadImage(o.map(_.progressImageURL), o.map(_.date), "/public"))
