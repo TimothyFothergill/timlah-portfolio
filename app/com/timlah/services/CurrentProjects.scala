@@ -11,18 +11,18 @@ class CurrentProjects {
   def currentProjects(): Seq[Project] = {
     Seq(
       Project(
+        title       = "3D RPG Prototype - Codename: Skell's Quest",
+        description = "A 3D RPG Prototype made in about a month. Will be working on semi-regular builds for this, so expect it to improve over time.",
+        url         = "https://play.unity.com/mg/other/3d-rpg-prototype-1",
+        projectTypes  = Seq(ProjectType.Unity),
+        lastUpdated   = DateTime(2023,1,6)
+      ),
+      Project(
         title       = "giphy2clippy",
         description = "A python script that takes CLI arguments and spits out a random gif. Also has github formatting support, for quick and easy 'LGTM' gifs.",
         url         = "https://github.com/TimothyFothergill/giphy2clippy",
         projectTypes  = Seq(ProjectType.Python),
         lastUpdated   = DateTime(2022,9,15)
-      ),
-      Project(
-        title       = "3D RPG Prototype",
-        description = "A 3D RPG Prototype made in about a month. Will be working on semi-regular builds for this, so expect it to improve over time.",
-        url         = "https://play.unity.com/mg/other/3d-rpg-prototype",
-        projectTypes  = Seq(ProjectType.Unity),
-        lastUpdated   = DateTime(2022,8,13)
       ),
       Project(
         title       = "Matchagana",
