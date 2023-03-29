@@ -92,18 +92,28 @@ class HomeController @Inject()(
         },
         submittedData => {
           val data = ContactData(submittedData.name, submittedData.email, submittedData.subject, submittedData.enquiry, submittedData.contents)
-          emailService.sendEmail(
-            subject = data.subject match {
-              case Some(data) => data
-              case None       => "Enquiry from timlah.com"
-            },
-            name = data.name,
-            address = data.email,
-            enquiry = submittedData.enquiry,
-            content = data.contents,
-            remoteAddress = request.remoteAddress
-          )
-          Redirect(routes.HomeController.index()).flashing("success" -> "Contact message sent, thank you.")
+          if (
+              data.contents.contains("bitcoin")
+          ||  data.contents.contains("BTC")
+          ||  data.contents.contains("btc")
+          ||  data.contents.contains("hacker")
+          ||  data.contents.contains("hacked")
+          ) {
+            Redirect(routes.HomeController.index()).flashing("fail" -> "Contact message not sent.")
+          } else {
+            emailService.sendEmail(
+              subject = data.subject match {
+                case Some(data) => data
+                case None => "Enquiry from timlah.com"
+              },
+              name = data.name,
+              address = data.email,
+              enquiry = submittedData.enquiry,
+              content = data.contents,
+              remoteAddress = request.remoteAddress
+            )
+            Redirect(routes.HomeController.index()).flashing("success" -> "Contact message sent, thank you.")
+          }
         }
       )
     }
