@@ -23,4 +23,8 @@ class WalkAboutWithMeConnector @Inject()(implicit val ec: ExecutionContext) {
     val r: Response = requests.get("http://walk-about-with-me-api.herokuapp.com/?marker1lat=43.0556336617387&marker1long=141.35340782203917&marker2lat=42.45221975618502&marker2long=141.1802584555724")
     Future(Json.parse(r.text).as[Seq[WalkAboutWithMe]])
   }
+
+  def scheduledJob: Unit = {
+    requests.get("http://walk-about-with-me-api.herokuapp.com/?marker1lat=43.0556336617387&marker1long=141.35340782203917&marker2lat=42.45221975618502&marker2long=141.1802584555724")
+  }
 }

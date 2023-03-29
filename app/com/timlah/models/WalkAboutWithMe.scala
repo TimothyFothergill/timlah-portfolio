@@ -1,7 +1,6 @@
 package com.timlah.models
 
 
-import akka.http.scaladsl.model.DateTime
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
