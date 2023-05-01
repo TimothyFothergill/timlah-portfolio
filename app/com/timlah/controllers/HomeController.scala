@@ -4,14 +4,14 @@ import com.timlah.connectors.WalkAboutWithMeConnector
 import com.timlah.models.{ContactData, EnquiryType}
 import com.timlah.repositories.BlogPostRepository
 import com.timlah.services.{CurrentProjects, EmailService, MarkupService, WalkAboutWithMeService}
-
 import play.api.mvc._
 import play.api.cache
 import play.api.cache.Cached
 
 import javax.inject._
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration._
+import scala.language.postfixOps
 
 @Singleton
 class HomeController @Inject()(
@@ -51,9 +51,10 @@ class HomeController @Inject()(
       }
     }
 
-    def latestBlog() = Action.async { implicit request: Request[AnyContent] =>
+    def latestBlog(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
       val getFutureBlogPost = repository.getLatestBlogPost
-      getFutureBlogPost.map(i => Ok(com.timlah.views.html.blog(i, markupService.markdownStringToHTML(i.content) match { case Left(_) => "<Unable to render the post at this time.>" case Right(s) => s})))
+      val futureSlug = Await.result(getFutureBlogPost.map(i => i.slug), 3 seconds)
+      Redirect(routes.HomeController.blogBySlug(futureSlug))
     }
 
     def blogPosts() = Action.async { implicit request: Request[AnyContent] =>
@@ -109,8 +110,7 @@ class HomeController @Inject()(
               name = data.name,
               address = data.email,
               enquiry = submittedData.enquiry,
-              content = data.contents,
-              remoteAddress = request.remoteAddress
+              content = data.contents
             )
             Redirect(routes.HomeController.index()).flashing("success" -> "Contact message sent, thank you.")
           }
