@@ -9,10 +9,17 @@
   </dl>
 </div>
 }
+@if(!flash.get("fail").isEmpty) {
+<div id="flashed-messages-fail">
+  <dl class="bg-danger" id="flash-success-fail">
+    @flash.get("fail")
+  </dl>
+</div>
+}
 <div class="container" style="margin-top: 20%;">
 <h5>Hey, my name is </h5>
   <h1 class="index-large">Tim Fothergill</h1>
-  <h2 class="index-medium">I'm an Infrastructure Engineer from Bristol, UK</h2>
-  <p class="index-paragraph">My focus is on how the output of code makes us feel.</p>
+  <h2 class="index-medium">I'm a Cloud Infrastructure Engineer from Bristol, UK</h2>
+  <p class="index-paragraph">My focus is on what code makes us feel.</p>
 </div>
 }

@@ -3,35 +3,49 @@
 @main("Timlah's Techs | About") {
 <div class="content">
     <h1>Passionate about creative software</h1>
-    <p> As an Infrastructure Engineer, I am constantly learning and applying my craft.
+    <p> As a Cloud Infrastructure Engineer, I am constantly learning and applying my craft.
     Here are some of the skills I have picked up along the way: </p>
-    <ul>
-        <li>Software Development</li>
-        <ul>
-            <li>Scala</li>
-            <li>Play Framework</li>
-            <li>Python</li>
-            <li>Flask</li>
-        </ul>
-        <li>Web Development</li>
-            <ul>
-                <li>HTML5</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-            </ul>
-        <li>DevOps</li>
-        <ul>
-            <li>AWS</li>
-            <li>Infrastructure as Code (e.g Terraform)</li>
-            <li>Source Control (Git)</li>
-            <li>Build tools (Jenkins)</li>
-        </ul>
-        <li>Unity Game Development</li>
-        <ul>
-            <li>C# scripts</li>
-            <li>Scene design</li>
-            <li>UI</li>
-        </ul>
-    </ul>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Technology</th>
+                <th scope="col">Associated Skills/Libraries</th>
+                <th scope="col">Other Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>DevOps</td>
+            <td>CI/CD Tools (AWS Codebuild, AWS CodePipeline, GitHub, Jenkins), Git, Terraform</td>
+            <td>I'm well versed in a plethora of DevOps approaches and Command Line Interface (CLI) tools</td>
+        </tr>
+        <tr>
+            <td>Game Development</td>
+            <td>Blender: 3D Modelling, Textures, Materials. <br>Unity: C#, enums, ScriptableObjects, structs</td>
+            <td>You can find my games and prototypes on the
+                <a href="@com.timlah.controllers.routes.HomeController.projects()">Projects page</a></td>
+        </tr>
+        <tr>
+            <td>Logging and Metrics</td>
+            <td>ELK Stack (Elasticsearch, Logstash, Kibana), Grafana, Clickhouse, CarbonAPI, AWS Cloudwatch</td>
+            <td>I work with these technologies on a daily basis as part of my role as an Infrastructure Engineer</td>
+        </tr>
+        <tr>
+            <td>Python</td>
+            <td>boto3, Dataclasses, dotenv, Flask, Pytest</td>
+            <td>I wrote a Hiragana to Romaji matching game called <a href="https://www.matchagana.com">Matchagana</a> in Python, I work with Python daily</td>
+        </tr>
+        <tr>
+            <td>Scala</td>
+            <td>Akka, Laika, Mockito, Play Framework, Zio</td>
+            <td>This website is written in Scala</td>
+        </tr>
+        <tr>
+            <td>Web Development</td>
+            <td>HTML5, CSS, JavaScript, Play Framework, Flask</td>
+            <td>I am comfortable with backend and frontend development</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 }
