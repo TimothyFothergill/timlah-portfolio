@@ -1,64 +1,79 @@
-Recently I decided this website needed a more dynamic blog system. This would prove to be an interesting and useful challenge, one that I'm glad to have undertaken.
+# Classes vs Structs in Unity C# Development
 
-Blog posts are now stored in a database, meaning I can save them properly and thus provide a method for dynamically curating urls for each post. Scala's a rather verbose language, so here's a high-level view for how I implemented this.
+Recently I've found myself playing around with a few ideas for [Skell's Quest](https://www.timlah.com/projects). I'm 
+currently in the middle of the third big update for it, where I introduce a bunch of new features, such as:
 
-## Technical malarkey for this here blog
+- New NPC Types
+- New Quest Types
+- All Stats implemented
+- Attributes
+- Abilities for each stat
+- Equipment
+- A character loadout screen
+- Banking
+- and much more...
 
-First, a BlogPost case class:
-```scala
-case class BlogPost(
-  author  : Author        ,
-  coauthor: Option[Author],
-  title   : String        ,
-  slug    : String        ,
-  content : String        ,
-  date    : DateTime
-)
+This has been exciting, however it's a long process. I'm excited to say it should be available in May.
+
+One of the most exciting parts of this update has been messing with libraries like Linq more and getting used to the 
+difference between using classes and structs. As a game developer, I want to explore different avenues to getting my 
+game across the finish line.
+
+## Classes
 ```
+public class PlayerStat
+{
+    string  statName;
+    string  statDescription;
+    int     currentLevel;
+    int     maxLevel;
+    int     currentXP           = 0;
+    int     maxXP               = 100;
+    bool    isCombatSkill       = false;
+    Sprite  sprite;
+    string  spritePath;
 
-Simple data. I like it!
+    public PlayerStat(string n, string d, bool t = false) {
+        statName = n; statDescription = d; currentLevel = 1; maxLevel = 99;
+        isCombatSkill = t;
+        sprite = Resources.Load<Sprite>($"{n}");
+    }
+    // etc...
+```
+This is the usual one that people tend to use. The above code snippet is a small example of what a class is. It's a bit
+of logic which you can use to describe something. You can give it methods to manage the values of that class as well.
 
-Next up, I set up the database in my config file and wrote a Repository file, which handles all work around the database. I used Slick as my library of choice to connect to my database. One interesting point was setting up the proven shape of the BlogPost object to match fields in the database.
+For instance, you can write a method which will update the above PlayerStat's currentXP. This is supported by Unity out
+of the box, can be viewed in the inspector and interacted with in a variety of ways.
 
-```scala
-// other stuff above here
-  override def * = (author, coauthor, title, slug, content, date) <> (BlogPost.tupled, BlogPost.unapply)
+But what if you want to restrict access somewhat? Introducing the simple struct:
 
-  val id      : Rep[Int]              = column[Int           ]("id"       , O.AutoInc, O.PrimaryKey)
-  val author  : Rep[Author]           = column[Author        ]("author"   )
-  val coauthor: Rep[Option[Author]]   = column[Option[Author]]("coauthor" )
-  val title   : Rep[String]           = column[String        ]("title"    )
-  val slug    : Rep[String]           = column[String        ]("slug"     )
-  val content : Rep[String]           = column[String        ]("content"  )
-  val date    : Rep[DateTime]         = column[DateTime      ]("date"     )
+## Struct
+
+```
+[Serializable]
+public struct SerializedQuestStatLevels {
+    public int levelRequired;
+    public PlayerStat stat;
 }
 ```
-Next I had to make sure there was a route for the new blog pages set up. I wanted to make this dynamically set based on data in each BlogPost. Here comes `IDs` and `slugs`.
-```routes
-GET     /blog/id/:id                com.timlah.controllers.HomeController.blogByID(id: Int)
-GET     /blog/slug/:slug            com.timlah.controllers.HomeController.blogBySlug(slug: String)
-```
 
-Lastly, now we have our routing setup, we just need to set it up in our HomeController.
-```scala
-//HomeController
-def blogByID(id: Int) = Action.async { implicit request: Request[AnyContent] =>
-  val getFutureBlogPost = repository.getBlogEntryById(id)
-  getFutureBlogPost.map(i =>
-    Ok(com.timlah.views.html.blog(
-      i.get, markupService.markdownStringToHTML(i.get.content) match {
-        case Left(_) => "<Unable to render the post at this time.>"
-        case Right(s) => s
-      }
-    )))
-}
-```
+The [Serializable] property allows Unity to automatically transform the data structure into a Unity readable format. 
+This makes the property available in the inspector (so long as you also mark it as public, although you can view 
+private properties with the Debug option set in the inspector, but I digress).
 
-My blog template accepts a `BlogPost` object, which does all the work for laying out how these blog posts look. The `markupService.markdownStringToHTML(i.get.content)` pattern match could be done much better, however it's perfectly serviceable for now. A service that takes a markdown string and transforms it into HTML. 
+Notice how much simpler this is? A stuct is really useful when you do not want the values to change. You want to set the
+struct up, then use it simply as a reference to something.
 
-The above post is just a small part of the work that was undertaken to get this set up. To increase transparency, I have made the [repo public](https://github.com/TimothyFothergill/timlah-portfolio).
+## When do I use Struct over Class?
 
-## What's next?
-I needed to take a week or so away from my RPG project, as that's such a big project. Now that I've finished these small updates for the website, it's time for me to get back to working on the RPG. Next build coming up very soon.
+I like to use structs now wherever possible. See, Skell's Quest is becoming quite data heavy. So often I find myself not
+needing to edit some data set up. An example where structs are useful for me - Quests. In the above snippet, you
+might be able to gather than it is a simple little bit of data that holds two values: A PlayerStat and a level 
+requirement. If I need to edit even a small class in future by way of code logic, I use a class.
 
-Thanks for reading, much love and take care of yourselves
+Thanks so much for joining me for another blog post. One of the things I've recently made is a script that converts a 
+csv file into ScriptableObject's. This is a tool that sits in my Unity editor and with the click of a button I can 
+generate all the data without impacting the references in the game. Maybe this'll be the topic of another blog post.
+
+Until next time, thanks for reading, much love to all and happy coding. - Timlah
