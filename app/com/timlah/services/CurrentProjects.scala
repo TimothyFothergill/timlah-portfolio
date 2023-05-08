@@ -11,18 +11,11 @@ class CurrentProjects {
   def currentProjects(): Seq[Project] = {
     Seq(
       Project(
-        title       = "3D RPG Prototype - Codename: Skell's Quest",
-        description = "A 3D RPG Prototype made in about a month. Will be working on semi-regular builds for this, so expect it to improve over time.",
-        url         = "https://play.unity.com/mg/other/3d-rpg-prototype-1",
+        title       = "Skell's Quest",
+        description = "A 3D RPG that I'm working on over time. Every 2-4 months I tend to get a new build out, depending on the complexity of the build.",
+        url         = "https://play.unity.com/mg/other/skell-s-quest-v0-0-3-prototype",
         projectTypes  = Seq(ProjectType.Unity),
-        lastUpdated   = DateTime(2023,1,6)
-      ),
-      Project(
-        title       = "giphy2clippy",
-        description = "A python script that takes CLI arguments and spits out a random gif. Also has github formatting support, for quick and easy 'LGTM' gifs.",
-        url         = "https://github.com/TimothyFothergill/giphy2clippy",
-        projectTypes  = Seq(ProjectType.Python),
-        lastUpdated   = DateTime(2022,9,15)
+        lastUpdated   = DateTime(2023,5,8)
       ),
       Project(
         title       = "Matchagana",
@@ -50,7 +43,13 @@ class CurrentProjects {
         projectTypes  = Seq(ProjectType.Wordpress),
         lastUpdated   = DateTime(2019,12,31)
       ),
-
+      Project(
+        title       = "giphy2clippy",
+        description = "A python script that takes CLI arguments and spits out a random gif. Also has github formatting support, for quick and easy 'LGTM' gifs.",
+        url         = "https://github.com/TimothyFothergill/giphy2clippy",
+        projectTypes  = Seq(ProjectType.Python),
+        lastUpdated   = DateTime(2022,9,15)
+      ),
     )
   }
 }
