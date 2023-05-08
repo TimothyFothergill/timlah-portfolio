@@ -35,8 +35,8 @@
         @select(
             contactForm("enquiry"),
             enquiryType.toList.map(enquiry => (enquiry, enquiry)).reverse,
-            '_label -> "Reason for enquiry: ",
-            'id -> "enquiryType"
+            Symbol("_label") -> "Reason for enquiry: ",
+            Symbol("id") -> "enquiryType"
         )
         <dt><label for="subject">Subject:   </label></dt><input type="text" name="subject" id="subject" size="30">
         @contactForm("contents").hasErrors match {
