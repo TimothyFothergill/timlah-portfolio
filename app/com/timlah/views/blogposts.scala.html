@@ -7,7 +7,7 @@
         <p class="text-muted">Blog Posts found: @blogCount</p>
         @blogPosts.reverse.zipWithIndex.map{case (post, i) =>
             <h1><a class="blog-list-header" href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">@post.title</a></h1>
-            Written by: <strong>@post.author.username</strong> | Written on: @post.date.day @post.date.monthStr @post.date.year<hr>
+            Written by: <strong>@post.author.username</strong> | Written on: @post.date.day @post.date.monthStr @post.date.year | Estimated reading time: @Math.ceil("\\s".r.findAllIn(blogContent).length/200).toInt minutes<hr>
             <p>@Html(markupService.markdownStringToHTML(post.content.take(250)) match {
                     case Left(_) => "Unable to render content at this time"
                     case Right(s) => s

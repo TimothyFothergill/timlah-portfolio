@@ -1,10 +1,11 @@
 @import com.timlah.models.BlogPost
+@import scala.util.matching.Regex
 @(latest: BlogPost, blogContent: String)(implicit flash: Flash)
 
 @main("Timlah's Techs") {
     <div class="content">
         <h1>@latest.title</h1>
-        Written by: <strong>@latest.author.username</strong> | Written on: @latest.date.day @latest.date.monthStr @latest.date.year<hr>
+        Written by: <strong>@latest.author.username</strong> | Written on: @latest.date.day @latest.date.monthStr @latest.date.year | Estimated reading time: @Math.ceil("\\s".r.findAllIn(blogContent).length/200).toInt minutes<hr>
         <p>@Html(blogContent)</p>
     </div>
     <div id="disqus_thread"></div>
