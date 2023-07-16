@@ -9,13 +9,12 @@
         @blogPosts.reverse.zipWithIndex.map{case (post, i) =>
             <h1><a class="blog-list-header" href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">@post.title</a></h1>
             Written by: <strong>@post.author.username</strong> | Written on: @post.date.day @post.date.monthStr @post.date.year | Estimated reading time:
-        @var timeInMinutes = Math.ceil("\\s".r.findAllIn(post.content).length/200).toInt
-        @if(timeInMinutes < 1) {
+        @if(Math.ceil("\\s".r.findAllIn(post.content).length/200).toInt < 1) {
             less than a minute
-        }else if(timeInMinutes == 1){
+        }else if(Math.ceil("\\s".r.findAllIn(post.content).length/200).toInt == 1){
             1 minute
         }else{
-        @timeInMinutes minutes
+        @Math.ceil("\\s".r.findAllIn(post.content).length/200).toInt minutes
         }<hr>
             <p>@Html(markupService.markdownStringToHTML(post.content.take(250)) match {
                     case Left(_) => "Unable to render content at this time"
