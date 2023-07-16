@@ -6,13 +6,12 @@
     <div class="content">
         <h1>@latest.title</h1>
         Written by: <strong>@latest.author.username</strong> | Written on: @latest.date.day @latest.date.monthStr @latest.date.year | Estimated reading time:
-        @var timeInMinutes = Math.ceil("\\s".r.findAllIn(blogContent).length/200).toInt
-        @if(timeInMinutes < 1) {
+        @if(Math.ceil("\\s".r.findAllIn(blogContent).length/200).toInt < 1) {
             less than a minute
-        }else if(timeInMinutes == 1){
+        }else if(Math.ceil("\\s".r.findAllIn(blogContent).length/200).toInt == 1){
             1 minute
         }else{
-            @timeInMinutes minutes
+            @Math.ceil("\\s".r.findAllIn(blogContent).length/200).toInt minutes
         }<hr>
         <p>@Html(blogContent)</p>
     </div>
