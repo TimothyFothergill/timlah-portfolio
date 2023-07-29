@@ -12,10 +12,10 @@ class CurrentProjects {
     Seq(
       Project(
         title       = "Skell's Quest",
-        description = "A 3D RPG that I'm working on over time. Every 2-4 months I tend to get a new build out, depending on the complexity of the build.",
-        url         = "https://play.unity.com/mg/other/skell-s-quest-v0-0-3-prototype",
+        description = "A 3D RPG that I'm working on over time. Every 2-4 months I tend to get a new build out, depending on the complexity of the build. Latest build full of UI and Performance fixes, as well as achievements and quality of life features.",
+        url         = "https://play.unity.com/mg/other/skell-s-quest-v0-0-4-prototype",
         projectTypes  = Seq(ProjectType.Unity),
-        lastUpdated   = DateTime(2023,5,8)
+        lastUpdated   = DateTime(2023,7,28)
       ),
       Project(
         title       = "Matchagana",
