@@ -47,7 +47,7 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
     val blogPosts = TableQuery[BlogPostTable]
     val query: Query[BlogPostTable, BlogPost, Seq] = blogPosts
     val queryResult: Future[Seq[BlogPost]] = db.run[Seq[BlogPost]](query.result)
-    queryResult.map(_.last)
+    queryResult.map(_.maxBy(_.date))
   }
 }
 
