@@ -5,11 +5,7 @@
 @main("Timlah's Techs") {
     <div class="content">
         <h1>@latest.title</h1>
-        Written by: <strong>@latest.author.username</strong> | Written on: @latest.date.day @latest.date.monthStr @latest.date.year |
-        @Html(post.lastEdited match{
-        case None  => "@post.date.day @post.date.monthStr @post.date.year"
-        case _     => "@post.lastEdited.day @post.lastEdited.month @post.lastEdited.year"
-        }) | Estimated reading time:
+        Written by: <strong>@latest.author.username</strong> | Written on: @latest.date.day @latest.date.monthStr @latest.date.year | Estimated reading time:
         @if(Math.ceil("\\s".r.findAllIn(blogContent).length/200).toInt < 1) {
             less than a minute
         }else if(Math.ceil("\\s".r.findAllIn(blogContent).length/200).toInt == 1){

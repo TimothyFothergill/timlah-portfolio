@@ -23,8 +23,7 @@ class BlogService @Inject()(
         case Left(_)  => ""
         case Right(s) => s
       },
-      date          = dateTime,
-      lastEdited    = None
+      date          = dateTime
     )
   }
 
