@@ -8,7 +8,11 @@
         <p class="text-muted">Blog Posts found: @blogCount</p>
         @blogPosts.reverse.zipWithIndex.map{case (post, i) =>
             <h1><a class="blog-list-header" href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">@post.title</a></h1>
-            Written by: <strong>@post.author.username</strong> | Written on: @post.date.day @post.date.monthStr @post.date.year | Estimated reading time:
+            Written by: <strong>@post.author.username</strong> | Written on: @post.date.day @post.date.monthStr @post.date.year |
+        @Html(post.lastEdited match{
+            case None  => "@post.date.day @post.date.monthStr @post.date.year"
+            case _     => "@post.lastEdited.day @post.lastEdited.month @post.lastEdited.year"
+        }) | Estimated reading time:
         @if(Math.ceil("\\s".r.findAllIn(post.content).length/200).toInt < 1) {
             less than a minute
         }else if(Math.ceil("\\s".r.findAllIn(post.content).length/200).toInt == 1){

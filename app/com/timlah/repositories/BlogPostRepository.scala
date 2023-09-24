@@ -63,13 +63,14 @@ class BlogPostTable(tag: Tag) extends Table[BlogPost](tag, "posts") {
     column => Json.parse(column).as[DateTime]
   )
 
-  override def * = (author, coauthor, title, slug, content, date) <> (BlogPost.tupled, BlogPost.unapply)
+  override def * = (author, coauthor, title, slug, content, date, latestDate) <> (BlogPost.tupled, BlogPost.unapply)
 
-  val id      : Rep[Int]              = column[Int           ]("id"       , O.AutoInc, O.PrimaryKey)
-  val author  : Rep[Author]           = column[Author        ]("author"   )
-  val coauthor: Rep[Option[Author]]   = column[Option[Author]]("coauthor" )
-  val title   : Rep[String]           = column[String        ]("title"    )
-  val slug    : Rep[String]           = column[String        ]("slug"     )
-  val content : Rep[String]           = column[String        ]("content"  )
-  val date    : Rep[DateTime]         = column[DateTime      ]("date"     )
+  val id          : Rep[Int]              = column[Int              ]("id"       , O.AutoInc, O.PrimaryKey)
+  val author      : Rep[Author]           = column[Author           ]("author"     )
+  val coauthor    : Rep[Option[Author]]   = column[Option[Author]   ]("coauthor"   )
+  val title       : Rep[String]           = column[String           ]("title"      )
+  val slug        : Rep[String]           = column[String           ]("slug"       )
+  val content     : Rep[String]           = column[String           ]("content"    )
+  val date        : Rep[DateTime]         = column[DateTime         ]("date"       )
+  val latestDate  : Rep[Option[DateTime]] = column[Option[DateTime] ]("latestDate" )
 }
