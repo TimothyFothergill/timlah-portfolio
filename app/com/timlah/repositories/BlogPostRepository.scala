@@ -47,7 +47,7 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
     val blogPosts = TableQuery[BlogPostTable]
     val query: Query[BlogPostTable, BlogPost, Seq] = blogPosts
     val queryResult: Future[Seq[BlogPost]] = db.run[Seq[BlogPost]](query.result)
-    queryResult.map(_.maxBy(_.date))
+    queryResult.map(_.maxBy(_.id))
   }
 }
 
@@ -63,13 +63,13 @@ class BlogPostTable(tag: Tag) extends Table[BlogPost](tag, "posts") {
     column => Json.parse(column).as[DateTime]
   )
 
-  override def * = (author, coauthor, title, slug, content, date) <> (BlogPost.tupled, BlogPost.unapply)
+  override def * = (id, author, coauthor, title, slug, content, date) <> (BlogPost.tupled, BlogPost.unapply)
 
-  val id      : Rep[Int]              = column[Int           ]("id"       , O.AutoInc, O.PrimaryKey)
-  val author  : Rep[Author]           = column[Author        ]("author"   )
-  val coauthor: Rep[Option[Author]]   = column[Option[Author]]("coauthor" )
-  val title   : Rep[String]           = column[String        ]("title"    )
-  val slug    : Rep[String]           = column[String        ]("slug"     )
-  val content : Rep[String]           = column[String        ]("content"  )
-  val date    : Rep[DateTime]         = column[DateTime      ]("date"     )
+  val id        : Rep[Int]              = column[Int             ]("id"       , O.AutoInc, O.PrimaryKey)
+  val author    : Rep[Author]           = column[Author          ]("author"     )
+  val coauthor  : Rep[Option[Author]]   = column[Option[Author]  ]("coauthor"   )
+  val title     : Rep[String]           = column[String          ]("title"      )
+  val slug      : Rep[String]           = column[String          ]("slug"       )
+  val content   : Rep[String]           = column[String          ]("content"    )
+  val date      : Rep[DateTime]         = column[DateTime        ]("date"       )
 }

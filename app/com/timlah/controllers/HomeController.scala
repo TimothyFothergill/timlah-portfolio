@@ -58,7 +58,8 @@ class HomeController @Inject()(
     }
 
     def blogPosts() = Action.async { implicit request: Request[AnyContent] =>
-      val getFutureBlogPost = repository.getAllBlogPosts.map(_.sortBy(_.date))
+      val getFutureBlogPost = repository.getAllBlogPosts.map(_.sortBy(_.id))
+      val data = Await.result(getFutureBlogPost, 3 seconds)
       getFutureBlogPost.map(i => Ok(com.timlah.views.html.blogposts(i, i.size, markupService)))
     }
 
