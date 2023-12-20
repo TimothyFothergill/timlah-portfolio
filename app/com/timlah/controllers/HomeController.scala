@@ -95,13 +95,13 @@ class HomeController @Inject()(
 
   def generateBlogMetaTags(latest: BlogPost, blogContent: String): Html = {
     val regexMatchesImage = """!\[.*]\((.*)\)""".r.findFirstMatchIn(latest.content).map(_.group(1)).getOrElse("")
-    Html(s"""<meta name='description' content='${blogContent.split("\n").headOption.getOrElse("")}'>
-        <meta name='title' property='og:title' content='${latest.title}'>
-        <meta name='image' property='og:image' content='${regexMatchesImage}'>
-        <meta name='url' property="og:url" content="https://www.timlah.com${com.timlah.controllers.routes.HomeController.blogBySlug(latest.slug)}">
-        <meta name='site' property="og:site_name" content="Timlah's Techs">
-        <meta name='type' property="og:type" content="website">
-        <meta name='author' property="article:author" content="Timlah">""")
+    Html(s"""<meta property='og:description' content='${blogContent.split("\n").headOption.getOrElse("")}'>
+        <meta property='og:title' content='${latest.title}'>
+        <meta property='og:image' content='${regexMatchesImage}'>
+        <meta property="og:url" content="https://www.timlah.com${com.timlah.controllers.routes.HomeController.blogBySlug(latest.slug)}">
+        <meta property="og:site_name" content="Timlah's Techs">
+        <meta property="og:type" content="website">
+        <meta property="article:author" content="Timlah">""")
   }
 
     def contactSubmit() = Action { implicit request: MessagesRequest[AnyContent] => {
