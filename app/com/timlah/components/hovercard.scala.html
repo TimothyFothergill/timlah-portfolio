@@ -1,0 +1,21 @@
+@import scravatar.Gravatar
+@import scala.concurrent.{Future, ExecutionContext}
+@import com.timlah.models.GravatarObject
+@(emailString: String)(implicit ec: ExecutionContext)
+
+@defining(Gravatar(emailString).ssl(true)){ profileAvatar =>
+    <div class="gravatar-hovercard">
+        <a href="https://www.gravatar.com/timlahcvg"><img class="gravatar-hovercard" src="@profileAvatar.size(50).avatarUrl" /></a>
+    </div>
+<script>
+$(document).ready(function() {
+   $('[data-toggle="popover"]').popover({
+      content: "<img src='@profileAvatar.avatarUrl' />",
+      delay: {"show":500,"hide":1000},
+      html: true,
+      placement: 'top',
+      trigger: 'hover'
+   });
+});
+</script>
+}

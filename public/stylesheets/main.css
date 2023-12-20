@@ -110,3 +110,18 @@ dt label {
         font-size: 3.5rem;
     }
 }
+
+.custom-popover {
+    --bs-popover-bg: rgba(0, 0, 0, 0.9);
+    --bs-popover-header-bg: #3f0000;
+    --bs-popover-body-color: #000000f2;
+    --popover-header-bg:                 shade-color(#000000f2, 6%);
+}
+
+.gravatar-hovercard {
+    display: inline-block;
+}
+
+.gravatar-hovercard img {
+   border-radius: 25%;
+}
