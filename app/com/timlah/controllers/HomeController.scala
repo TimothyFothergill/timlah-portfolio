@@ -1,11 +1,12 @@
 package com.timlah.controllers
 
 import com.timlah.connectors.WalkAboutWithMeConnector
-import com.timlah.models.{ContactData, EnquiryType}
+import com.timlah.models.{BlogPost, ContactData, EnquiryType}
 import com.timlah.repositories.BlogPostRepository
 import com.timlah.services.{CurrentProjects, EmailService, GravatarProfileService, MarkupService, WalkAboutWithMeService}
 import play.api.cache.Cached
 import play.api.mvc._
+import play.twirl.api.Html
 
 import javax.inject._
 import scala.concurrent.duration._
@@ -69,7 +70,11 @@ class HomeController @Inject()(
           i.get, markupService.markdownStringToHTML(i.get.content) match {
             case Left(_) => "<Unable to render the post at this time.>"
             case Right(s) => s
-          }
+          },
+          Some(generateBlogMetaTags(i.get, markupService.markdownStringToHTML(i.get.content) match {
+            case Left(_) => "<Unable to render the post at this time.>"
+            case Right(s) => s
+          }))
         )))
     }
 
@@ -80,9 +85,24 @@ class HomeController @Inject()(
           i.get, markupService.markdownStringToHTML(i.get.content) match {
             case Left(_) => "<Unable to render the post at this time.>"
             case Right(s) => s
-          }
+          },
+          Some(generateBlogMetaTags(i.get, markupService.markdownStringToHTML(i.get.content) match {
+            case Left(_) => "<Unable to render the post at this time.>"
+            case Right(s) => s
+          }))
         )))
     }
+
+  def generateBlogMetaTags(latest: BlogPost, blogContent: String): Html = {
+    val regexMatchesImage = """!\[.*]\((.*)\)""".r.findFirstMatchIn(latest.content).map(_.group(1)).getOrElse("")
+    Html(s"""<meta name='description' content='${blogContent.split("\n").headOption.getOrElse("")}'>
+        <meta name='title' property='og:title' content='${latest.title}'>
+        <meta name='image' property='og:image' content='${regexMatchesImage}'>
+        <meta name='url' property="og:url" content="https://www.timlah.com${com.timlah.controllers.routes.HomeController.blogBySlug(latest.slug)}">
+        <meta name='site' property="og:site_name" content="Timlah's Techs">
+        <meta name='type' property="og:type" content="website">
+        <meta name='author' property="article:author" content="Timlah">""")
+  }
 
     def contactSubmit() = Action { implicit request: MessagesRequest[AnyContent] => {
       val boundForm = ContactData.contactForm.bindFromRequest()
@@ -99,6 +119,7 @@ class HomeController @Inject()(
           ||  data.contents.contains("btc")
           ||  data.contents.contains("hacker")
           ||  data.contents.contains("hacked")
+          ||  data.contents.contains("SEO")
           ) {
             Redirect(routes.HomeController.index()).flashing("fail" -> "Contact message not sent.")
           } else {

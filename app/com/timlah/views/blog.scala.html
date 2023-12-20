@@ -3,10 +3,9 @@
 @import com.timlah.components.html.hovercard
 @import com.timlah.services.GravatarProfileService
 @import scala.concurrent.ExecutionContext
-@(latest: BlogPost, blogContent: String)(implicit flash: Flash, ec: ExecutionContext)
-@{val gravatarService = new GravatarProfileService()}
+@(latest: BlogPost, blogContent: String, metaTags: Option[Html])(implicit flash: Flash, ec: ExecutionContext)
 
-@main("Timlah's Techs", Some(Html(s"<meta name='description' content='${blogContent.split("\n").headOption.getOrElse("")}'><meta name='title' property='og:title' content='${latest.title}'>"))) {
+@main("Timlah's Techs", metaTags) {
     <div class="content">
         <h1>@latest.title</h1>
         <span style="display:inline-block;">
