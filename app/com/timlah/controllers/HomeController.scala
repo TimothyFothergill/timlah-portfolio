@@ -3,14 +3,13 @@ package com.timlah.controllers
 import com.timlah.connectors.WalkAboutWithMeConnector
 import com.timlah.models.{ContactData, EnquiryType}
 import com.timlah.repositories.BlogPostRepository
-import com.timlah.services.{CurrentProjects, EmailService, MarkupService, WalkAboutWithMeService}
-import play.api.mvc._
-import play.api.cache
+import com.timlah.services.{CurrentProjects, EmailService, GravatarProfileService, MarkupService, WalkAboutWithMeService}
 import play.api.cache.Cached
+import play.api.mvc._
 
 import javax.inject._
-import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration._
+import scala.concurrent.{Await, ExecutionContext}
 import scala.language.postfixOps
 
 @Singleton
@@ -18,6 +17,7 @@ class HomeController @Inject()(
   cc                        : MessagesControllerComponents,
   currentProjects           : CurrentProjects,
   emailService              : EmailService,
+  gravatarProfileService    : GravatarProfileService,
   markupService             : MarkupService,
   repository                : BlogPostRepository,
   walkAboutWithMeConnector  : WalkAboutWithMeConnector,

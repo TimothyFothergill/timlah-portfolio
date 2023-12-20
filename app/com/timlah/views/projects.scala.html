@@ -1,10 +1,10 @@
 @import com.timlah.models.Project
 @(currentProjects: Seq[Project], closedProjects: Seq[Project])
 
-@main("Timlah's Techs | Projects") {
+@main("Timlah's Techs | Projects", None) {
 <h2>Projects</h2>
 <p>This is a non-exhaustive list of projects I've worked on: </p>
-<div class="accordion">
+<div class="accordion" data-bs-theme="dark">
 @defining(currentProjects ++ closedProjects){ projects =>
     @projects.zipWithIndex.map{case (project, i) =>
         @if(i == 0) {

@@ -1,6 +1,10 @@
 logs
 target
 backup
+.bloop/
+.metals/
+.vscode/
+project/
 /.g8
 /.bsp
 /.idea
