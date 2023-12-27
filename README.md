@@ -5,4 +5,5 @@ Notes:
 ``Requires Bootstrap``, ``Bootstrap Icons``
 
 Backend written in Scala, using the Play framework
+
 https://www.timlah.com
