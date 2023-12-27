@@ -26,7 +26,7 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <link rel="canonical"   href="https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Timlah">
+        <meta property="article:author" content="Timlah">
         @metadata.getOrElse(Html(""))
     </head>
     <body class="bg-dark text-white d-flex flex-column h-100">
@@ -39,7 +39,12 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
         <a class="navbar-brand" href="/">Timlah's Techs</a>
-        <ul class="nav">
+        <a href="javascript:void(0);" class="menuIcon" onclick="addResponsiveClass()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+        </a>
+        <ul class="nav" id="navMenu">
             <li class="nav-item">
                 <a class="nav-link active" href="@com.timlah.controllers.routes.HomeController.index()"       >Home      </a>
             </li>
@@ -98,7 +103,8 @@
             });
         </script>
         <div class="container">
-            <span class="text-muted">Timlah's Techs ©2022-2023</span>
+            <img class="kofi-small" src="@routes.Assets.versioned("images/branding/ko-fi/kofi_button_blue.webp")" />
+            <span>Timlah's Techs ©2022-2023</span>
             <div class="socials">
                 <a href="https://github.com/TimothyFothergill">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-github" viewBox="0 0 16 16">
@@ -133,7 +139,8 @@
     <script>
         kofiWidgetOverlay.draw('timlah', {
             'type': 'floating-chat',
-            'floating-chat.donateButton.text': 'Support me',
+            'floating-chat.cssId': 'kofiWidget',
+            'floating-chat.donateButton.text': 'Coffee Fund',
             'floating-chat.donateButton.background-color': '#d9534f',
             'floating-chat.donateButton.text-color': '#fff'
         });
