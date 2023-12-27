@@ -14,7 +14,10 @@ main > .container {
 }
 
 .footer{
+    background-color: rgba(0,0,0,0.8);
+    color: #ffffff;
     text-align: center;
+    padding-top:1.5rem!important;
 }
 
 .nav-link:hover {
@@ -125,3 +128,47 @@ dt label {
 .gravatar-hovercard img {
    border-radius: 25%;
 }
+
+/* Responsive menu */
+
+  .nav .menuIcon {
+    float:right;
+    display: none;
+  }
+
+img {
+    width: 100%;
+}
+  
+  @media screen and (width > 700px) {
+    .nav a                      { display: block;   }
+    .menuIcon                   { display: none;    }
+    .kofi-small                 { display: none;    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .nav                        { display: none;    }
+    .nav a.menuIcon             { display: block;   }
+  }
+  
+  @media screen and (max-width: 700px) {
+    .nav.responsive { z-index: 99999999!important; position: relative;}
+    .nav.responsive .menuIcon {
+        display: block;
+    }
+    .nav.responsive {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+    .content img {
+        width:100%;
+    }
+    .kofi-small                 { display: inline-block; width: 25%;    }
+    div[id^="kofi-widget-overlay"]   { display: none;     }
+  }
+
+  #cookieBar {
+    z-index: 9999999!important;
+    top: 0;
+  }
