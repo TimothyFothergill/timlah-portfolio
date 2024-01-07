@@ -1,5 +1,14 @@
-require "sequel"
-require "pg"
-DB = Sequel.connect ENV["DATABASE_URL"]
-DB.run("INSERT INTO posts (id, author, coauthor, title, slug, content, date, lastEdited) SELECT id, author, coauthor, title, slug, content, date, lastEdited FROM scheduled_posts WHERE TO_TIMESTAMP(REPLACE(scheduledate, 'T', ' '), 'YYYY-MM-DD HH24:MI') <= NOW();")
-DB.run("DELETE FROM scheduled_posts WHERE TO_TIMESTAMP(REPLACE(scheduledate, 'T', ' '), 'YYYY-MM-DD HH24:MI') <= NOW();")
+#!/bin/bash
+
+# Execute SQL queries using psql
+psql $DATABASE_URL <<EOF
+INSERT INTO $ACTIVE_TABLE (id, author, coauthor, title, slug, content, date, lastEdited)
+SELECT id, author, coauthor, title, slug, content, date, lastEdited
+FROM scheduled_posts
+WHERE TO_TIMESTAMP(REPLACE(scheduledate, 'T', ' '), 'YYYY-MM-DD HH24:MI') <= NOW();
+EOF
+
+psql $DATABASE_URL <<EOF
+DELETE FROM scheduled_posts
+WHERE TO_TIMESTAMP(REPLACE(scheduledate, 'T', ' '), 'YYYY-MM-DD HH24:MI') <= NOW();
+EOF
