@@ -137,7 +137,7 @@ dt label {
   }
 
 img {
-    width: 100%;
+    max-width: 100%;
 }
   
   @media screen and (width > 700px) {
@@ -170,5 +170,7 @@ img {
 
   #cookieBar {
     z-index: 9999999!important;
-    top: 0;
+    bottom: 0;
+    height: 10%;
+    width: 100%;
   }
