@@ -3,7 +3,7 @@
 @import scala.util.matching.Regex
 @(blogPosts: Seq[BlogPost], blogCount: Int, markupService: MarkupService)(implicit flash: Flash)
 
-@main("Timlah's Techs", None) {
+@main("Blog | Timlah's Techs", None) {
     <div class="content">
         <p class="text-muted">Blog Posts found: @blogCount</p>
         @blogPosts.reverse.zipWithIndex.map{case (post, i) =>
