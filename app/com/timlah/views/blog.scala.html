@@ -5,7 +5,7 @@
 @import scala.concurrent.ExecutionContext
 @(latest: BlogPost, blogContent: String, metaTags: Option[Html])(implicit flash: Flash, ec: ExecutionContext)
 
-@main("Timlah's Techs", metaTags) {
+@main("@latest.title | Timlah's Techs", metaTags) {
     <div class="content">
         <h1>@latest.title</h1>
         <span style="display:inline-block;">
