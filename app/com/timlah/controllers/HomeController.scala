@@ -101,7 +101,8 @@ class HomeController @Inject()(
         <meta property="og:url" content="https://www.timlah.com${com.timlah.controllers.routes.HomeController.blogBySlug(latest.slug)}">
         <meta property="og:site_name" content="Timlah's Techs">
         <meta property="og:type" content="website">
-        <meta property="article:author" content="Timlah">""")
+        <meta property="article:author" content="Timlah">
+        <meta name="twitter:card" content="summary_large_image">""")
   }
 
     def contactSubmit() = Action { implicit request: MessagesRequest[AnyContent] => {
