@@ -51,7 +51,7 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
   }
 }
 
-class BlogPostTable(tag: Tag) extends Table[BlogPost](tag, "posts") {
+class BlogPostTable(tag: Tag) extends Table[BlogPost](tag, sys.env.getOrElse("ACTIVE_TABLE", "")) {
 
   implicit val configColumnType : JdbcType[Author] with BaseTypedType[Author] = MappedColumnType.base[Author, String](
     author => Json.stringify(Json.toJson(author)),
