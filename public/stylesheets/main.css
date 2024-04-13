@@ -45,6 +45,10 @@ main > .container {
     100%    {color: white;      margin-left:1em;    }
 }
 
+.dev-status {
+    color: red;
+}
+
 .index-large {
     margin-left: 1em;
     animation-name: zoom-left;
