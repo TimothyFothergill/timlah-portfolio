@@ -24,3 +24,28 @@ function randomMessage() {
     var randomIndex = Math.floor(Math.random() * messages.length);
     x.innerHTML = messages[randomIndex];
 }
+
+function copyToClipboard(text, originalText, clickedElement) {
+    if(clickedElement.textContent != "Copied") {
+        navigator.clipboard.writeText(text).then(function() {
+            clickedElement.textContent = "Copied";
+            clickedElement.classList.add("block-copied");
+            setTimeout(function() {
+                clickedElement.textContent = originalText;
+                clickedElement.classList.remove("block-copied");
+            }, 2000);
+        }).catch(function(err) {
+            console.error('Could not copy text: ', err);
+        });
+    }
+}
+
+document.addEventListener('click', function(event) {
+    const clickedElement = event.target;
+    if (clickedElement && clickedElement.classList.contains('hljs') &! clickedElement.classList.contains('block-copied')) {
+        var originalCodeBlockContent = clickedElement.textContent;
+        var codeBlockContent = clickedElement.textContent.trim();
+        copyToClipboard(codeBlockContent, originalCodeBlockContent, clickedElement);
+    }
+});
+

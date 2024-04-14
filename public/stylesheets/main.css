@@ -45,6 +45,18 @@ main > .container {
     100%    {color: white;      margin-left:1em;    }
 }
 
+pre code {
+    border-radius: 10px;
+}
+
+.hljs {
+    background-color: #B3B3B3;
+}
+
+.hljs:hover {
+    background-color: #B6B6B6;
+}
+
 .dev-status {
     color: red;
 }
