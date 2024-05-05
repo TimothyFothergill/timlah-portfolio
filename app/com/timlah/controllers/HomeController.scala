@@ -4,14 +4,15 @@ import com.timlah.connectors.WalkAboutWithMeConnector
 import com.timlah.models.{BlogPost, ContactData, EnquiryType}
 import com.timlah.repositories.BlogPostRepository
 import com.timlah.services.{CurrentProjects, EmailService, GravatarProfileService, MarkupService, WalkAboutWithMeService}
-import play.api.cache.Cached
 import play.api.mvc._
 import play.twirl.api.Html
 
+import akka.actor.ActorSystem
 import javax.inject._
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext}
 import scala.language.postfixOps
+import java.lang.ProcessBuilder.Redirect
 
 @Singleton
 class HomeController @Inject()(
@@ -21,9 +22,8 @@ class HomeController @Inject()(
   gravatarProfileService    : GravatarProfileService,
   markupService             : MarkupService,
   repository                : BlogPostRepository,
-  walkAboutWithMeConnector  : WalkAboutWithMeConnector,
-  WalkAboutWithMeService    : WalkAboutWithMeService
-)(implicit executionContext: ExecutionContext, cached: Cached) extends MessagesAbstractController(cc) {
+  actorSystem               : ActorSystem
+)(implicit executionContext: ExecutionContext) extends MessagesAbstractController(cc) {
 
     def index() = Action { implicit request: Request[AnyContent] =>
       Ok(com.timlah.views.html.index())
@@ -31,14 +31,6 @@ class HomeController @Inject()(
 
     def about() = Action { implicit request: Request[AnyContent] =>
       Ok(com.timlah.views.html.about())
-    }
-
-    def walkaboutwithme() = cached.status(_ => "walkAboutWithMe", 200, duration = 5.minutes) {
-      Action.async { implicit request: Request[AnyContent] =>
-        val getFutureWalkAboutData = walkAboutWithMeConnector.getAllWalkAboutWithMeData
-        getFutureWalkAboutData.map(o => WalkAboutWithMeService.downloadImage(o.map(_.progressImageURL), o.map(_.date), "/public/images/walk-images"))
-        getFutureWalkAboutData.map(i => Ok(com.timlah.views.html.walkaboutwithme(i)))
-      }
     }
 
     def projects() = Action { implicit request: Request[AnyContent] => {

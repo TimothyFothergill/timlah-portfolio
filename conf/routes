@@ -16,6 +16,13 @@ GET     /blog/slug/:slug            com.timlah.controllers.HomeController.blogBy
 
 POST    /contact                    com.timlah.controllers.HomeController.contactSubmit()
 
+# NetBitPet related endpoints apis will go here...
+
+# GET     /netbitpet/create           com.timlah.controllers.netbitpet.NetBitPetController.createPet()
+# GET     /netbitpet/play             com.timlah.controllers.netbitpet.NetBitPetController.createPet()
+# GET     /checkCookie                com.timlah.controllers.HomeController.checkCookie()
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
