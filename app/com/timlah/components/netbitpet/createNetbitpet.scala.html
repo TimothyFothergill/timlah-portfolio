@@ -1,0 +1,32 @@
+<link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/netbitpets.css")">
+<button class="nbpDisplayToggle" onclick="toggleDisplay()">Open/Close NetBitPet</button>
+
+<div class="netbitpetBasePanel" id="netbitpetSelection">
+    <fieldset>
+        <legend>Choose your pet:</legend>
+        <div>
+            <input type="radio" id="birb" name="petSelect" value="birb" />
+            <label for="birb">Birb</label>
+        </div>
+        <div>
+            <input type="radio" id="catto" name="petSelect" value="catto" checked />
+            <label for="catto">Catto</label>
+        </div>
+        <div>
+            <input type="radio" id="doggo" name="petSelect" value="doggo" />
+            <label for="doggo">Doggo</label>
+        </div>
+    </fieldset>
+    <label for="petName">Give your pet a name: </label>
+    <input type="text" id="petName" name="petName" required minlength="6" maxlength="20"/>
+    <button type="submit">Create Pet</button>
+</div>
+<script>
+    function toggleDisplay() {
+        if(document.getElementsByClassName("netbitpetBasePanel")[0].classList.contains("netbitpetBasePanelHidden")) {
+            document.getElementsByClassName("netbitpetBasePanel")[0].classList.remove("netbitpetBasePanelHidden");
+        } else {
+            document.getElementsByClassName("netbitpetBasePanel")[0].classList.add("netbitpetBasePanelHidden");
+        }
+    }
+</script>

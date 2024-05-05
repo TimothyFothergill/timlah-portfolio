@@ -1,0 +1,89 @@
+@import com.timlah.models.netbitpet._
+@import scala.concurrent.ExecutionContext
+
+@(netbitpet: PlayerNetBitPet)
+<link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/netbitpets.css")">
+<button class="nbpDisplayToggle" onclick="toggleDisplay()">Open/Close NetBitPet</button>
+<div class="netbitpetBasePanel">
+    <h3>@netbitpet.petName</h3>
+    <p>NetBits: 0</p>        
+    <img src="@routes.Assets.versioned(netbitpet.netbitpetType.iconPath)"><br>
+    <p>HP: @netbitpet.currentHealth/@netbitpet.maxHealth</p>
+    <label for="hungerBar">Hunger: @netbitpet.currentHunger / @netbitpet.maxHunger </label>
+    <progress id="hungerBar" name="hungerBar" max="100" value="@netbitpet.currentHunger"></progress><br />
+    <label for="hygieneBar">Hygiene: @netbitpet.currentHygiene / @netbitpet.maxHygiene </label>
+    <progress id="hygieneBar" name="hygieneBar" max="100" value="@netbitpet.currentHygiene"></progress><br />
+    <label for="boredomBar">Boredom: @netbitpet.currentBoredom / @netbitpet.maxBoredom </label>
+    <progress id="boredomBar" name="boredomBar" max="100" value="@netbitpet.currentBoredom"></progress>
+    <form>
+        @* make these do actions *@
+        <button>Feed</button>
+        <button>Play</button>
+        <button>Train</button>
+        <button>Contest</button>
+        @* make these do actions *@
+    </form>
+</div>    
+<script>
+    function toggleDisplay() {
+        if(document.getElementsByClassName("netbitpetBasePanel")[0].classList.contains("netbitpetBasePanelHidden")) {
+            document.getElementsByClassName("netbitpetBasePanel")[0].classList.remove("netbitpetBasePanelHidden");
+        } else {
+            document.getElementsByClassName("netbitpetBasePanel")[0].classList.add("netbitpetBasePanelHidden");
+        }
+    }
+    
+    function createPetCookie() {
+        const initialPetData = {
+            name            : "@netbitpet.petName",
+            currentHunger   : @netbitpet.currentHunger,
+            currentHygiene  : @netbitpet.currentHygiene,
+            currentBoredom  : @netbitpet.currentBoredom,
+            maxHunger       : @netbitpet.maxHunger,
+            maxHygiene      : @netbitpet.maxHygiene,
+            maxBoredom      : @netbitpet.maxBoredom,
+            attack          : @netbitpet.attack,
+            defence         : @netbitpet.defence,
+            currentHealth   : @netbitpet.currentHealth,
+            maxHealth       : @netbitpet.maxHealth
+        };
+        savePetDataToCookie(initialPetData);
+        updateProgressBars(initialPetData);
+    }
+
+    function updateProgressBars(data) {
+        document.getElementById("hungerBar").value =  @netbitpet.currentHunger;
+        document.getElementById("hygieneBar").value = @netbitpet.currentHygiene;
+        document.getElementById("boredomBar").value = @netbitpet.currentBoredom;
+    }
+
+    function savePetDataToCookie(data) {
+        const jsonData = JSON.stringify(data);
+        document.cookie = `petData=${jsonData}; path=/`;
+    }
+
+    function getPetDataFromCookie() {
+        const cookieString = document.cookie;
+        const cookies = cookieString.split(';');
+        let petDataCookie = cookies.find(cookie => cookie.trim().startsWith('petData='));
+        if (petDataCookie) {
+            const petDataJson = petDataCookie.split('=')[1];
+            return JSON.parse(petDataJson);
+        }
+        return null;
+    }
+
+    function fetchAndUpdateProgressBars() {
+        const petData = getPetDataFromCookie();
+        if (petData) {
+            updateProgressBars(petData);
+        } else {
+            console.error('Pet data not found in cookie, adding');
+            createPetCookie();
+        }
+    }
+
+    fetchAndUpdateProgressBars();
+
+    setInterval(fetchAndUpdateProgressBars, 10000); // Update every 10 seconds
+</script>
