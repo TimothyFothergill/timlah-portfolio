@@ -5,11 +5,18 @@ import com.timlah.models.netbitpet._
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
+import akka.actor.Actor
+import akka.actor.Props
 import akka.actor.ActorSystem
 import javax.inject._
 
 class NetBitPetPlayService @Inject()(implicit ec: ExecutionContext, actorSystem: ActorSystem) {
 
+  val DecreaseHunger = "Decreasing Hunger"
+  val DecreaseHygiene = "Decreasing Hygiene"
+  val DecreaseFun = "Decreasing Fun"
+  val UpdateAPI = "Update API"
+  
   var currentPet: Option[PlayerNetBitPet] = None
   var netBits: Int = 0
 
@@ -63,36 +70,42 @@ class NetBitPetPlayService @Inject()(implicit ec: ExecutionContext, actorSystem:
   def increaseBoredom(amountToIncrease: Int): Unit = {
     currentPet match {
       case Some(netbitpet) => {netbitpet.currentBoredom += amountToIncrease}
+      case None => {}
     }
   }
 
   def decreaseFun(amountToDecrease: Int): Unit = {
     currentPet match {
       case Some(netbitpet) => {netbitpet.currentBoredom -= amountToDecrease}
+      case None => {}
     }
   }
 
   def increaseHunger(amountToIncrease: Int): Unit = {
     currentPet match {
       case Some(netbitpet) => {netbitpet.currentHunger += amountToIncrease}
+      case None => {}
     }
   }
 
   def decreaseHunger(amountToDecrease: Int): Unit = {
     currentPet match {
       case Some(netbitpet) => {netbitpet.currentHunger -= amountToDecrease}
+      case None => {}
     }
   }
 
   def increaseHygiene(amountToIncrease: Int): Unit = {
     currentPet match {
       case Some(netbitpet) => {netbitpet.currentHygiene += amountToIncrease}
+      case None => {}
     }
   }
 
   def decreaseHygiene(amountToDecrease: Int): Unit = {
     currentPet match {
       case Some(netbitpet) => {netbitpet.currentHygiene -= amountToDecrease}
+      case None => {}
     }
   }
 
@@ -110,22 +123,44 @@ class NetBitPetPlayService @Inject()(implicit ec: ExecutionContext, actorSystem:
 
 
   def scheduleTasks(): Unit = {
-    val schedulerActorSystem = ActorSystem("akka-scheduler-system")
-    actorSystem.scheduler.schedule(initialDelay = 0.seconds, interval = 20.seconds) {
-      decreaseHunger(amountToDecrease = 10)
-    }
-
-    actorSystem.scheduler.schedule(initialDelay = 0.seconds, interval = 25.seconds) {
-      decreaseHygiene(amountToDecrease = 10)
-    }
-
-    actorSystem.scheduler.schedule(initialDelay = 0.seconds, interval = 15.seconds) {
-      decreaseFun(amountToDecrease = 10)
-    }
-    actorSystem.scheduler.schedule(initialDelay = 0.seconds, interval = 1.minute) {
-      updateApi()
-    }
+    val schedulerActor = actorSystem.actorOf(Props(new PlayServiceActor()))
+    
+    // Schedule your tasks using the schedulerActor
+    import actorSystem.dispatcher
+    actorSystem.scheduler.scheduleWithFixedDelay(
+      initialDelay = 10.seconds,
+      delay = 10.minutes,
+      receiver = schedulerActor,
+      message = DecreaseHunger
+    )
+    actorSystem.scheduler.scheduleWithFixedDelay(
+      initialDelay = 10.seconds,
+      delay = 10.minutes,
+      receiver = schedulerActor,
+      message = DecreaseHygiene
+    )
+    actorSystem.scheduler.scheduleWithFixedDelay(
+      initialDelay = 10.seconds,
+      delay = 10.minutes,
+      receiver = schedulerActor,
+      message = DecreaseFun
+    )
+    actorSystem.scheduler.scheduleWithFixedDelay(
+      initialDelay = 10.seconds,
+      delay = 1.hour,
+      receiver = schedulerActor,
+      message = UpdateAPI
+    )
   }
+
+class PlayServiceActor extends Actor {
+  def receive = {
+    case DecreaseHunger   => {decreaseHunger(10)}
+    case DecreaseHygiene  => {decreaseHygiene(10)}
+    case DecreaseFun      => {decreaseFun(10)}
+    case UpdateAPI        => {updateApi()}
+  }
+}
 }
 
 object NetBitPetPlayService {
