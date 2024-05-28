@@ -15,7 +15,7 @@ class NetBitPetPlayService @Inject()(implicit ec: ExecutionContext, actorSystem:
   val DecreaseHunger = "Decreasing Hunger"
   val DecreaseHygiene = "Decreasing Hygiene"
   val DecreaseFun = "Decreasing Fun"
-  val UpdateAPI = "Update API"
+  val UpdateAPI = "Updating API"
   
   var currentPet: Option[PlayerNetBitPet] = None
   var netBits: Int = 0

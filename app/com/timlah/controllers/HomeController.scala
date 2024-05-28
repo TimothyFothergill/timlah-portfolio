@@ -4,6 +4,7 @@ import com.timlah.connectors.WalkAboutWithMeConnector
 import com.timlah.models.{BlogPost, ContactData, EnquiryType}
 import com.timlah.repositories.BlogPostRepository
 import com.timlah.services.{CurrentProjects, EmailService, GravatarProfileService, MarkupService, WalkAboutWithMeService}
+import com.timlah.services.minigames.{WordGameService,WordGameFormData}
 import play.api.mvc._
 import play.twirl.api.Html
 
@@ -21,6 +22,7 @@ class HomeController @Inject()(
   emailService              : EmailService,
   gravatarProfileService    : GravatarProfileService,
   markupService             : MarkupService,
+  minigameWordGameService   : WordGameService,
   repository                : BlogPostRepository,
   actorSystem               : ActorSystem
 )(implicit executionContext: ExecutionContext) extends MessagesAbstractController(cc) {
@@ -34,9 +36,9 @@ class HomeController @Inject()(
     }
 
     def projects() = Action { implicit request: Request[AnyContent] => {
-      Ok(com.timlah.views.html.projects(currentProjects.currentProjects(), currentProjects.closedProjects()))
+        Ok(com.timlah.views.html.projects(currentProjects.currentProjects(), currentProjects.closedProjects()))
+      }
     }
-  }
     def contactPage() = Action { implicit request: MessagesRequest[AnyContent] => {
         val boundForm = ContactData.contactForm
         val enquiryTypes = EnquiryType.values
@@ -131,5 +133,31 @@ class HomeController @Inject()(
         }
       )
     }
+  }
+
+  //def wordGame() = Action { implicit request: MessagesRequest[AnyContent] => 
+  //  minigameWordGameService.setupGame()
+  //  val boundForm = WordGameFormData.wordGameForm
+  //  Ok(com.timlah.views.html.wordgame(boundForm))
+  //}
+
+  def wordGame() = Action { implicit request: MessagesRequest[AnyContent] => { 
+    val boundForm = WordGameFormData.wordGameForm.bindFromRequest()
+    if(!minigameWordGameService.inProgress) {
+      minigameWordGameService.setupGame()
+    }
+    boundForm.fold(
+      formWithErrors => {
+        BadRequest(com.timlah.views.html.wordgame(boundForm))
+      },
+      submittedData => {
+        val data = WordGameFormData(submittedData.guess)
+        if(minigameWordGameService.compareSubmission(data.guess)) {
+          Redirect(routes.HomeController.wordGame()).flashing("success" -> "Your word was right, thanks.")
+        } else {
+          Redirect(routes.HomeController.wordGame()).flashing("fail" -> "Your word was not right, thanks.")
+        }
+      }
+    )} 
   }
 }
