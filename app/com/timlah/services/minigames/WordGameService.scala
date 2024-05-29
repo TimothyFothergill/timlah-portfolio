@@ -10,6 +10,7 @@ class WordGameService {
     var inProgress          : Boolean       = false
     var attemptNumber       : Int           = 1
     var SelectedWord        : String        = ""
+    var guessedWords        : Seq[String]   = Seq()
 
     // this would then be removed if ListOfWords gets from an api
     def selectRandomWord(): String = {
@@ -30,11 +31,11 @@ class WordGameService {
         if(submission == SelectedWord) {
             winner()
         } else {
-            println("Continuing game...")
             if(attemptNumber == NumberOfAttempts) {
                 loser()
+            } else {
+                continueGame(submission)
             }
-            attemptNumber += 1
         }
     }
 
@@ -53,7 +54,34 @@ class WordGameService {
         setupGame()
     }
 
-    def continueGame(): Unit = {
+    def buildWordObject(submission: String): WordObject = {
+        var wordObject: WordObject = null
+        submission.zipWithIndex.foreach {
+            case(character, index) => if(submission.charAt(index) == character) {
+                wordObject = WordObject(Seq(CharacterObject(character, 0)), 0)
+            } else {
+                if(submission.contains(character)) {
+                wordObject = WordObject(Seq(CharacterObject(character, 1)), 0)
+                } else {
+                wordObject = WordObject(Seq(CharacterObject(character, 2)), 0)
+                }
+            }
+        }
+        wordObject
+    }
 
-    }    
+    def continueGame(submission: String): Unit = {
+        attemptNumber += 1
+        guessedWords = guessedWords.appended(submission)
+    }
 }
+
+case class WordObject(
+    word: Seq[CharacterObject],
+    status: Int
+)
+
+case class CharacterObject(
+    character: Char,
+    status: Int
+)

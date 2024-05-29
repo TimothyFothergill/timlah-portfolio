@@ -135,12 +135,6 @@ class HomeController @Inject()(
     }
   }
 
-  //def wordGame() = Action { implicit request: MessagesRequest[AnyContent] => 
-  //  minigameWordGameService.setupGame()
-  //  val boundForm = WordGameFormData.wordGameForm
-  //  Ok(com.timlah.views.html.wordgame(boundForm))
-  //}
-
   def wordGame() = Action { implicit request: MessagesRequest[AnyContent] => { 
     val boundForm = WordGameFormData.wordGameForm.bindFromRequest()
     if(!minigameWordGameService.inProgress) {
@@ -153,9 +147,9 @@ class HomeController @Inject()(
       submittedData => {
         val data = WordGameFormData(submittedData.guess)
         if(minigameWordGameService.compareSubmission(data.guess)) {
-          Redirect(routes.HomeController.wordGame()).flashing("success" -> "Your word was right, thanks.")
+          Redirect(routes.HomeController.wordGame()).flashing("success" -> "Great job!")
         } else {
-          Redirect(routes.HomeController.wordGame()).flashing("fail" -> "Your word was not right, thanks.")
+          Redirect(routes.HomeController.wordGame()).flashing("fail" -> "Try again!")
         }
       }
     )} 
