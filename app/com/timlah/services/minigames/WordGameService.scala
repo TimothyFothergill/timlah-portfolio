@@ -18,8 +18,10 @@ class WordGameService {
     }
 
     def setupGame(): Unit = {
-        SelectedWord = selectRandomWord()
-        inProgress = true
+        if(!inProgress) {
+            SelectedWord = selectRandomWord()
+            inProgress = true 
+        }
     }
 
     def compareSubmission(submission: String): Boolean = {
@@ -50,8 +52,10 @@ class WordGameService {
     }
 
     def reset(): Unit = {
-        attemptNumber = 0
-        setupGame()
+        inProgress          = false
+        attemptNumber       = 1
+        SelectedWord        = ""
+        guessedWords        = Seq()
     }
 
     def buildWordObject(submission: String): WordObject = {

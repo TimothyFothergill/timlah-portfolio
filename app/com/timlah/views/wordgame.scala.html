@@ -1,41 +1,49 @@
 @import helper._
+@import com.timlah.services.minigames.WordGameService
 @import com.timlah.services.minigames.WordGameFormData
 
-@(wordGameFormData: Form[_])(implicit request: MessagesRequestHeader, flash: Flash)
+@(wordGameFormData: Form[_], minigameWordGameService: WordGameService)(implicit request: MessagesRequestHeader, flash: Flash)
 
 @main("Wordz | Timlah's Techs", None) {
-    @form(action = com.timlah.controllers.routes.HomeController.wordGame()) {
-    @helper.CSRF.formField
-    @if(!flash.get("success").isEmpty) {
-        <div id="flashed-messages">
-          <dl class="bg-success" id="flash-success">
-            @flash.get("success")
-          </dl>
-        </div>
+  @if(!flash.get("success").isEmpty) {
+      <div id="flashed-messages">
+        <dl class="bg-success" id="flash-success">
+          @flash.get("success")
+        </dl>
+      </div>
+  }
+  @if(!flash.get("fail").isEmpty) {
+      <div id="flashed-messages-fail">
+        <dl class="bg-danger" id="flash-success-fail">
+          @flash.get("fail")
+        </dl>
+      </div>
+  }
+  @form(action = com.timlah.controllers.routes.HomeController.continueWordGame(), 'method -> "POST") {
+  @helper.CSRF.formField
+  <div class="content">
+      <h1>Wordz</h1>
+      <div>
+        @for(word <- minigameWordGameService.guessedWords) {
+          <div>
+            @word
+          </div>
         }
-        @if(!flash.get("fail").isEmpty) {
-        <div id="flashed-messages-fail">
-          <dl class="bg-danger" id="flash-success-fail">
-            @flash.get("fail")
-          </dl>
-        </div>
-        }
-        <div class="content">
-            <h1>Wordz</h1>
-            <form>
-                @wordGameFormData("guess").hasErrors match {
-                    case true => {
-                        <dt><label for="guess" aria-placeholder="HELLO">Guess the five-letter word:*</label></dt>
-                        <input type="text" name="guess" id="guess" size="30" class="alert-danger">
-                        <dd class="error">This field is required</dd>
-                    }
-                    case _ => {
-                        <dt><label for="user-input" aria-placeholder="HELLO">Guess the five-letter word:</label></dt>
-                        <input type="text" name="user-input" size="30">
-                    }
-                }
-            <button type="submit">Submit word</button>
-            }
-        </form>
-    </div>
+      </div>
+      <form>
+          @wordGameFormData("guess").hasErrors match {
+              case true => {
+                  <dt><label for="guess" aria-placeholder="HELLO">Guess the five-letter word:*</label></dt>
+                  <input type="text" name="guess" id="guess" size="30" class="alert-danger">
+                  <dd class="error">This field is required</dd>
+              }
+              case _ => {
+                  <dt><label for="guess" aria-placeholder="HELLO">Guess the five-letter word:</label></dt>
+                  <input type="text" name="guess" size="30"><br><br>
+              }
+          }
+          <button type="submit">Submit word</button>
+      </form>
+    }
+  </div>
 }

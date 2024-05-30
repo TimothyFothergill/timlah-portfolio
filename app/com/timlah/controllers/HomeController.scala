@@ -135,23 +135,26 @@ class HomeController @Inject()(
     }
   }
 
-  def wordGame() = Action { implicit request: MessagesRequest[AnyContent] => { 
-    val boundForm = WordGameFormData.wordGameForm.bindFromRequest()
-    if(!minigameWordGameService.inProgress) {
-      minigameWordGameService.setupGame()
-    }
-    boundForm.fold(
-      formWithErrors => {
-        BadRequest(com.timlah.views.html.wordgame(boundForm))
-      },
-      submittedData => {
-        val data = WordGameFormData(submittedData.guess)
-        if(minigameWordGameService.compareSubmission(data.guess)) {
-          Redirect(routes.HomeController.wordGame()).flashing("success" -> "Great job!")
-        } else {
-          Redirect(routes.HomeController.wordGame()).flashing("fail" -> "Try again!")
+  def newWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
+    minigameWordGameService.setupGame()
+    Ok(com.timlah.views.html.wordgame(WordGameFormData.wordGameForm, minigameWordGameService))
+  }
+
+  def continueWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
+      println("Game in progress, continuing")
+      val boundForm = WordGameFormData.wordGameForm.bindFromRequest()
+      boundForm.fold(
+        formWithErrors => {
+          BadRequest(com.timlah.views.html.wordgame(formWithErrors, minigameWordGameService))
+        },
+        submittedData => {
+          val data = WordGameFormData(submittedData.guess)
+          if (minigameWordGameService.compareSubmission(data.guess)) {
+            Redirect(routes.HomeController.continueWordGame()).flashing("success" -> "Great job!")
+          } else {
+            Redirect(routes.HomeController.continueWordGame()).flashing("fail" -> "Try again!")
+          }
         }
-      }
-    )} 
+     )
   }
 }
