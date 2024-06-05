@@ -87,7 +87,6 @@ class WordGameService {
                             case Some(value) => {
                                 val updatedObject = value
                                 updatedObject.status = 2
-                                
                             }
                         }
                     }
