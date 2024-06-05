@@ -22,6 +22,13 @@ POST    /contact                    com.timlah.controllers.HomeController.contac
 # GET     /netbitpet/play             com.timlah.controllers.netbitpet.NetBitPetController.createPet()
 # GET     /checkCookie                com.timlah.controllers.HomeController.checkCookie()
 
+# Minigame related endpoints
+
+GET     /word-up/new                com.timlah.controllers.HomeController.newWordGame()
+GET     /word-up                    com.timlah.controllers.HomeController.currentWordGame()
+POST    /word-up                    com.timlah.controllers.HomeController.continueWordGame()
+
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

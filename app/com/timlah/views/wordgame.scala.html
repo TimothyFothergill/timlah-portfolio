@@ -1,0 +1,81 @@
+@import helper._
+@import com.timlah.services.minigames.WordGameService
+@import com.timlah.services.minigames.WordGameFormData
+
+@(wordGameFormData: Form[_], minigameWordGameService: WordGameService)(implicit request: MessagesRequestHeader, flash: Flash)
+
+@main("Word-Up | Timlah's Techs", None) {
+  <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/wordup.css")">
+
+  @if(flash.get("success").isDefined) {
+      <div id="flashed-messages">
+        <dl class="bg-success" id="flash-success">
+          @flash.get("success")
+        </dl>
+      </div>
+  }
+  @if(flash.get("fail").isDefined) {
+      <div id="flashed-messages-fail">
+        <dl class="bg-danger" id="flash-success-fail">
+          @flash.get("fail")
+        </dl>
+      </div>
+  }
+  
+  @helper.form(action = com.timlah.controllers.routes.HomeController.continueWordGame(), 'method -> "POST") {
+    @helper.CSRF.formField
+    <div class="content">
+      <h1>Word-Up</h1>
+      <p>This is a basic clone of a famous word game. Type your guess in the box, hit the Submit button, or hit Enter on the keyboard.</p>
+
+      @for(word <- minigameWordGameService.guessedWordObjects) {
+        <div class="wordup-word">
+          @for(character <- word.word) {
+            @defining(character.status match {
+              case 0 => "wordup-char-green"
+              case 1 => "wordup-char-yellow"
+              case 2 => "wordup-char-grey"
+            }) { characterStatusClass =>
+              <div class="wordup-character @characterStatusClass">@character.character</div>
+            }
+          }
+        </div>
+      }
+
+      @if(minigameWordGameService.guessedWordObjects.length < 5) {
+        @for(_ <- 0 until (5 - minigameWordGameService.guessedWordObjects.length)) {
+          <div class="wordup-word">
+            <div class="wordup-character wordup-char-grey"></div>
+            <div class="wordup-character wordup-char-grey"></div>
+            <div class="wordup-character wordup-char-grey"></div>
+            <div class="wordup-character wordup-char-grey"></div>
+            <div class="wordup-character wordup-char-grey"></div>
+          </div>
+        }
+      }
+      
+      <div>
+        @if(minigameWordGameService.inProgress) {
+          @wordGameFormData("guess").hasErrors match {
+            case true => {
+              <dt><label for="guess" aria-placeholder="HELLO">Guess the five-letter word:*</label></dt>
+              <input type="text" name="guess" id="guess" size="30" class="alert-danger">
+              <dd class="error">This field is required</dd>
+            }
+            case _ => {
+              <dt><label for="guess" aria-placeholder="HELLO">Guess the five-letter word:</label></dt>
+              <input type="text" name="guess" size="30">
+            }
+          }
+          <button type="submit">Submit</button>
+        }
+      </div>
+    </div>
+  }
+  
+  @if(!minigameWordGameService.inProgress) {
+    @helper.form(action = com.timlah.controllers.routes.HomeController.newWordGame(), 'method -> "GET") {
+      <input type="submit" value="New word" />
+    }
+  }
+}
