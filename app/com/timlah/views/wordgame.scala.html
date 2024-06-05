@@ -27,6 +27,7 @@
     <div class="content">
       <h1>Word-Up</h1>
       <p>This is a basic clone of a famous word game. Type your guess in the box, hit the Submit button, or hit Enter on the keyboard.</p>
+      <p>Note: There's a bug with the first letter, where it might show as a right letter in the wrong place. Sorry 'bout that!</p>
 
       @for(word <- minigameWordGameService.guessedWordObjects) {
         <div class="wordup-word">
@@ -59,23 +60,23 @@
           @wordGameFormData("guess").hasErrors match {
             case true => {
               <dt><label for="guess" aria-placeholder="HELLO">Guess the five-letter word:*</label></dt>
-              <input type="text" name="guess" id="guess" size="30" class="alert-danger">
+              <input type="text" name="guess" id="guess" size="30" class="alert-danger" minlength="5" maxlength="5">
               <dd class="error">This field is required</dd>
             }
             case _ => {
               <dt><label for="guess" aria-placeholder="HELLO">Guess the five-letter word:</label></dt>
-              <input type="text" name="guess" size="30">
+              <input type="text" name="guess" size="30" minlength="5" maxlength="5">
             }
           }
           <button type="submit">Submit</button>
         }
       </div>
-    </div>
-  }
-  
-  @if(!minigameWordGameService.inProgress) {
-    @helper.form(action = com.timlah.controllers.routes.HomeController.newWordGame(), 'method -> "GET") {
-      <input type="submit" value="New word" />
     }
-  }
+    
+    @if(!minigameWordGameService.inProgress) {
+      @helper.form(action = com.timlah.controllers.routes.HomeController.newWordGame(), 'method -> "GET") {
+        <input type="submit" value="New word" />
+      }
+    }
+  </div>
 }
