@@ -66,7 +66,6 @@ class WordGameService {
     }
 
     def reset(): Unit = { 
-        println("in reset")
         inProgress          = false
         hasWon              = false
         hasLost             = false
@@ -79,17 +78,16 @@ class WordGameService {
     def buildWordObject(submission: String): Unit = {
         var wordObject: WordObject = null
         var characterObjects: Seq[CharacterObject] = Seq()
-        print(characterObjects)
-        submission.zipWithIndex.foreach {
+        submission.toUpperCase().zipWithIndex.foreach {
             case(character, index) => 
                 if(SelectedWord.charAt(index) == character) {
-                    println(character + " is in right place")
-                    if(SelectedWord.count(_ == character) > 0 && !characterObjects.isEmpty) {
+                    if(SelectedWord.count(_ == character) > 1 && characterObjects.length > 0) {
                         val maybeCharacterObjects = characterObjects.find(_.character == character)
                         maybeCharacterObjects match {
                             case Some(value) => {
-                                println("fixing")
-                                value.status = 2
+                                val updatedObject = value
+                                updatedObject.status = 2
+                                
                             }
                         }
                     }
@@ -99,28 +97,24 @@ class WordGameService {
                         val maybeCharacterObjects = characterObjects.find(_.character == character)
                         maybeCharacterObjects match {
                             case None => {
-                                println(character + " is in wrong place")
                                 characterObjects = characterObjects.appended(CharacterObject(character, 1))
                             }
                             case Some(value) => {
                                 if(SelectedWord.count(_ == character) > 0){
-                                    println(character + " is invalid and guessed multiple times")
                                     characterObjects = characterObjects.appended(CharacterObject(character, 2))
                                 } else {
-                                    println(character + " is in wrong place and guessed multiple times")
                                     characterObjects = characterObjects.appended(CharacterObject(character, 1))
                                 }
                             }
                         }
                     } else { 
-                        println(character + " is invalid")
                         characterObjects = characterObjects.appended(CharacterObject(character, 2))
                     }
                 }
         }
         val areAllCharactersInTheCorrectPlace = characterObjects.forall { case CharacterObject(_, int) => int == 0 }
         if(areAllCharactersInTheCorrectPlace) {
-            guessedWordObjects = guessedWordObjects.appended(WordObject(characterObjects, 0))
+            guessedWordObjects = guessedWordObjects.appended(WordObject(characterObjects, 0)) 
         } else {
             guessedWordObjects = guessedWordObjects.appended(WordObject(characterObjects, 1))
         }
