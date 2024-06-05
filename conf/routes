@@ -24,8 +24,10 @@ POST    /contact                    com.timlah.controllers.HomeController.contac
 
 # Minigame related endpoints
 
-GET     /word-up                    com.timlah.controllers.HomeController.newWordGame()
+GET     /word-up/new                com.timlah.controllers.HomeController.newWordGame()
+GET     /word-up                    com.timlah.controllers.HomeController.currentWordGame()
 POST    /word-up                    com.timlah.controllers.HomeController.continueWordGame()
+
 
 
 # Map static resources from the /public folder to the /assets URL path

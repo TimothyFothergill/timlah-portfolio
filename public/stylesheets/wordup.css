@@ -1,0 +1,27 @@
+.wordup-word {
+    display:flex; 
+    align-items: flex-start;
+}
+.wordup-character {
+    height: 64px;
+    width: 64px;
+    font-size: xx-large;
+    border-radius: 10%;
+    margin: 0.5%;
+    flex: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    color: black;
+    font-weight: bolder;;
+}
+
+.wordup-char-green { 
+    background-color: green;
+}
+.wordup-char-grey { 
+    background-color: grey;
+}
+.wordup-char-yellow { 
+    background-color: yellow;
+}

@@ -5,22 +5,26 @@ import scala.util.Random
 class WordGameService {
   
     // eventually make sure these end up in their own separate file/service/something, or an api call from elsewhere...
-    val ListOfWords         : Seq[String]   = Seq("HELLO","PLAYS","GAMES","CODER","APPLE")
-    val NumberOfAttempts    : Int           = 5
-    var inProgress          : Boolean       = false
-    var attemptNumber       : Int           = 1
-    var SelectedWord        : String        = ""
-    var guessedWords        : Seq[String]   = Seq()
+    val ListOfWords         : Seq[String]       = Seq("HELLO","PLAYS","GAMES","CODER","APPLE")
+    val NumberOfAttempts    : Int               = 5
+    var inProgress          : Boolean           = false
+    var hasWon              : Boolean           = false
+    var hasLost             : Boolean           = false
+    var attemptNumber       : Int               = 1
+    var SelectedWord        : String            = ""
+    var guessedWords        : Seq[String]       = Seq()
+    var guessedWordObjects  : Seq[WordObject]   = Seq()
 
-    // this would then be removed if ListOfWords gets from an api
+    // this would then be removed if ListOfWords gets from an api, if the api serves a /random endpoint
     def selectRandomWord(): String = {
         ListOfWords(Random.between(0,5))
     }
 
     def setupGame(): Unit = {
-        if(!inProgress) {
+        if(!inProgress || hasWon || hasLost) {
             SelectedWord = selectRandomWord()
-            inProgress = true 
+            inProgress = true
+            print("new game: " + SelectedWord)
         }
     }
 
@@ -30,11 +34,12 @@ class WordGameService {
     }
 
     def userAttempt(submission: String): Unit = {
+        buildWordObject(submission)
         if(submission == SelectedWord) {
-            winner()
+            winner(submission)
         } else {
-            if(attemptNumber == NumberOfAttempts) {
-                loser()
+            if(attemptNumber == NumberOfAttempts) { 
+                loser(submission)
             } else {
                 continueGame(submission)
             }
@@ -42,50 +47,106 @@ class WordGameService {
     }
 
     // do I want specific win and lose conditions?
-    def winner(): Unit = {
-
+    def winner(submission: String): Unit = {
+        println("in winner")
+        attemptNumber += 1
+        guessedWords = guessedWords.appended(submission)
+        hasWon = true
+        hasLost = false
+        inProgress = false
     }
 
-    def loser(): Unit = {
-        println("You lost, correct word was: " + SelectedWord)
-        reset()
+    def loser(submission: String): Unit = {
+        println("You lost, correct word was: " + SelectedWord) 
+        attemptNumber += 1
+        guessedWords = guessedWords.appended(submission)
+        hasWon = false
+        hasLost = true
+        inProgress = false
     }
 
-    def reset(): Unit = {
+    def reset(): Unit = { 
+        println("in reset")
         inProgress          = false
+        hasWon              = false
+        hasLost             = false
         attemptNumber       = 1
         SelectedWord        = ""
         guessedWords        = Seq()
+        guessedWordObjects  = Seq()
     }
 
-    def buildWordObject(submission: String): WordObject = {
+    def buildWordObject(submission: String): Unit = {
         var wordObject: WordObject = null
+        var characterObjects: Seq[CharacterObject] = Seq()
+        print(characterObjects)
         submission.zipWithIndex.foreach {
-            case(character, index) => if(submission.charAt(index) == character) {
-                wordObject = WordObject(Seq(CharacterObject(character, 0)), 0)
-            } else {
-                if(submission.contains(character)) {
-                wordObject = WordObject(Seq(CharacterObject(character, 1)), 0)
+            case(character, index) => 
+                if(SelectedWord.charAt(index) == character) {
+                    println(character + " is in right place")
+                    if(SelectedWord.count(_ == character) > 0 && !characterObjects.isEmpty) {
+                        val maybeCharacterObjects = characterObjects.find(_.character == character)
+                        maybeCharacterObjects match {
+                            case Some(value) => {
+                                println("fixing")
+                                value.status = 2
+                            }
+                        }
+                    }
+                    characterObjects = characterObjects.appended(CharacterObject(character, 0))
                 } else {
-                wordObject = WordObject(Seq(CharacterObject(character, 2)), 0)
+                    if(SelectedWord.contains(character)) {
+                        val maybeCharacterObjects = characterObjects.find(_.character == character)
+                        maybeCharacterObjects match {
+                            case None => {
+                                println(character + " is in wrong place")
+                                characterObjects = characterObjects.appended(CharacterObject(character, 1))
+                            }
+                            case Some(value) => {
+                                if(SelectedWord.count(_ == character) > 0){
+                                    println(character + " is invalid and guessed multiple times")
+                                    characterObjects = characterObjects.appended(CharacterObject(character, 2))
+                                } else {
+                                    println(character + " is in wrong place and guessed multiple times")
+                                    characterObjects = characterObjects.appended(CharacterObject(character, 1))
+                                }
+                            }
+                        }
+                    } else { 
+                        println(character + " is invalid")
+                        characterObjects = characterObjects.appended(CharacterObject(character, 2))
+                    }
                 }
-            }
         }
-        wordObject
+        val areAllCharactersInTheCorrectPlace = characterObjects.forall { case CharacterObject(_, int) => int == 0 }
+        if(areAllCharactersInTheCorrectPlace) {
+            guessedWordObjects = guessedWordObjects.appended(WordObject(characterObjects, 0))
+        } else {
+            guessedWordObjects = guessedWordObjects.appended(WordObject(characterObjects, 1))
+        }
     }
 
     def continueGame(submission: String): Unit = {
         attemptNumber += 1
         guessedWords = guessedWords.appended(submission)
+        inProgress = true
     }
 }
 
 case class WordObject(
+    // 0 = correct word, 1 = any number of errors
     word: Seq[CharacterObject],
     status: Int
 )
 
 case class CharacterObject(
+    // 0 = correct letter in correct place (green), 1 = correct letter in wrong place (yellow), 2 = completely incorrect letter (grey)
     character: Char,
-    status: Int
+    var status: Int
 )
+
+object CharacterObject {
+    def changeStatus(currentObject: CharacterObject, newStatus: Int): CharacterObject = {
+        CharacterObject(character = currentObject.character, status = newStatus)
+    }
+}
