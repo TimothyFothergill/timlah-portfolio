@@ -115,6 +115,8 @@ class HomeController @Inject()(
           ||  data.contents.contains("hacker")
           ||  data.contents.contains("hacked")
           ||  data.contents.contains("SEO")
+          ||  data.contents.contains("medicine")
+          ||  data.contents.contains("cialis")
           ) {
             Redirect(routes.HomeController.index()).flashing("fail" -> "Contact message not sent.")
           } else {

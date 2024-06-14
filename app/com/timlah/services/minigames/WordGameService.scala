@@ -75,49 +75,49 @@ class WordGameService {
         guessedWordObjects  = Seq()
     }
 
-    def buildWordObject(submission: String): Unit = {
-        var wordObject: WordObject = null
-        var characterObjects: Seq[CharacterObject] = Seq()
-        submission.toUpperCase().zipWithIndex.foreach {
-            case(character, index) => 
-                if(SelectedWord.charAt(index) == character) {
-                    if(SelectedWord.count(_ == character) > 1 && characterObjects.length > 0) {
-                        val maybeCharacterObjects = characterObjects.find(_.character == character)
-                        maybeCharacterObjects match {
-                            case Some(value) => {
-                                val updatedObject = value
-                                updatedObject.status = 2
-                            }
-                        }
-                    }
-                    characterObjects = characterObjects.appended(CharacterObject(character, 0))
-                } else {
-                    if(SelectedWord.contains(character)) {
-                        val maybeCharacterObjects = characterObjects.find(_.character == character)
-                        maybeCharacterObjects match {
-                            case None => {
-                                characterObjects = characterObjects.appended(CharacterObject(character, 1))
-                            }
-                            case Some(value) => {
-                                if(SelectedWord.count(_ == character) > 0){
-                                    characterObjects = characterObjects.appended(CharacterObject(character, 2))
-                                } else {
-                                    characterObjects = characterObjects.appended(CharacterObject(character, 1))
-                                }
-                            }
-                        }
-                    } else { 
-                        characterObjects = characterObjects.appended(CharacterObject(character, 2))
-                    }
-                }
-        }
-        val areAllCharactersInTheCorrectPlace = characterObjects.forall { case CharacterObject(_, int) => int == 0 }
-        if(areAllCharactersInTheCorrectPlace) {
-            guessedWordObjects = guessedWordObjects.appended(WordObject(characterObjects, 0)) 
+def buildWordObject(submission: String): Unit = {
+  var wordObject: WordObject = null
+  var characterObjects: Seq[CharacterObject] = Seq()
+  val submissionCounts = scala.collection.mutable.Map[Char, Int]().withDefaultValue(0)
+  val selectedWordCounts = SelectedWord.groupBy(identity).view.mapValues(_.length).toMap
+
+  submission.toUpperCase().zipWithIndex.foreach {
+    case (character, index) =>
+      submissionCounts(character) += 1
+
+      if (SelectedWord.charAt(index) == character) {
+        characterObjects = characterObjects.appended(CharacterObject(character, 0))
+      } else {
+        if (SelectedWord.contains(character)) {
+          // Check if the character has been used more than it exists in the SelectedWord
+          if (submissionCounts(character) <= selectedWordCounts.getOrElse(character, 0)) {
+            characterObjects = characterObjects.appended(CharacterObject(character, 1))
+          } else {
+            characterObjects = characterObjects.appended(CharacterObject(character, 2))
+          }
         } else {
-            guessedWordObjects = guessedWordObjects.appended(WordObject(characterObjects, 1))
+          characterObjects = characterObjects.appended(CharacterObject(character, 2))
         }
-    }
+      }
+  }
+
+  // Post-process to update previously checked characters
+  characterObjects.zipWithIndex.foreach {
+    case (CharacterObject(character, status), index) if status == 1 =>
+      if (submissionCounts(character) > selectedWordCounts.getOrElse(character, 0)) {
+        characterObjects = characterObjects.updated(index, CharacterObject(character, 2))
+        submissionCounts(character) -= 1
+      }
+    case _ =>
+  }
+
+  val areAllCharactersInTheCorrectPlace = characterObjects.forall { case CharacterObject(_, int) => int == 0 }
+  if (areAllCharactersInTheCorrectPlace) {
+    guessedWordObjects = guessedWordObjects.appended(WordObject(characterObjects, 0))
+  } else {
+    guessedWordObjects = guessedWordObjects.appended(WordObject(characterObjects, 1))
+  }
+}
 
     def continueGame(submission: String): Unit = {
         attemptNumber += 1
