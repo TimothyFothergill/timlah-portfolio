@@ -1,10 +1,12 @@
 package com.timlah.services.minigames
 
 import scala.util.Random
+import scala.io.Source
 
 class WordGameService {
   
     // eventually make sure these end up in their own separate file/service/something, or an api call from elsewhere...
+    val words               : Seq[String]       = loadWords("resources/words.txt")
     val ListOfWords         : Seq[String]       = Seq("HELLO","PLAYS","GAMES","CODER","APPLE")
     val NumberOfAttempts    : Int               = 5
     var inProgress          : Boolean           = false
@@ -15,9 +17,19 @@ class WordGameService {
     var guessedWords        : Seq[String]       = Seq()
     var guessedWordObjects  : Seq[WordObject]   = Seq()
 
+    def loadWords(filePath: String): Seq[String] = {
+        val source = Source.fromFile(filePath)
+        try {
+            source.getLines().toSeq
+        } finally {
+            source.close()
+        }
+    }
+
     // this would then be removed if ListOfWords gets from an api, if the api serves a /random endpoint
     def selectRandomWord(): String = {
-        ListOfWords(Random.between(0,5))
+        val randomIndex = Random.nextInt(words.size)
+        words(randomIndex)
     }
 
     def setupGame(): Unit = {
