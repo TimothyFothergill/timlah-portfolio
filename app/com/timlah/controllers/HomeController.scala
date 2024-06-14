@@ -159,7 +159,7 @@ class HomeController @Inject()(
         if (minigameWordGameService.compareSubmission(data.guess)) {
           Redirect(routes.HomeController.currentWordGame()).flashing("success" -> "Great job!")
         } else {
-          Redirect(routes.HomeController.currentWordGame()).flashing("fail" -> "Try again!")
+          Redirect(routes.HomeController.currentWordGame())
         }
       }
     )

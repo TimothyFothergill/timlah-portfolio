@@ -14,14 +14,7 @@
         </dl>
       </div>
   }
-  @if(flash.get("fail").isDefined) {
-      <div id="flashed-messages-fail">
-        <dl class="bg-danger" id="flash-success-fail">
-          @flash.get("fail")
-        </dl>
-      </div>
-  }
-  
+
   @helper.form(action = com.timlah.controllers.routes.HomeController.continueWordGame(), 'method -> "POST") {
     @helper.CSRF.formField
     <div class="content">
@@ -29,6 +22,10 @@
       <p>This is a basic clone of a famous word game. Type your guess in the box, hit the Submit button, or hit Enter on the keyboard.</p>
       <p>Note: There's a bug with the first letter, where it might show as a right letter in the wrong place. Sorry 'bout that!</p>
 
+      @if(flash.get("success").isDefined){
+        <div class="success-animation" ></div>
+        <div class="winning-message">A winner is you!</div>
+      }else{
       @for(word <- minigameWordGameService.guessedWordObjects) {
         <div class="wordup-word">
           @for(character <- word.word) {
@@ -43,15 +40,16 @@
         </div>
       }
 
-      @if(minigameWordGameService.guessedWordObjects.length < 5) {
-        @for(_ <- 0 until (5 - minigameWordGameService.guessedWordObjects.length)) {
-          <div class="wordup-word">
-            <div class="wordup-character wordup-char-grey"></div>
-            <div class="wordup-character wordup-char-grey"></div>
-            <div class="wordup-character wordup-char-grey"></div>
-            <div class="wordup-character wordup-char-grey"></div>
-            <div class="wordup-character wordup-char-grey"></div>
-          </div>
+        @if(minigameWordGameService.guessedWordObjects.length < 5) {
+          @for(_ <- 0 until (5 - minigameWordGameService.guessedWordObjects.length)) {
+            <div class="wordup-word">
+              <div class="wordup-character wordup-char-grey"></div>
+              <div class="wordup-character wordup-char-grey"></div>
+              <div class="wordup-character wordup-char-grey"></div>
+              <div class="wordup-character wordup-char-grey"></div>
+              <div class="wordup-character wordup-char-grey"></div>
+            </div>
+          }
         }
       }
       
@@ -80,3 +78,32 @@
     }
   </div>
 }
+
+<script>
+  function IsSuccessful() {
+    var success = document.getElementById("flash-success");
+
+    if(success) {
+      console.log("Success");
+      SetCookie(@minigameWordGameService.guessedWordObjects.length);
+    }
+  }
+
+  function SetCookie(num) {
+    const wordupCookieData = {
+      isComplete : true,
+      word       : "@minigameWordGameService.SelectedWord",
+      turnsTaken : num
+    };
+    SaveWordupDataToCookie(wordupCookieData);
+  }
+
+  function SaveWordupDataToCookie(data) {
+    var midnight = new Date();
+    midnight.setHours(23,59,59,0);
+    const jsonData = JSON.stringify(data);
+    document.cookie = `wordupData=${jsonData}; path=/; expires=${midnight}`;
+  }
+
+  IsSuccessful();
+</script>
