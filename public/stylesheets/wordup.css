@@ -1,6 +1,7 @@
 .wordup-word {
     display:flex; 
     align-items: flex-start;
+    width: 50%;
 }
 .wordup-character {
     height: 64px;
@@ -25,32 +26,47 @@
 .wordup-char-yellow { 
     background-color: yellow;
 }
-.success-animation {
-    width: 0;
-    height: 0;
-    margin-left:25%;
-    margin-top:15%;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-bottom: 100px solid yellow;
-    position: relative;
-    animation: spin 2s linear infinite;
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    float: right;
 }
-.success-animation:before {
-    content: "";
-    width: 0;
-    height: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-top: 100px solid yellow;
-    position: absolute;
-    top: -75px;
-    left: -50px;
+
+.keyboard-row {
+    display: flex;
 }
+
+.keyboard-key {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.keyboard-key.greyed-out {
+    background-color: #3a3434;
+    cursor: not-allowed;
+}
+
 .winning-message {
     margin-top: 20px;
-    font-size: 24px;
+    font-size: xxx-large;
     font-weight: bold;
+    animation: rainbow 3s linear infinite;
+}
+.wordup-stats {
+    font-size: x-large;
+
 }
 @keyframes spin {
     from {
@@ -59,4 +75,13 @@
     to {
         transform: rotate(360deg);
     }
+}
+@keyframes rainbow {
+    0%   {color: red;         }
+    15%  {color: yellow;      }
+    30%  {color: pink;        }
+    45%  {color: green;       }
+    60%  {color: purple;      }
+    75%  {color: orange;      }
+    100% {color: lightskyblue;}
 }

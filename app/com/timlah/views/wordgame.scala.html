@@ -20,11 +20,12 @@
     <div class="content">
       <h1>Word-Up</h1>
       <p>This is a basic clone of a famous word game. Type your guess in the box, hit the Submit button, or hit Enter on the keyboard.</p>
-      <p>Note: There's a bug with the first letter, where it might show as a right letter in the wrong place. Sorry 'bout that!</p>
 
       @if(flash.get("success").isDefined){
-        <div class="success-animation" ></div>
-        <div class="winning-message">A winner is you!</div>
+        <p class="winning-message">Congratulations</p>
+        <p class="wordup-stats">The correct word was @minigameWordGameService.SelectedWord</p>
+        <p class="wordup-stats">Turns taken: @minigameWordGameService.guessedWordObjects.length turns</p>
+        <p class="wordup-stats">See you tomorrow, or play another game</p><br>
       }else{
       @for(word <- minigameWordGameService.guessedWordObjects) {
         <div class="wordup-word">
@@ -40,8 +41,8 @@
         </div>
       }
 
-        @if(minigameWordGameService.guessedWordObjects.length < 5) {
-          @for(_ <- 0 until (5 - minigameWordGameService.guessedWordObjects.length)) {
+        @if(minigameWordGameService.guessedWordObjects.length < 6) {
+          @for(_ <- 0 until (6 - minigameWordGameService.guessedWordObjects.length)) {
             <div class="wordup-word">
               <div class="wordup-character wordup-char-grey"></div>
               <div class="wordup-character wordup-char-grey"></div>
@@ -52,9 +53,40 @@
           }
         }
       }
+    @if(minigameWordGameService.inProgress) {
+      @defining({
+        minigameWordGameService.guessedWordObjects.flatMap { word =>
+          word.word.collect {
+            case char if char.status == 2 => char.character // Adjust condition as needed
+          }
+        }.toSet
+      }) { greyedOutCharacters =>
       
+      <div class="keyboard">
+        <div class="keyboard-row">
+          @for(char <- "QWERTYUIOP") {
+            <button class="keyboard-key @if(greyedOutCharacters.contains(char)) {greyed-out}" id="keyboard-button-@char" type="button">
+              @char
+            </button>
+          }
+        </div>
+        <div class="keyboard-row">
+          @for(char <- "ASDFGHJKL") {
+            <button class="keyboard-key @if(greyedOutCharacters.contains(char)) {greyed-out}" id="keyboard-button-@char" type="button">
+              @char
+            </button>
+          }
+        </div>
+        <div class="keyboard-row">
+          @for(char <- "ZXCVBNM") {
+            <button class="keyboard-key @if(greyedOutCharacters.contains(char)) {greyed-out}" id="keyboard-button-@char" type="button">
+              @char
+            </button>
+          }
+        </div>
+      </div>      
+      }
       <div>
-        @if(minigameWordGameService.inProgress) {
           @wordGameFormData("guess").hasErrors match {
             case true => {
               <dt><label for="guess" aria-placeholder="HELLO">Guess the five-letter word:*</label></dt>
@@ -68,7 +100,6 @@
           }
           <button type="submit">Submit</button>
         }
-      </div>
     }
     
     @if(!minigameWordGameService.inProgress) {

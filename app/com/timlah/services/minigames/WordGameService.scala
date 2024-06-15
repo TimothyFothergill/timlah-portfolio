@@ -8,11 +8,11 @@ class WordGameService {
     // eventually make sure these end up in their own separate file/service/something, or an api call from elsewhere...
     val words               : Seq[String]       = loadWords("resources/words.txt")
     val ListOfWords         : Seq[String]       = Seq("HELLO","PLAYS","GAMES","CODER","APPLE")
-    val NumberOfAttempts    : Int               = 5
+    val NumberOfAttempts    : Int               = 6
     var inProgress          : Boolean           = false
     var hasWon              : Boolean           = false
     var hasLost             : Boolean           = false
-    var attemptNumber       : Int               = 1
+    var attemptNumber       : Int               = 0
     var SelectedWord        : String            = ""
     var guessedWords        : Seq[String]       = Seq()
     var guessedWordObjects  : Seq[WordObject]   = Seq()
