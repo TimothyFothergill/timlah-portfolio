@@ -122,8 +122,8 @@
 
   function SetCookie(num) {
     const wordupCookieData = {
-      isComplete : true,
-      word       : "@minigameWordGameService.SelectedWord",
+      isComplete : @if(flash.get("success").isDefined){true}else{false},
+      word       : "@if(flash.get("success").isDefined){@minigameWordGameService.SelectedWord}else{UNFINISHEDGAME}",
       turnsTaken : num
     };
     SaveWordupDataToCookie(wordupCookieData);

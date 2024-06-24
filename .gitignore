@@ -16,3 +16,4 @@ conf/application.conf
 conf/blog-backup.md
 /RUNNING_PID
 run.sh
+run.ps1
