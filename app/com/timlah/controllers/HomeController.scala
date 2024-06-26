@@ -15,6 +15,10 @@ import scala.concurrent.{Await, ExecutionContext}
 import scala.language.postfixOps
 import java.lang.ProcessBuilder.Redirect
 
+import play.api.mvc.{Cookie, Request, Result}
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
 @Singleton
 class HomeController @Inject()(
   cc                        : MessagesControllerComponents,
@@ -137,10 +141,38 @@ class HomeController @Inject()(
     }
   }
 
+  def getCookieExpiry(cookie: Cookie): Option[ZonedDateTime] = {
+    cookie.maxAge.map { maxAge =>
+      ZonedDateTime.now().plusSeconds(maxAge)
+    }
+  }
+
+  def isCookieExpired(cookie: Cookie): Boolean = {
+    getCookieExpiry(cookie) match {
+      case Some(expiryTime) => {
+        if(expiryTime.isBefore(ZonedDateTime.now())){true}else{false}
+      }
+      case None => false
+    }
+  }
+
   def newWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
-    minigameWordGameService.reset()
-    minigameWordGameService.setupGame()
-    Redirect(routes.HomeController.currentWordGame())
+    val maybeCookie = request.cookies.get("wordupData")
+    if(maybeCookie.nonEmpty) {
+      if(isCookieExpired(maybeCookie.get)) {
+        println("Cookie expired")
+        minigameWordGameService.reset()
+        minigameWordGameService.setupGame()
+        Redirect(routes.HomeController.currentWordGame())
+      } else {
+        Redirect(routes.HomeController.currentWordGame())
+      }
+    } else {
+      println("No cookie found")
+      minigameWordGameService.reset()
+      minigameWordGameService.setupGame()
+      Redirect(routes.HomeController.currentWordGame())
+    }
   }
 
   def currentWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
@@ -155,7 +187,7 @@ class HomeController @Inject()(
         BadRequest(com.timlah.views.html.wordgame(formWithErrors, minigameWordGameService))
       },
       submittedData => {
-        val data = WordGameFormData(submittedData.guess)
+        val data = WordGameFormData(submittedData.guess.toUpperCase())
         if (minigameWordGameService.compareSubmission(data.guess)) {
           Redirect(routes.HomeController.currentWordGame()).flashing("success" -> "Great job!")
         } else {

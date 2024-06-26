@@ -133,7 +133,8 @@
     var midnight = new Date();
     midnight.setHours(23,59,59,0);
     const jsonData = JSON.stringify(data);
-    document.cookie = `wordupData=${jsonData}; path=/; expires=${midnight}`;
+    const encodedData = encodeURIComponent(jsonData);
+    document.cookie = `wordupData=${encodedData}; path=/; expires=${midnight}; SameSite=Lax`;
   }
 
   IsSuccessful();
