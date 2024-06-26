@@ -152,7 +152,7 @@ class HomeController @Inject()(
       case Some(expiryTime) => {
         if(expiryTime.isBefore(ZonedDateTime.now())){true}else{false}
       }
-      case None => false // If no expiry, consider it not expired (session cookie)
+      case None => false
     }
   }
 
