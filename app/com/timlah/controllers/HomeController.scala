@@ -158,21 +158,27 @@ class HomeController @Inject()(
 
   def newWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
     val maybeCookie = request.cookies.get("wordupData")
-    if(maybeCookie.nonEmpty) {
-      if(isCookieExpired(maybeCookie.get)) {
-        println("Cookie expired")
-        minigameWordGameService.reset()
-        minigameWordGameService.setupGame()
-        Redirect(routes.HomeController.currentWordGame())
-      } else {
-        Redirect(routes.HomeController.currentWordGame())
+    maybeCookie match {
+      case Some(cookie) => {
+        if(isCookieExpired(maybeCookie.get)) {
+          // cookie
+          Redirect(routes.HomeController.setupNewWordGame())
+        } else {
+          // cookie active
+          Redirect(routes.HomeController.currentWordGame())
+        }        
       }
-    } else {
-      println("No cookie found")
-      minigameWordGameService.reset()
-      minigameWordGameService.setupGame()
-      Redirect(routes.HomeController.currentWordGame())
+      case None => {
+        // no cookie found
+        Redirect(routes.HomeController.setupNewWordGame())
+      } 
     }
+  }
+
+  def setupNewWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
+    minigameWordGameService.reset()
+    minigameWordGameService.setupGame()
+    Redirect(routes.HomeController.currentWordGame())
   }
 
   def currentWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
