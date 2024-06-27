@@ -4,6 +4,8 @@
  * two arguments, a `String` for the title of the page and an `Html`
  * object to insert into the body of the page.
  *@
+@import com.timlah.components.potionseller.html.potionseller
+@import com.timlah.services.potionseller.PotionSellerService
 @(title: String, metadata: Option[Html] = None)(content: Html)
 
 <!DOCTYPE html>
@@ -90,6 +92,7 @@
             @* And here's where we render the `Html` object containing
             * the page content. *@
             @content
+            @potionseller(new PotionSellerService)
         </div>
         <br/><br/><br/>
     </main>

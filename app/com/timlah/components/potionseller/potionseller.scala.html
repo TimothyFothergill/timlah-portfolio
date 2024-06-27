@@ -1,0 +1,14 @@
+@import com.timlah.models.potionseller._
+@import com.timlah.services.potionseller.PotionSellerService
+@(potionSellerService: PotionSellerService)
+
+<link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/potionseller.css")">
+<div class="potion-seller-container">
+    <img src="@routes.Assets.versioned("images/potionseller/wednesdaydude.png")" class="potion-seller-peddler-image" height="128">
+    @defining(potionSellerService.brewNewPotion){ potion => 
+        Potion Seller wants to sell you a: @potion.potionType.asString @potion.name <img src="potion.png" class="potion-seller-potion" width="28px" height="28px"><br>
+        It has the following properties: <table><tr><th>Property</th><th>Description</th></tr>@for(property <- potion.properties) { <tr><td style="padding-right: 2.5em;">@property.propertyName</td> <td>@property.propertyDescription</td></tr> } </table>
+    }<br>
+    <button>Accept</button>
+    <button>Decline</button>    
+</div>
