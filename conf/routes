@@ -25,6 +25,7 @@ POST    /contact                    com.timlah.controllers.HomeController.contac
 # Minigame related endpoints
 
 GET     /word-up/new                com.timlah.controllers.HomeController.newWordGame()
+GET     /word-up/restart            com.timlah.controllers.HomeController.setupNewWordGame()
 GET     /word-up/                   com.timlah.controllers.HomeController.currentWordGame()
 POST    /word-up                    com.timlah.controllers.HomeController.continueWordGame()
 

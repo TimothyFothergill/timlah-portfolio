@@ -103,7 +103,7 @@
     }
     
     @if(!minigameWordGameService.inProgress) {
-      @helper.form(action = com.timlah.controllers.routes.HomeController.newWordGame(), 'method -> "GET") {
+      @helper.form(action = com.timlah.controllers.routes.HomeController.setupNewWordGame(), 'method -> "GET") {
         <input type="submit" value="New word" />
       }
     }
@@ -127,6 +127,11 @@
       turnsTaken : num
     };
     SaveWordupDataToCookie(wordupCookieData);
+  }
+
+  function SetStreakCookie() {
+    // TODO: Fully implement streak data
+    document.cookie = `wordupStreakData=1; path=/; SameSite=Lax`;
   }
 
   function SaveWordupDataToCookie(data) {
