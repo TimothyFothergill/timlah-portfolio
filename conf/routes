@@ -29,6 +29,10 @@ GET     /word-up/restart            com.timlah.controllers.HomeController.setupN
 GET     /word-up/                   com.timlah.controllers.HomeController.currentWordGame()
 POST    /word-up                    com.timlah.controllers.HomeController.continueWordGame()
 
+# Potion Seller endpoints
+
+POST    /potion/accept              com.timlah.controllers.potionseller.PotionSellerController.acceptPotion()
+POST    /potion/decline             com.timlah.controllers.potionseller.PotionSellerController.declinePotion()
 
 
 # Map static resources from the /public folder to the /assets URL path
