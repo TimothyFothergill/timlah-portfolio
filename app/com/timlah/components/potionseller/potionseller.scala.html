@@ -11,10 +11,10 @@
         Potion Seller wants to sell you a: @potion.potionType.asString @potion.name <img src="potion.png" class="potion-seller-potion" width="28px" height="28px"><br>
         It has the following properties: <table><tr><th>Property</th><th>Description</th></tr>@for(property <- potion.properties) { <tr><td style="padding-right: 2.5em;">@property.propertyName</td> <td>@property.propertyDescription</td></tr> } </table>
     }<br>
-    @helper.form(action = com.timlah.controllers.potionseller.routes.PotionSellerController.acceptPotion(), 'method -> "GET") {
+    @helper.form(action = com.timlah.controllers.potionseller.routes.PotionSellerController.acceptPotion(), 'method -> "POST") {
         <button>Accept</button>
     }
-    @helper.form(action = com.timlah.controllers.potionseller.routes.PotionSellerController.declinePotion(), 'method -> "GET") {
+    @helper.form(action = com.timlah.controllers.potionseller.routes.PotionSellerController.declinePotion(), 'method -> "POST") {
         <button>Decline</button>
     }
 </div>

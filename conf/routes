@@ -31,7 +31,9 @@ POST    /word-up                    com.timlah.controllers.HomeController.contin
 
 # Potion Seller endpoints
 
++ nocsrf
 POST    /potion/accept              com.timlah.controllers.potionseller.PotionSellerController.acceptPotion()
++ nocsrf
 POST    /potion/decline             com.timlah.controllers.potionseller.PotionSellerController.declinePotion()
 
 
