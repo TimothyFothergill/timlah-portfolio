@@ -31,10 +31,10 @@ POST    /word-up                    com.timlah.controllers.HomeController.contin
 
 # Potion Seller endpoints
 
-+ nocsrf
+<!-- + nocsrf
 POST    /potion/accept              com.timlah.controllers.potionseller.PotionSellerController.acceptPotion()
 + nocsrf
-POST    /potion/decline             com.timlah.controllers.potionseller.PotionSellerController.declinePotion()
+POST    /potion/decline             com.timlah.controllers.potionseller.PotionSellerController.declinePotion() -->
 
 
 # Map static resources from the /public folder to the /assets URL path
