@@ -7,7 +7,7 @@
 @main("Blog | Timlah's Techs", None) {
     @search()
     <div class="content" id="blogPosts">
-        <p>Blog Posts found: @blogCount</p>
+        <p id="blogCount">Blog Posts found: @blogCount</p>
         @blogPosts.reverse.zipWithIndex.map{case (post, i) =>
             <div>
                 <h1 id="blogTitle"><a class="blog-list-header" href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">@post.title</a></h1>
@@ -47,6 +47,21 @@
                     headers[i].style.display = "none";
                 }
             }
+            updatePostCount();
+        }
+
+        function updatePostCount() {
+            var blogCount, postArea, headerList, count;
+            blogCount = document.getElementById("blogCount");
+            postArea = document.getElementById("blogPosts");
+            headerList = postArea.getElementsByTagName('div');
+            count = 0;
+            for (i = 0; i < headerList.length; i++) {
+                if(headerList[i].style.display == "") {
+                    count++;
+                }
+            }
+            blogCount.innerText = "Blog Posts found: " + count.toString();
         }
     </script>    
 }
