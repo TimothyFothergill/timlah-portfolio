@@ -76,8 +76,8 @@ pre code {
 }
 
 .content {
-    margin-top: 10%;
-    margin-bottom: 10%;
+    margin-top: 7.5%;
+    margin-bottom: 7.5%;
 }
 
 .socials {
@@ -135,6 +135,10 @@ dt label {
     --bs-popover-header-bg: #3f0000;
     --bs-popover-body-color: #000000f2;
     --popover-header-bg:                 shade-color(#000000f2, 6%);
+}
+
+.text-faded {
+    color: #AAAAAA;
 }
 
 .gravatar-hovercard {
