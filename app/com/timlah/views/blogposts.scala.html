@@ -1,28 +1,52 @@
 @import com.timlah.models.BlogPost
 @import com.timlah.services.MarkupService
 @import scala.util.matching.Regex
+@import com.timlah.components.search.html.search
 @(blogPosts: Seq[BlogPost], blogCount: Int, markupService: MarkupService)(implicit flash: Flash)
 
 @main("Blog | Timlah's Techs", None) {
-    <div class="content">
-        <p class="text-muted">Blog Posts found: @blogCount</p>
+    @search()
+    <div class="content" id="blogPosts">
+        <p>Blog Posts found: @blogCount</p>
         @blogPosts.reverse.zipWithIndex.map{case (post, i) =>
-            <h1><a class="blog-list-header" href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">@post.title</a></h1>
-            Written by: <strong>@post.author.username</strong> | Written on: @post.date.day @post.date.monthStr @post.date.year | Estimated reading time:
-        @if(Math.ceil("\\s".r.findAllIn(post.content).length/200).toInt < 1) {
-            less than a minute
-        }else if(Math.ceil("\\s".r.findAllIn(post.content).length/200).toInt == 1){
-            1 minute
-        }else{
-        @Math.ceil("\\s".r.findAllIn(post.content).length/200).toInt minutes
-        }<hr>
-            <p>@Html(markupService.markdownStringToHTML(post.content.take(250)) match {
+            <div>
+                <h1 id="blogTitle"><a class="blog-list-header" href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">@post.title</a></h1>
+                Written by: <strong>@post.author.username</strong> | Written on: @post.date.day @post.date.monthStr @post.date.year | Estimated reading time:
+                @if(Math.ceil("\\s".r.findAllIn(post.content).length/180).toInt < 1) {
+                    less than a minute
+                }else if(Math.ceil("\\s".r.findAllIn(post.content).length/180).toInt == 1){
+                    1 minute
+                }else{
+                    @Math.ceil("\\s".r.findAllIn(post.content).length/180).toInt minutes
+                }<hr>
+                <p>@Html(markupService.markdownStringToHTML(post.content.take(250)) match {
                     case Left(_) => "Unable to render content at this time"
-                    case Right(s) => s
+                    case Right(s) => { s.take(s.lastIndexOf(" ")) }
                 }) ...
-                <a href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">Read more...</a>
-            </p>
-        <br/>
+                    <a href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">Read more...</a>
+                </p>
+                <br/>
+            </div>
         }
     </div>
+    <script>
+        function search() {
+            var input, filter, posts, headers, a, i, search;
+            input = document.getElementById('input');
+            filter = input.value.toUpperCase();
+            posts = document.getElementById("blogPosts");
+            headers = posts.getElementsByTagName('div');
+    
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < headers.length; i++) {
+                a = headers[i].getElementsByTagName("a")[0];
+                search = a.textContent || a.innerText;
+                if (search.toUpperCase().indexOf(filter) > -1) {
+                    headers[i].style.display = "";
+                } else {
+                    headers[i].style.display = "none";
+                }
+            }
+        }
+    </script>    
 }
