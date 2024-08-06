@@ -29,6 +29,9 @@ GET     /word-up/restart            com.timlah.controllers.HomeController.setupN
 GET     /word-up/                   com.timlah.controllers.HomeController.currentWordGame()
 POST    /word-up                    com.timlah.controllers.HomeController.continueWordGame()
 
+# Galleries
+
+GET     /gallery/kitacon-2024     com.timlah.controllers.GalleryController.kitacon2024()
 
 
 # Map static resources from the /public folder to the /assets URL path

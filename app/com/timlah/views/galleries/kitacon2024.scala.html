@@ -1,0 +1,12 @@
+@import com.timlah.views.html.main
+@import com.timlah.components.gallery.html.gallery
+@import com.timlah.models.components.ExternalImage
+
+@(images: Seq[ExternalImage] = Seq())
+@main("Kitacon 2024 | Timlah's Techs", None) {
+    <div class="content">
+        blah blah blah @@kitacon 2024
+
+        @gallery(images)
+    </div>
+}

@@ -1,0 +1,14 @@
+@import com.timlah.models.components.ExternalImage
+
+@(images: Seq[ExternalImage], maxImagesPerRow: Int = 4, maxColumns: Int = 10)
+
+<div class="gallery">
+    @for((image, id) <- images.zipWithIndex) {
+        <div class="gallery-item">
+            <a href="@image.url">
+                <img src="@image.url" alt="@image.alt" aria-label="gallery-image-@id" height="100px" width="100px">
+                <p>@image.title</p>
+            </a>
+        </div>
+    }
+</div>
