@@ -1,0 +1,12 @@
+.gallery {
+    display:flex; 
+    align-items: flex-start;    
+}
+
+.gallery-item {
+    flex: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    margin: 2.5em;
+}

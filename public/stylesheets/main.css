@@ -8,6 +8,20 @@ main > .container {
     padding: 60px 15px 0;
 }
 
+@keyframes bgpan {
+    0% {
+        transform: 0% 0%;
+    }
+    100% {
+        transform: 100% 0%;
+    }    
+}
+
+body {
+    background-image: url("/assets/images/background128.png");
+    animation: bgpan 180s linear infinite;
+}
+
 .nav-link {
     color: orange;
     font-size: 20px;
@@ -76,6 +90,7 @@ pre code {
 }
 
 .content {
+    background-color: #212529;
     margin-top: 7.5%;
     margin-bottom: 7.5%;
 }
