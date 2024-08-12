@@ -1,0 +1,14 @@
+.gallery {
+    display:flex; 
+    flex-wrap: wrap;
+    align-items: flex-start;    
+    justify-content: space-around;
+}
+
+.gallery-item {
+    box-sizing: border-box;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    margin: 2.5em;
+}

@@ -1,0 +1,31 @@
+@import com.timlah.models.components.ExternalImage
+
+@(images: Seq[ExternalImage], maxImagesPerRow: Int = 3, maxColumns: Int = 30, height: Int = 100, width: Int = 100)
+
+<link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/components/gallery/gallery.css")">
+<div class="gallery">
+    @if(images.length > maxColumns * maxImagesPerRow) { 
+        @for((image,id) <- images.take(maxColumns * maxImagesPerRow).zipWithIndex) {
+            <div class="gallery-item" style="flex: 0 1 calc(@(width/(maxImagesPerRow + 1).toDouble) - 2.5em");>
+                <a href="@image.url">
+                    <img src="@image.url" alt="@image.alt" aria-label="gallery-image-@id" height="@{height}px" width="@{width}px">
+                    <p>@image.title</p>
+                </a>
+            </div>
+        @if((id + 1) % maxImagesPerRow == 0) {
+            <br>
+        }
+    }} else {
+        @for((image,id) <- images.zipWithIndex) {
+            <div class="gallery-item" style="flex: 0 1 calc(@(width/(maxImagesPerRow + 1).toDouble)% - 2.5em");>
+                <p>@image.title</p>
+                <a href="@image.url">
+                    <img src="@image.url" title="@image.alt" alt="@image.alt" aria-label="gallery-image-@id" height="@{height}px" width="@{width}px">
+                    </a>
+            </div>
+        @if((id + 1) % maxImagesPerRow == 0) {
+            <br>
+        }
+    }
+}
+</div>
