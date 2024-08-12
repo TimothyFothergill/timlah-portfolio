@@ -21,12 +21,12 @@ class GalleryController @Inject()(
 
     def kitacon2024() = Action { implicit request: Request[AnyContent] =>
       Ok(com.timlah.views.html.galleries.kitacon2024(Seq(
-        ExternalImage("A Smithing Station in Skell's Quest", "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png"),
-        ExternalImage("A Smithing Station in Skell's Quest", "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png"),
-        ExternalImage("A Smithing Station in Skell's Quest", "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png"),
-        ExternalImage("A Smithing Station in Skell's Quest", "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png"),
-        ExternalImage("A Smithing Station in Skell's Quest", "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png"),
-        ExternalImage("A Smithing Station in Skell's Quest", "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png")
+        // ExternalImage(None, "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png"),
+        // ExternalImage(Some("A Smithing Station in Skell's Quest"), "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png"),
+        // ExternalImage(Some("A Smithing Station in Skell's Quest"), "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png"),
+        // ExternalImage(Some("A Smithing Station in Skell's Quest"), "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png"),
+        // ExternalImage(Some("A Smithing Station in Skell's Quest"), "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png"),
+        // ExternalImage(Some("A Smithing Station in Skell's Quest"), "Smithing Station", "https://i.ibb.co/r353sPm/Smithing-Station.png")
       )))
     }
 }

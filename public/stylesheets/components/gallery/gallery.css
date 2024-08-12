@@ -1,10 +1,12 @@
 .gallery {
     display:flex; 
+    flex-wrap: wrap;
     align-items: flex-start;    
+    justify-content: space-around;
 }
 
 .gallery-item {
-    flex: flex;
+    box-sizing: border-box;
     justify-content: center;
     align-content: center;
     text-align: center;
