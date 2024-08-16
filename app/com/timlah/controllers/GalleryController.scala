@@ -77,7 +77,7 @@ class GalleryController @Inject()(
         ExternalImage(Some("Gyarados prop that shoots water"), "Awesome Pokémon Gyarados prop", "https://i.ibb.co/yB3K0hn/kitacon-2024-022.jpg"),
         ExternalImage(None, "Obligatory game of Magic: the Gathering", "https://i.ibb.co/ZYhPmCF/kitacon-2024-023.jpg"),
         ExternalImage(None, "Phil with a lantern", "https://i.ibb.co/D8ns1tR/kitacon-2024-024.jpg"),
-        ExternalImage(None, "My fiancé with glowstick ears", "https://i.ibb.co/PxKNGzQ/kitacon-2024-025.jpg")
+        ExternalImage(None, "My fiancé, Jake, with glowstick ears", "https://i.ibb.co/PxKNGzQ/kitacon-2024-025.jpg")
       )))
     }
 }
