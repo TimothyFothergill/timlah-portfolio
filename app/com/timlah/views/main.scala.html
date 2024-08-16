@@ -156,9 +156,11 @@
         });
     </script>
     <script>
-    setTimeout(() => {
-        document.getElementById("flashed-messages").style.display = "none";
-    }, 6000);
+    if(document.getElementById("flashed-messages")) {
+        setTimeout(() => {
+            document.getElementById("flashed-messages").style.display = "none";
+        }, 6000);
+    }
     </script>
     </body>
 </html>
