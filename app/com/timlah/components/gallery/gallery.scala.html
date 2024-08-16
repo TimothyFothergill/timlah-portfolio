@@ -1,16 +1,29 @@
 @import com.timlah.models.components.ExternalImage
 
-@(images: Seq[ExternalImage], maxImagesPerRow: Int = 3, maxColumns: Int = 30, height: Int = 100, width: Int = 100)
+@(images: Seq[ExternalImage], maxImagesPerRow: Int = 3, maxColumns: Int = 30, height: Int = 75, width: Int = 100)
 
 <link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/components/gallery/gallery.css")">
+<div class="gallery-selected" id="gallerySelectedDiv">
+    <p id="gallerySelectedTitle">@Html(images.head.title)</p>
+    <a href="@images.head.url" id="gallerySelectedUrl">
+        <img src="@images.head.url" alt="@images.head.alt" aria-label="gallery-image-0" id="gallerySelectedImage">
+    </a>
+</div>
+<hr>
+Select an image below for a larger view
+<hr>
 <div class="gallery">
     @if(images.length > maxColumns * maxImagesPerRow) { 
         @for((image,id) <- images.take(maxColumns * maxImagesPerRow).zipWithIndex) {
             <div class="gallery-item" style="flex: 0 1 calc(@(width/(maxImagesPerRow + 1).toDouble) - 2.5em");>
-                <a href="@image.url">
-                    <img src="@image.url" alt="@image.alt" aria-label="gallery-image-@id" height="@{height}px" width="@{width}px">
-                    <p>@image.title</p>
+                <a onclick="UpdateSelectedImage('@id', '@Html(image.alt)', '@Html(image.title)', '@image.url')" href="#">
+                    <img src="@image.url" title="@image.alt" alt="@image.alt" aria-label="gallery-image-@id" @if(image.landscape){width="@{width}px"}else{height="@{height}px"}>
                 </a>
+                @image.linkContent match { 
+                    case Some(content) => {<a href="@content"><p class="gallery-title">@Html(image.title)</p></a>}
+                    case None => {<p class="gallery-title">@Html(image.title)</p>}
+                }
+                <br>
             </div>
         @if((id + 1) % maxImagesPerRow == 0) {
             <br>
@@ -18,10 +31,13 @@
     }} else {
         @for((image,id) <- images.zipWithIndex) {
             <div class="gallery-item" style="flex: 0 1 calc(@(width/(maxImagesPerRow + 1).toDouble)% - 2.5em");>
-                <p>@image.title</p>
-                <a href="@image.url">
-                    <img src="@image.url" title="@image.alt" alt="@image.alt" aria-label="gallery-image-@id" height="@{height}px" width="@{width}px">
-                    </a>
+                <a onclick="UpdateSelectedImage('@id', '@Html(image.alt)', '@Html(image.title)', '@image.url')" href="#">
+                    <img src="@image.url" title="@image.alt" alt="@image.alt" aria-label="gallery-image-@id" @if(image.landscape){width="@{width}px"}else{height="@{height}px"}>
+                </a>
+                @image.linkContent match { 
+                    case Some(content) => {<a href="@content"><p class="gallery-title">@Html(image.title)</p></a>}
+                    case None => {<p class="gallery-title">@Html(image.title)</p>}
+                }
             </div>
         @if((id + 1) % maxImagesPerRow == 0) {
             <br>
@@ -29,3 +45,32 @@
     }
 }
 </div>
+
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var images = [
+            @for((image, id) <- images.zipWithIndex) {
+                {
+                    id: "@id",
+                    title: "@image.linkContent match { 
+                        case None => {Html(image.title)}
+                        case Some(content) => {<a href='@content'>@Html(image.title)</a>}
+                    }",
+                    url: "@image.url",
+                    alt: "@Html(image.alt)",
+                },
+            }
+        ];
+    });
+    function UpdateSelectedImage(id, alt, title, url) {
+        var selectedTitle = document.getElementById("gallerySelectedTitle");
+        var selectedImage = document.getElementById("gallerySelectedImage");
+        var selectedUrl = document.getElementById("gallerySelectedUrl");
+        
+        selectedTitle.innerHTML = title;
+        selectedImage.src = url;
+        selectedImage.alt = alt;
+        selectedUrl.href = url;
+    }
+</script>

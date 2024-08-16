@@ -12,3 +12,17 @@
     text-align: center;
     margin: 2.5em;
 }
+
+.gallery-selected {
+    height: 50%;
+    width: 50%;
+    box-sizing: border-box;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    margin: auto;
+}
+
+.gallery-title {
+    margin-top: 1em;
+}
