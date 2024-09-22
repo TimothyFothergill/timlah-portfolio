@@ -1,0 +1,17 @@
+@import com.timlah.models.components.button._
+
+@(params: Button)
+@import params._
+<button 
+    class="standard-component-button @additionalClasses" 
+    @if(ariaLabel != ""){aria-label="@ariaLabel"} 
+    @url match {
+        case Some(link) => {href="@link"}
+        case None => {}
+    }
+>
+@if(icon.nonEmpty) {
+    @icon.get.icon.get.asIcon
+}
+    @text
+</button>
