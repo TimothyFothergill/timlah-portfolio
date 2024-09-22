@@ -1,0 +1,115 @@
+@import com.timlah.components.button.html.StandardButton
+@import com.timlah.components.header.html.header
+@import com.timlah.models.components.button._
+@import com.timlah.models.components.header.Header
+
+@()
+@main("Timlah's tests") {
+    <div class="content">
+        <p> Welcome to my test page.</p>
+        <p> Most people wouldn't show a page like this - and in fact this isn't linked to on the site (yet), but you've found your way here 
+            because I see no issue with showing works in progress.
+
+            I am working on a design system for myself, so I don't need to manually create elements. Over time, you can expect a variety of
+            components to appear here.
+        </p>
+        
+        <h2> Header elements </h2>
+        @header(Header(
+            text = "Header no headerLevel"
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "Header no headerLevel"
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 1",
+            headerLevel = Some(1)
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "headerLevel 1",
+                headerLevel = Some(1)
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 2",
+            headerLevel = Some(2)
+        ))
+        <code lang="scala">
+            <pre>
+                @@header(Header(
+                    text = "headerLevel 2",
+                    headerLevel = Some(2)
+                ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 3",
+            headerLevel = Some(3)
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "headerLevel 3",
+                headerLevel = Some(3)
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 4",
+            headerLevel = Some(4)
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "headerLevel 4",
+                headerLevel = Some(4)
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 5",
+            headerLevel = Some(5)
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "headerLevel 5",
+                headerLevel = Some(5)
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 6",
+            headerLevel = Some(6)
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "headerLevel 6",
+                headerLevel = Some(6)
+            ))
+            </pre>
+        </code>
+
+        <h2> Button elements </h2>
+
+        @StandardButton(Button())
+        <p>Default button state</p>
+        @StandardButton(
+            Button(
+                ariaLabel = "test",
+                additionalClasses = " my-class",
+                text = "Button",
+                url = Some("https://www.google.com")
+            )
+        )
+        <p>Basic button</p>
+    </div>
+}

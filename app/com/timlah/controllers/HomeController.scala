@@ -18,6 +18,8 @@ import java.lang.ProcessBuilder.Redirect
 import play.api.mvc.{Cookie, Request, Result}
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import com.timlah.models.components.button.Button
+import com.timlah.components.button.html.StandardButton
 
 @Singleton
 class HomeController @Inject()(
@@ -47,6 +49,11 @@ class HomeController @Inject()(
         val boundForm = ContactData.contactForm
         val enquiryTypes = EnquiryType.values
         Ok(com.timlah.views.html.contact(boundForm, enquiryTypes.map(_.asString)))
+      }
+    }
+
+    def test() = Action { implicit request: Request[AnyContent] => {
+        Ok(com.timlah.views.html.test())
       }
     }
 
