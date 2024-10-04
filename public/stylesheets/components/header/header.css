@@ -1,0 +1,10 @@
+.anchor {
+    color: white !important;
+}
+.anchor:hover::after {
+    text-decoration: none;
+    content: " 🔗";
+    font-size: 14px;
+    display: inline-block;
+    vertical-align:top;
+}

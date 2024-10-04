@@ -1,0 +1,19 @@
+@import com.timlah.components.header.html.header
+@import com.timlah.models.components.header._
+@import com.timlah.models.components.contents._
+
+@(params: Contents)
+@import params._
+<link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/components/contents/contents.css")">
+<aside class="contents @additionalClasses">
+    @header(Header(
+        text = text,
+        headerLevel = Some(3)
+    ))
+    <ul>
+    @for(item <- contentsItems){
+        <li class="contents-item">
+            <a href="#@item">@item</a></li>
+    }
+    </ul>
+</aside>

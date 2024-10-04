@@ -2,26 +2,9 @@
 
 @(params: Header)
 @import params._
-@headerLevel match {
-    case Some(1) => {
-        <h1 class="@additionalClasses">@text</h1>
-    }
-    case Some(2) => {
-        <h2 class="@additionalClasses">@text</h2>
-    }
-    case Some(3) => {
-        <h3 class="@additionalClasses">@text</h3>
-    }
-    case Some(4) => {
-        <h4 class="@additionalClasses">@text</h4>
-    }
-    case Some(5) => {
-        <h5 class="@additionalClasses">@text</h5>
-    }
-    case Some(6) => {
-        <h6 class="@additionalClasses">@text</h6>
-    }
-    case _ => {
-        <h1 class="@additionalClasses">@text</h1>
-    }
-}
+<link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/components/header/header.css")">
+    <h@headerLevel.getOrElse("1") class="@additionalClasses">
+    @if(href.nonEmpty) {
+        <a @if(anchor){class="anchor"} href="@href.get">@text</a>
+    }else{@text}
+    </h@headerLevel.getOrElse("1")>
