@@ -10,11 +10,15 @@ main > .container {
 
 @keyframes bgpan {
     0% {
-        transform: 0% 0%;
+        background-position: 0% 0%;
     }
     100% {
-        transform: 100% 0%;
+        background-position: 100% 0%;
     }    
+}
+
+.bg-dark {
+    --bs-bg-opacity: 0.95 !important;
 }
 
 body {
@@ -28,7 +32,7 @@ body {
 }
 
 .footer{
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.95);
     color: #ffffff;
     text-align: center;
     padding-top:1.5rem!important;
@@ -90,7 +94,7 @@ pre code {
 }
 
 .content {
-    background-color: #212529;
+    background-color: rgba(33,37,41,0.95); /* #212529 */
     margin-top: 7.5%;
     margin-bottom: 7.5%;
 }
