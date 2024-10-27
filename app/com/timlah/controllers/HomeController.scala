@@ -52,11 +52,6 @@ class HomeController @Inject()(
       }
     }
 
-    def test() = Action { implicit request: Request[AnyContent] => {
-        Ok(com.timlah.views.html.test())
-      }
-    }
-
     def latestBlog(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
       val getFutureBlogPost = repository.getLatestBlogPost
       val futureSlug = Await.result(getFutureBlogPost.map(i => i.slug), 3 seconds)

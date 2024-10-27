@@ -1,0 +1,149 @@
+@import com.timlah.views.html.main
+@import com.timlah.components.button.html.StandardButton
+@import com.timlah.components.header.html.header
+@import com.timlah.components.contents.html.ContentsArea
+@import com.timlah.models.components.button._
+@import com.timlah.models.components.header.Header
+@import com.timlah.models.components.contents._
+
+@()
+@main("Design System | Timlah's Techs") {
+    <div class="content">
+        <p> Welcome to my Design System page.</p>
+        <p> Most people wouldn't show a page like this - and in fact this isn't linked to on the site (yet), but you've found your way here 
+            because I see no issue with showing works in progress.
+
+            I am working on a design system for myself, so I don't need to manually create elements. Over time, you can expect a variety of
+            components to appear here.
+        </p>
+        <h2> Header elements </h2>
+        Headers have a required field of text, as with no text there is no header!
+        @header(Header(
+            text = "No headerLevel"
+        ))
+        <p>This is equivalent to Header Level 1, but with less css classes to allow freedom of customisation.</p>
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "Header no headerLevel"
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 1",
+            headerLevel = Some(1)
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "headerLevel 1",
+                headerLevel = Some(1)
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 2",
+            headerLevel = Some(2)
+        ))
+        <code lang="scala">
+            <pre>
+                @@header(Header(
+                    text = "headerLevel 2",
+                    headerLevel = Some(2)
+                ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 3",
+            headerLevel = Some(3)
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "headerLevel 3",
+                headerLevel = Some(3)
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 4",
+            headerLevel = Some(4)
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "headerLevel 4",
+                headerLevel = Some(4)
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 5",
+            headerLevel = Some(5)
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "headerLevel 5",
+                headerLevel = Some(5)
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "headerLevel 6",
+            headerLevel = Some(6)
+        ))
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "headerLevel 6",
+                headerLevel = Some(6)
+            ))
+            </pre>
+        </code>
+        @header(Header(
+            text = "Header with additionalClasses",
+            additionalClasses = "pink-background background-fit-text round-corners",
+            headerLevel = Some(4)
+        ))
+        <p>This is equivalent to Header Level 1, but with less css classes to allow freedom of customisation.</p>
+        <code lang="scala">
+            <pre>
+            @@header(Header(
+                text = "Header with additionalClasses",
+                additionalClasses = "pink-background background-fit-text round-corners",
+                headerLevel = Some(4)
+            ))
+            </pre>
+        </code>
+        <p>Header with all options being set. additionalClasses and headerLevels set with text</p>
+        <h2> Button elements </h2>
+
+            @StandardButton(Button())
+            <p>Default button state</p>
+            @StandardButton(
+                Button(
+                    ariaLabel = "test",
+                    additionalClasses = " my-class",
+                    text = "Button",
+                    url = Some("https://www.google.com")
+                )
+            )
+            <p>Basic button</p>
+        </section>
+        <br>        <br>        <br>        <br>        <br>        <br>
+        <section id="contents" data-title="contents">
+            <h2><a href="#contents"> Contents elements </a></h2>
+                @ContentsArea(
+                    Contents(
+                        contentsItems = Seq(
+                            "headers",
+                            "buttons",
+                            "contents"
+                        ),
+                        text = "Content with Contents"
+                    )
+                )
+        </section>
+    </div>
+}
