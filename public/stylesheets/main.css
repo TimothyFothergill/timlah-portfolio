@@ -26,6 +26,11 @@ body {
     animation: bgpan 180s linear infinite;
 }
 
+.navbar {
+    border-color: black;
+    border-style: solid;
+}
+
 .nav-link {
     color: orange;
     font-size: 20px;
@@ -97,6 +102,10 @@ pre code {
     background-color: rgba(33,37,41,0.95); /* #212529 */
     margin-top: 7.5%;
     margin-bottom: 7.5%;
+    padding: 1.5em;
+    border-radius: 0.25em;
+    border-color: black;
+    border-style: solid;
 }
 
 .socials {
