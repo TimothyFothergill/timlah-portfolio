@@ -6,7 +6,7 @@
 @(latest: BlogPost, blogContent: String, metaTags: Option[Html])(implicit flash: Flash, ec: ExecutionContext)
 
 @main(latest.title + " | Timlah's Techs", metaTags) {
-    <div class="content">
+    <div class="content shadows">
         <h1>@latest.title</h1>
         <span style="display:inline-block;">
             @hovercard("timlah@timlah.com")

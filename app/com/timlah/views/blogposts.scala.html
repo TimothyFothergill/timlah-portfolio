@@ -6,7 +6,7 @@
 
 @main("Blog | Timlah's Techs", None) {
     @search()
-    <div class="content" id="blogPosts">
+    <div class="content shadows" id="blogPosts">
         <p id="blogCount">Blog Posts found: @blogCount</p>
         @blogPosts.reverse.zipWithIndex.map{case (post, i) =>
             <div>
