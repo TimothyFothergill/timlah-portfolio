@@ -4,14 +4,16 @@
 @import params._
 <button 
     class="standard-component-button @additionalClasses" 
+    @if(id.nonEmpty){id="@id"}
     @if(ariaLabel != ""){aria-label="@ariaLabel"} 
     @url match {
         case Some(link) => {href="@link"}
         case None => {}
     }
+    @if(jsScript.nonEmpty){onClick="@jsScript"}
 >
 @if(icon.nonEmpty) {
-    @icon.get.icon.get.asIcon
+    @icon.get.asIcon
 }
     @text
 </button>

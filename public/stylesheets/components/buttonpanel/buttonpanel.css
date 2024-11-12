@@ -1,0 +1,25 @@
+.buttonpanel {
+    background-color: rgba(33,37,41,0.95); /* #212529 */
+    width: fit-content;
+    padding: 1.5em;
+    border-radius: 0.25em;
+    border-color: black;
+    border-style: solid;
+}
+
+.panel-right {
+    float: right;
+}
+
+.panel-left {
+    float: left;
+}
+
+.animation-control-button {
+    background: transparent;
+    border: none !important;
+    font-size:0;
+    color: #fff;
+    height:50px;
+    width:50px;
+}
