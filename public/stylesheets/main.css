@@ -23,6 +23,9 @@ main > .container {
 
 body {
     background-image: url("/assets/images/background128.png");
+}
+
+.animate-background {
     animation: bgpan 180s linear infinite;
 }
 

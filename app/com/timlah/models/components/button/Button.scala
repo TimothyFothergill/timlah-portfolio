@@ -3,9 +3,11 @@ package com.timlah.models.components.button
 case class Button(
     ariaLabel: String = "",
     additionalClasses: String = "",
-    icon: Option[ButtonIcon] = None,
+    icon: Option[Icon] = None,
+    id: String = "",
+    jsScript: String = "",
     text: String = "",
-    url: Option[String] = Some("#")
+    url: Option[String] = Some("#"),
 )
 
 object Button {

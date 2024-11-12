@@ -7,6 +7,14 @@ function addResponsiveClass() {
     }
 }
 
+function pauseBackgroundAnimation() {
+    document.body.classList.remove("animate-background")
+}
+
+function playBackgroundAnimation() {
+    document.body.classList.add("animate-background");
+}
+
 function randomMessage() {
     var x = document.getElementById("index-random-sequence");
     var messages = [

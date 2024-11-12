@@ -4,7 +4,10 @@
  * two arguments, a `String` for the title of the page and an `Html`
  * object to insert into the body of the page.
  *@
-@(title: String, metadata: Option[Html] = None)(content: Html)
+ @import com.timlah.components.buttonpanel.html.buttonPanel
+ @import com.timlah.models.components.buttonpanel.ButtonPanel
+
+ @(title: String, metadata: Option[Html] = None)(content: Html)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,6 +91,7 @@
         <div class="outside-div"></div>
     </nav>
     </header>
+    @buttonPanel(ButtonPanel.indexAnimationControls)
     <!-- Main body -->
     <main class="flex-shrink-0">
         <div class="container">
