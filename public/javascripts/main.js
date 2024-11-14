@@ -8,11 +8,13 @@ function addResponsiveClass() {
 }
 
 function pauseBackgroundAnimation() {
-    document.body.classList.remove("animate-background")
+    document.body.classList.remove("animate-background");
+    document.cookie = 'playBackground=; Max-Age=0; path=/; domain=' + location.hostname
 }
 
 function playBackgroundAnimation() {
     document.body.classList.add("animate-background");
+    document.cookie = `playBackground=true; path=/`;
 }
 
 function randomMessage() {
@@ -57,3 +59,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
+if(document.cookie.includes('playBackground')) {
+    document.body.classList.add("animate-background");
+}
