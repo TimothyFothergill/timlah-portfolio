@@ -111,6 +111,16 @@ pre code {
     border-style: solid;
 }
 
+.dropdown-menu {
+    border-radius: 0.25em !important;
+    border-color: black !important;
+    border-style: solid !important;
+}
+
+.menu-item-padding {
+    padding: 0.5em;
+}
+
 .shadows {
     gap: 32px;
     box-shadow:
