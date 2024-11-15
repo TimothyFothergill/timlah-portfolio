@@ -62,3 +62,28 @@ document.addEventListener('click', function(event) {
 if(document.cookie.includes('playBackground')) {
     document.body.classList.add("animate-background");
 }
+
+function saveBackgroundAnimationFrame() {
+    if(document.cookie.includes('playBackground')) {
+        const animatedElement = document.querySelector('body');
+        const animation = animatedElement.getAnimations()[0];
+        if (animation) {
+            const progress = (animation.currentTime / animation.effect.getComputedTiming().duration) || 0;
+            localStorage.setItem('animationProgress', progress);
+        }
+    }
+}
+
+function restoreBackgroundAnimationFrame() {
+    const progress = parseFloat(localStorage.getItem('animationProgress')) || 0;
+    const animatedElement = document.querySelector('body');
+    requestAnimationFrame(() => {
+      const animation = animatedElement.getAnimations()[0];
+      if (animation) {
+        animation.currentTime = progress * animation.effect.getComputedTiming().duration;
+      }
+    });
+  }
+
+window.addEventListener('beforeunload', saveBackgroundAnimationFrame);
+document.addEventListener('DOMContentLoaded', restoreBackgroundAnimationFrame);
