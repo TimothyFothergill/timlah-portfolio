@@ -1,0 +1,20 @@
+{
+  "name": "timlah-portfolio",
+  "version": "1.0.0",
+  "description": "A simple portfolio website, designed to be efficient and clean. Features of the website include, but not limited to:",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "axe-core": "^4.10.2",
+    "playwright": "^1.50.1"
+  }
+}
