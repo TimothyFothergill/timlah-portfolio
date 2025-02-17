@@ -115,6 +115,7 @@
         </script>
         <div class="container">
             <img class="kofi-small" alt="Support Timlah on ko-fi" src="@routes.Assets.versioned("images/branding/ko-fi/kofi_button_blue.webp")" />
+            <a href="https://ko-fi.com/timlah" class="sr-only sr-only-focusable" aria-label="Donate to me via Ko-Fi">Donate</a>
             <span>Timlah's Techs ©2022-2025</span>
             <div class="socials">
                 <a href="https://github.com/TimothyFothergill" aria-label="Timlah's GitHub Account">
@@ -155,9 +156,13 @@
             'type': 'floating-chat',
             'floating-chat.cssId': 'kofiWidget',
             'floating-chat.donateButton.text': 'Coffee Fund',
-            'floating-chat.donateButton.background-color': '#d9534f',
+            'floating-chat.donateButton.background-color': '#000',
             'floating-chat.donateButton.text-color': '#fff'
         });
+    </script>
+    <script>
+        document.getElementById("kofi-wo-containerkofiWidget").setAttribute("title","Ko-fi Widget");
+        document.getElementById("kofi-wo-containerkofiWidget").setAttribute("aria-hidden","true");
     </script>
     <script>
     if(document.getElementById("flashed-messages")) {

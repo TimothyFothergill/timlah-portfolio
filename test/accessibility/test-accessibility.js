@@ -1,5 +1,6 @@
 const { chromium } = require('playwright');
 const axeSource = require('axe-core').source;
+const fs = require('fs');
 
 (async () => {
   const endpoints = [
