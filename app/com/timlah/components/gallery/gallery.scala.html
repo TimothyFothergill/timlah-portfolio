@@ -6,7 +6,7 @@
 <div class="gallery-selected" id="gallerySelectedDiv">
     <p id="gallerySelectedTitle">@Html(images.head.title)</p>
     <a href="@images.head.url" id="gallerySelectedUrl">
-        <img src="@images.head.url" alt="@images.head.alt" aria-label="gallery-image-0" id="gallerySelectedImage">
+        <img src="@images.head.url" @if(images.head.alt.nonEmpty){role="img" alt="@images.head.alt"}else{aria-label="Currently selected gallery image"} id="gallerySelectedImage">
     </a>
 </div>
 <hr>
@@ -17,7 +17,7 @@ Select an image below for a larger view
         @for((image,id) <- images.take(maxColumns * maxImagesPerRow).zipWithIndex) {
             <div class="gallery-item" style="flex: 0 1 calc(@(width/(maxImagesPerRow + 1).toDouble) - 2.5em");>
                 <a onclick="UpdateSelectedImage('@id', '@Html(image.alt)', '@Html(image.title)', '@image.url')" href="#">
-                    <img src="@image.url" title="@image.alt" alt="@image.alt" aria-label="gallery-image-@id" @if(image.landscape){width="@{width}px"}else{height="@{height}px"}>
+                    <img src="@image.url" @if(image.alt.nonEmpty){alt="@image.alt"}else{aria-label="Image @id"} @if(image.landscape){width="@{width}px"}else{height="@{height}px"}>
                 </a>
                 @image.linkContent match { 
                     case Some(content) => {<a href="@content"><p class="gallery-title">@Html(image.title)</p></a>}
@@ -32,7 +32,7 @@ Select an image below for a larger view
         @for((image,id) <- images.zipWithIndex) {
             <div class="gallery-item" style="flex: 0 1 calc(@(width/(maxImagesPerRow + 1).toDouble)% - 2.5em");>
                 <a onclick="UpdateSelectedImage('@id', '@Html(image.alt)', '@Html(image.title)', '@image.url')" href="#">
-                    <img src="@image.url" title="@image.alt" alt="@image.alt" aria-label="gallery-image-@id" @if(image.landscape){width="@{width}px"}else{height="@{height}px"}>
+                    <img src="@image.url" @if(image.alt.nonEmpty){alt="@image.alt"}else{aria-label="Image @id"} @if(image.landscape){width="@{width}px"}else{height="@{height}px"}>
                 </a>
                 @image.linkContent match { 
                     case Some(content) => {<a href="@content"><p class="gallery-title">@Html(image.title)</p></a>}

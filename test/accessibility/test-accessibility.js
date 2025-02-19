@@ -10,7 +10,6 @@ const fs = require('fs');
     "/projects",
     "/blog",
     "/latest-blog",
-    "/latest-blog",
     "/word-up",
     "/gallery/kitacon-2024",
   ];

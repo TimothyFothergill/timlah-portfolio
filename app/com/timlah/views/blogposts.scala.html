@@ -7,10 +7,11 @@
 @main("Blog | Timlah's Techs", None) {
     @search()
     <div class="content shadows" id="blogPosts">
+        <h1> Timlah's Tech Blog </h1>
         <p id="blogCount">Blog Posts found: @blogCount</p>
         @blogPosts.reverse.zipWithIndex.map{case (post, i) =>
             <div>
-                <h1 id="blogTitle"><a class="blog-list-header" href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">@post.title</a></h1>
+                <h2 id="blogTitle"><a class="blog-list-header" href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">@post.title</a></h2>
                 Written by: <strong>@post.author.username</strong> | Written on: @post.date.day @post.date.monthStr @post.date.year | Estimated reading time:
                 @if(Math.ceil("\\s".r.findAllIn(post.content).length/180).toInt < 1) {
                     less than a minute

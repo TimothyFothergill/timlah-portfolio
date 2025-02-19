@@ -4,6 +4,12 @@
     .keyboard-key { display: none;    }
 }
 
+.wordup-container {
+    width: 500px;
+    border: 1px solid black;
+    overflow: auto;
+}
+
 .wordup-word {
     display:flex; 
     align-items: flex-start;
