@@ -21,7 +21,7 @@ object ButtonPanel {
             icon = Some(PlayIcon),
             id = "play-button",
             jsScript = "playBackgroundAnimation()",
-            text = ""
+            text = "play"
         ),
         Button(
             ariaLabel = "",
@@ -29,7 +29,7 @@ object ButtonPanel {
             icon = Some(PauseIcon),
             id = "pause-button",
             jsScript = "pauseBackgroundAnimation()",
-            text = ""
+            text = "pause"
         )),
         label = Some("Background Controls")
     )

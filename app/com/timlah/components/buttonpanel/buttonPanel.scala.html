@@ -7,7 +7,7 @@
 @(params: ButtonPanel)
 @import params._
 <link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/components/buttonpanel/buttonpanel.css")">
-<div class="buttonpanel @additionalClasses" @if(ariaLabel != ""){aria-label="@ariaLabel"}>
+<aside class="buttonpanel @additionalClasses" @if(ariaLabel != ""){aria-label="@ariaLabel"}>
     @if(label.nonEmpty) { @header(Header(
         headerLevel = Some(5),
         text = label.getOrElse("Missing information")
@@ -15,4 +15,4 @@
     @for(button <- buttons) {
         @StandardButton(button)
     }
-</div>
+</aside>

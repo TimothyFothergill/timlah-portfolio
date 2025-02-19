@@ -7,29 +7,38 @@
 
     
     <div class="content shadows">
+        <h1>Contact Me</h1>
         <p>Reach out to me by filling out the contact form below: </p>
         @form(action = com.timlah.controllers.routes.HomeController.contactSubmit()) {
         @helper.CSRF.formField
         @contactForm("name").hasErrors match {
             case true => {
+                <dl>
                     <dt><label for="name">Name*: </label></dt>
-                    <input type="text" name="name" id="name" size="30" class="alert-danger">
                     <dd class="error">This field is required</dd>
+                    <dd><input type="text" name="name" id="name" size="30" class="alert-danger"></dd>
+                </dl>
                 }
             case _    => {
+                <dl>
                     <dt><label for="name">Name*: </label></dt>
-                    <input type="text" name="name" id="name" size="30">
+                    <dd><input type="text" name="name" id="name" size="30"></dd>
+                </dl>
                 }
         }
         @contactForm("email").hasErrors match {
             case true => {
+            <dl>
                 <dt><label for="email">Email*: </label></dt>
-                <input type="text" name="email" id="email" size="30" class="alert-danger">
+                <dd><input type="text" name="email" id="email" size="30" class="alert-danger"></dd>
                 <dd class="error">This field is required</dd>
+            </dl>
             }
             case _    => {
+            <dl>
                 <dt><label for="email">Email*: </label></dt>
-                <input type="text" name="email" id="email" size="30">
+                <dd><input type="text" name="email" id="email" size="30"></dd>
+            </dl>
             }
         }
         @select(
@@ -38,16 +47,20 @@
             Symbol("_label") -> "Reason for enquiry: ",
             Symbol("id") -> "enquiryType"
         )
-        <dt><label for="subject">Subject:   </label></dt><input type="text" name="subject" id="subject" size="30">
+        <dl><dt><label for="subject">Subject:   </label></dt><dd><input type="text" name="subject" id="subject" size="30"></dd></dl>
         @contactForm("contents").hasErrors match {
         case true => {
+                <dl>
                     <dt><label for="contents">Contents*: </label></dt>
-                    <textarea name="contents" id="contents" rows="5" cols="60" class="alert-danger"></textarea><br>
+                    <dd><textarea name="contents" id="contents" rows="5" cols="60" class="alert-danger"></textarea></dd>
                     <dd class="error">This field is required</dd>
+                </dl>
                 }
             case _ => {
+                <dl>
                     <dt><label for="contents">Contents*: </label></dt>
-                    <textarea name="contents" id="contents" rows="5" cols="60"></textarea><br>
+                    <dd><textarea name="contents" id="contents" rows="5" cols="60"></textarea></dd>
+                </dl>
                 }
         }
         <button type="submit">Submit</button>

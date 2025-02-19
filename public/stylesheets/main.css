@@ -4,6 +4,10 @@
   }
 }
 
+a {
+    color: #ffa500 !important;
+}
+
 main > .container {
     padding: 60px 15px 0;
 }
@@ -247,3 +251,28 @@ img {
     height: 10%;
     width: 100%;
   }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    clip: auto;
+    white-space: normal;
+    background: #ff5e5b; /* Optional: Highlight on focus */
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}

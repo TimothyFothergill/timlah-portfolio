@@ -40,5 +40,9 @@
         (d.head || d.body).appendChild(s);
         })();
     </script>
+    <script>
+        document.getElementsByClassName('dropdown-toggle--refresh')[0].setAttribute('id', 'disqus-controlled-dropdown');
+        document.getElementsByClassName('nav-tab nav-tab--primary dropdown user-menu')[0].setAttribute('aria-controls', 'disqus-controlled-dropdown');
+    </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 }

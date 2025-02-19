@@ -27,6 +27,7 @@
         <p class="wordup-stats">Turns taken: @minigameWordGameService.guessedWordObjects.length turns</p>
         <p class="wordup-stats">See you tomorrow, or play another game</p><br>
       }else{
+      <div role="presentation">
       @for(word <- minigameWordGameService.guessedWordObjects) {
         <div class="wordup-word">
           @for(character <- word.word) {
@@ -38,7 +39,6 @@
               <div class="wordup-character @characterStatusClass">@character.character</div>
             }
           }
-        </div>
       }
 
         @if(minigameWordGameService.guessedWordObjects.length < 6) {
@@ -53,6 +53,7 @@
           }
         }
       }
+    </div>
     @if(minigameWordGameService.inProgress) {
       @defining({
         minigameWordGameService.guessedWordObjects.flatMap { word =>
@@ -62,7 +63,7 @@
         }.toSet
       }) { greyedOutCharacters =>
       
-      <div class="keyboard">
+      <aside class="keyboard">
         <div class="keyboard-row">
           @for(char <- "QWERTYUIOP") {
             <button class="keyboard-key @if(greyedOutCharacters.contains(char)) {greyed-out}" id="keyboard-button-@char" type="button">
@@ -84,18 +85,23 @@
             </button>
           }
         </div>
-      </div>      
-      }
+      </aside>
+    }
+    </div>
       <div>
           @wordGameFormData("guess").hasErrors match {
             case true => {
-              <dt><label for="guess" aria-placeholder="HELLO">Guess the five-letter word:*</label></dt>
-              <input type="text" name="guess" id="guess" size="30" class="alert-danger" minlength="5" maxlength="5">
-              <dd class="error">This field is required</dd>
+              <dl>
+                <dt><label for="guess">Guess the five-letter word:*</label></dt>
+                <dd><input type="text" name="guess" id="guess" size="30" class="alert-danger" minlength="5" maxlength="5" placeholder="e.g: HELLO"></dd>
+                <dd class="error">This field is required</dd>
+              </dl>
             }
             case _ => {
-              <dt><label for="guess" aria-placeholder="HELLO">Guess the five-letter word:</label></dt>
-              <input type="text" name="guess" size="30" minlength="5" maxlength="5">
+              <dl>
+                <dt><label for="guess">Guess the five-letter word:</label></dt>
+                <dd><input type="text" name="guess" size="30" minlength="5" maxlength="5" placeholder="e.g: HELLO"></dd>
+              </dl>
             }
           }
           <button type="submit">Submit</button>
