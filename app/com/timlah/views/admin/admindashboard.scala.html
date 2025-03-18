@@ -1,0 +1,31 @@
+@import com.timlah.views.html.main
+@import com.timlah.models.components.button._
+@import com.timlah.components.button.html.StandardButton
+@()
+
+@main("Admin dashboard | Timlah's Techs", None) {
+    <div class="content">
+        <h1>Welcome Timlah!</h1>
+        <p>You're here because you are successfully logged in.</p>
+
+        <br/><br/>
+        <p>
+            @StandardButton(
+                Button(
+                    ariaLabel = "new-blog-post",
+                    additionalClasses = " ",
+                    text = "New Blog Post",
+                    url = Some("https://www.google.com")
+                )
+            )
+            @StandardButton(
+                Button(
+                    ariaLabel = "new-blog-post",
+                    additionalClasses = " ",
+                    text = "Logout",
+                    url = Some("")
+                )
+            )
+        </p>
+    </div>
+}

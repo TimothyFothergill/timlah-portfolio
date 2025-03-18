@@ -1,0 +1,48 @@
+@import helper._
+@import com.timlah.views.html.main
+
+@(adminLoginForm: Form[_])(implicit request: MessagesRequestHeader)
+
+@main("Admin login | Timlah's Techs", None) {
+    <div class="content shadows">
+        <h1>Admin login</h1>
+        @form(action = com.timlah.controllers.routes.AdminController.loginSubmit()) {
+            @helper.CSRF.formField
+            @adminLoginForm("username").hasErrors match {
+                case true => {
+                    <dl>
+                        <dt><label for="username">username</label></dt>
+                        <dd class="error">This field is required</dd>
+                        <dd><input type="text" id="username" name="username" /></dd>
+                    </dl>
+                    <br /><br />
+                }
+                case _ => {
+                    <dl>
+                        <dt><label for="username">username</label></dt>
+                        <dd><input type="text" id="username" name="username" /></dd>
+                    </dl>
+                    <br /><br />
+                }
+            }
+            @adminLoginForm("password").hasErrors match {
+                case true => {
+                    <dl>
+                        <dt><label for="password">password</label></dt>
+                        <dd class="error">This field is required</dd>
+                        <dd><input type="password" id="password" name="password" /></dd>
+                    </dl>
+                    <br /><br />
+                }
+                case _ => {
+                    <dl>
+                        <dt><label for="password">password</label></dt>
+                        <dd><input type="password" id="password" name="password" /><br /><br /></dd>
+                    </dl>
+                    <br /><br />
+                }
+            }
+            <button type="submit">Log in</button>
+    </div>
+  }
+}

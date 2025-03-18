@@ -1,0 +1,24 @@
+@import helper._
+@import com.timlah.views.html.main
+
+@(newBlogPostForm: Form[_])(implicit request: MessagesRequestHeader)
+
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+<script>
+    
+var easyMDE = new EasyMDE({ element: document.getElementById('content') });
+</script>
+
+@main("Admin New Post | Timlah's Techs", None) {
+    <div class="content">
+        <h1>New Blog Post</h1>
+        
+        @form(action = com.timlah.controllers.routes.AdminController.newBlogPostSubmit()) {
+            @helper.CSRF.formField
+            @helper.inputText(newBlogPostForm("title"))
+            @helper.inputText(newBlogPostForm("slug"))
+            @helper.textarea(newBlogPostForm("content"))
+            @helper.inputDate(newBlogPostForm("date"))
+        }
+    </div>
+}

@@ -14,6 +14,7 @@ project/
 /.settings
 conf/application.conf
 conf/blog-backup.md
+conf/local.md
 /RUNNING_PID
 run.sh
 run.ps1

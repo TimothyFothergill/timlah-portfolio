@@ -2,6 +2,7 @@ package com.timlah.repositories
 
 import akka.http.scaladsl.model.DateTime
 import com.timlah.models.{Author, BlogPost}
+import com.timlah.models.admin.AdminLoginDetails
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.json.{Json, OFormat}
 import slick.ast.BaseTypedType
@@ -9,12 +10,33 @@ import slick.jdbc.{JdbcProfile, JdbcType}
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.Tag
 
+import scala.concurrent.Await
+import scala.concurrent.duration._
+
 import scala.concurrent.{ExecutionContext, Future}
 import javax.inject.Inject
+import scala.concurrent.Await
 
 class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(
   implicit executionContext: ExecutionContext,
 ) extends HasDatabaseConfigProvider[JdbcProfile] {
+
+  def getAllUsers: Future[Seq[AdminLoginDetails]] = {
+    val userDetailsTable = TableQuery[AdminLoginTable]
+    val query: Query[AdminLoginTable, AdminLoginDetails, Seq] = userDetailsTable
+    db.run[Seq[AdminLoginDetails]](query.result)
+  }
+
+  def checkUserDetails(adminForm: AdminLoginDetails): Future[Boolean] = {
+    val userDetailsTable = TableQuery[AdminLoginTable]
+    val query: Query[AdminLoginTable, AdminLoginDetails, Seq] = userDetailsTable.filter(_.username === adminForm.username)
+    val queryResult: Future[Seq[AdminLoginDetails]] = db.run[Seq[AdminLoginDetails]](query.result)
+    for {
+      userDetails: Seq[AdminLoginDetails] <- queryResult
+      user = userDetails.head
+    } 
+    yield user.password == adminForm.password
+  }
 
   def getAllBlogPosts: Future[Seq[BlogPost]] = {
     val blogPosts = TableQuery[BlogPostTable]
@@ -72,4 +94,11 @@ class BlogPostTable(tag: Tag) extends Table[BlogPost](tag, sys.env.getOrElse("AC
   val slug      : Rep[String]           = column[String          ]("slug"       )
   val content   : Rep[String]           = column[String          ]("content"    )
   val date      : Rep[DateTime]         = column[DateTime        ]("date"       )
+}
+
+class AdminLoginTable(tag: Tag) extends Table[AdminLoginDetails](tag, sys.env.getOrElse("USER_TABLE", "user")) {
+
+  override def * = (username, password) <> ((AdminLoginDetails.apply _).tupled, AdminLoginDetails.unapply)
+  val username: Rep[String] = column[String]("username")
+  val password: Rep[String] = column[String]("password")
 }
