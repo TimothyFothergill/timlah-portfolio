@@ -11,5 +11,6 @@ case class Author(
 
 object Author {
   implicit val authorFormat: OFormat[Author] = Json.format[Author]
+  implicit val authorDefault = Author(0, "Timlah")
 }
 

@@ -12,6 +12,8 @@ import com.timlah.models.admin.{AdminLoginDetails, NewBlogPostForm}
 import com.timlah.services.admin.AdminService
 
 import play.api.mvc.{Cookie, Request, Result}
+import play.Logger
+import akka.http.scaladsl.model.DateTime
 
 @Singleton
 class AdminController @Inject()(
@@ -76,10 +78,9 @@ class AdminController @Inject()(
           )
         },
         submittedData => {
-          val data = NewBlogPostForm(submittedData.title, submittedData.slug, submittedData.content, submittedData.date)
           request.session.get("username") match {
             case Some(username) => {
-              adminService.addNewBlogPostToDatabase(data)
+              adminService.addNewBlogPostToDatabase(submittedData)
               Redirect(routes.AdminController.dashboard())
             }
             case None => {
@@ -93,7 +94,6 @@ class AdminController @Inject()(
 
     def loginSubmit() = Action { implicit request: MessagesRequest[AnyContent] => 
         val boundForm = AdminLoginDetails.adminLoginForm.bindFromRequest()
-        print(boundForm)
         boundForm.fold(
             formWithErrors => {
               BadRequest(
@@ -104,6 +104,7 @@ class AdminController @Inject()(
                 val data = AdminLoginDetails(submittedData.username, submittedData.password)
                 var authenticated = adminService.checkUserDetails(data)
                 if(authenticated) {
+                  Logger.info(s"Successful sign-in: ${submittedData.username} @ ${DateTime.now}")
                   Redirect(routes.AdminController.dashboard())
                     .withNewSession
                     .withSession("username" -> submittedData.username)

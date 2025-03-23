@@ -276,3 +276,7 @@ img {
     padding: 10px;
     border-radius: 5px;
 }
+
+#thread__container {
+    background-color: rgba(33,37,41,0.95);
+}

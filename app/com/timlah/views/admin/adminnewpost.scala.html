@@ -5,8 +5,23 @@
 
 <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
 <script>
-    
-var easyMDE = new EasyMDE({ element: document.getElementById('content') });
+    document.addEventListener("DOMContentLoaded", function() {
+        var easyMDE = new EasyMDE({ 
+            element: document.getElementById('content'),
+            previewImagesInEditor: true,
+            forceSync: true,
+            lineNumbers: true,
+            sideBySideFullscreen: false,
+            renderingConfig: {
+            sanitizerFunction: (renderedHTML) => {
+                return renderedHTML
+                    .replace(/<script.*?>.*?<\/script>/gi, "")  // Remove <script> tags
+                    .replace(/on\w+="[^"]*"/gi, "");  // Remove inline event handlers (e.g., onclick)
+            },
+        },
+        });
+    });
+    document.getElementById()
 </script>
 
 @main("Admin New Post | Timlah's Techs", None) {
@@ -18,7 +33,8 @@ var easyMDE = new EasyMDE({ element: document.getElementById('content') });
             @helper.inputText(newBlogPostForm("title"))
             @helper.inputText(newBlogPostForm("slug"))
             @helper.textarea(newBlogPostForm("content"))
-            @helper.inputDate(newBlogPostForm("date"))
+            @helper.inputText(newBlogPostForm("date"))
+        <button type="submit">Submit</button>
         }
     </div>
 }

@@ -10,6 +10,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import java.security.SecureRandom
 import com.timlah.models.admin.NewBlogPostForm
+import com.timlah.models.{BlogPost, StoredBlogPost, Author}
 
 class AdminService @Inject()(
     blogService: BlogPostRepository
@@ -20,7 +21,11 @@ class AdminService @Inject()(
         BCrypt.checkpw(adminLogin.password, futureUsers.head.password)
     }
 
-    def addNewBlogPostToDatabase(blogPost: NewBlogPostForm) = {
-        ??? // TODO
+    def addNewBlogPostToDatabase(data: NewBlogPostForm) = {
+        val latestBlogPost = blogService.getLatestBlogPost
+        val latestBlogPostID = Await.result(latestBlogPost.map(i => i.id), 2.seconds)
+
+        val blogPost: StoredBlogPost = StoredBlogPost(latestBlogPostID + 1,Author.authorDefault,None,data.title,data.slug,data.content,data.date)
+        blogService.insertBlogPost(blogPost)
     }
 }

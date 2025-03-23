@@ -15,7 +15,7 @@
                     ariaLabel = "new-blog-post",
                     additionalClasses = " ",
                     text = "New Blog Post",
-                    url = Some("https://www.google.com")
+                    url = Right(com.timlah.controllers.routes.AdminController.newPost())
                 )
             )
             @StandardButton(
@@ -23,7 +23,7 @@
                     ariaLabel = "new-blog-post",
                     additionalClasses = " ",
                     text = "Logout",
-                    url = Some("")
+                    url = Right(com.timlah.controllers.routes.AdminController.logout())
                 )
             )
         </p>

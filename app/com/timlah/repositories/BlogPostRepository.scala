@@ -4,7 +4,7 @@ import akka.http.scaladsl.model.DateTime
 import com.timlah.models.{Author, BlogPost}
 import com.timlah.models.admin.AdminLoginDetails
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json._
 import slick.ast.BaseTypedType
 import slick.jdbc.{JdbcProfile, JdbcType}
 import slick.jdbc.PostgresProfile.api._
@@ -16,6 +16,7 @@ import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, Future}
 import javax.inject.Inject
 import scala.concurrent.Await
+import com.timlah.models.StoredBlogPost
 
 class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(
   implicit executionContext: ExecutionContext,
@@ -36,6 +37,12 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
       user = userDetails.head
     } 
     yield user.password == adminForm.password
+  }
+
+  def insertBlogPost(blogPost: StoredBlogPost) = {
+    val blogPostsTable = TableQuery[StoredBlogPostTable]
+    val insertBlogPost = blogPostsTable += blogPost
+    db.run(insertBlogPost)
   }
 
   def getAllBlogPosts: Future[Seq[BlogPost]] = {
@@ -71,6 +78,22 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
     val queryResult: Future[Seq[BlogPost]] = db.run[Seq[BlogPost]](query.result)
     queryResult.map(_.maxBy(_.id))
   }
+}
+
+class StoredBlogPostTable(tag: Tag) extends Table[StoredBlogPost](tag, sys.env.getOrElse("ACTIVE_TABLE", "")) {
+  implicit val configColumnType : JdbcType[Author] with BaseTypedType[Author] = MappedColumnType.base[Author, String](
+    author => Json.stringify(Json.toJson(author)),
+    column => Json.parse(column).as[Author]
+  )
+
+  override def * = (id, author, coauthor, title, slug, content, date) <> ((StoredBlogPost.apply _).tupled, StoredBlogPost.unapply)
+  val id        : Rep[Int]              = column[Int             ]("id"       , O.AutoInc, O.PrimaryKey)
+  val author    : Rep[Author]           = column[Author          ]("author"     )
+  val coauthor  : Rep[Option[Author]]   = column[Option[Author]  ]("coauthor"   )
+  val title     : Rep[String]           = column[String          ]("title"      )
+  val slug      : Rep[String]           = column[String          ]("slug"       )
+  val content   : Rep[String]           = column[String          ]("content"    )
+  val date      : Rep[String]           = column[String          ]("date"       )
 }
 
 class BlogPostTable(tag: Tag) extends Table[BlogPost](tag, sys.env.getOrElse("ACTIVE_TABLE", "")) {
