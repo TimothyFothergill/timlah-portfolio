@@ -2,14 +2,22 @@
 
 @(params: Button)
 @import params._
+@url match {
+    case Left(link) => {
+        @if(link != "") {
+            <a href="@link">
+        }
+    }
+    case Right(call) => {
+        @if(call != "") {
+            <a href="@call">
+        }
+    }
+}
 <button 
     class="standard-component-button @additionalClasses" 
     @if(id.nonEmpty){id="@id"}
     @if(ariaLabel != ""){aria-label="@ariaLabel"} 
-    @url match {
-        case Some(link) => {href="@link"}
-        case None => {}
-    }
     @if(jsScript.nonEmpty){onClick="@jsScript"}
 >
 @if(icon.nonEmpty) {
@@ -17,3 +25,7 @@
 }
     @text
 </button>
+@url match {
+    case Left(link) => { @if(link != "") { </a> } }
+    case Right(call) => { @if(call != "") { </a> } }
+}

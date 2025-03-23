@@ -1,5 +1,7 @@
 package com.timlah.models.components.button
 
+import play.api.mvc.Call
+
 case class Button(
     ariaLabel: String = "",
     additionalClasses: String = "",
@@ -7,7 +9,7 @@ case class Button(
     id: String = "",
     jsScript: String = "",
     text: String = "",
-    url: Option[String] = Some("#"),
+    url: Either[String, Call] = Left(""),
 )
 
 object Button {

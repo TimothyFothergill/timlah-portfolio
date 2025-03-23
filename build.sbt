@@ -14,6 +14,7 @@ libraryDependencies += "com.typesafe.play" %% "play-mailer-guice" % "8.0.1"
 libraryDependencies += "org.planet42" %% "laika-io" % "0.18.0"
 libraryDependencies += "com.lihaoyi" %% "requests" % "0.6.9"
 libraryDependencies += "commons-codec" % "commons-codec" % "1.15"
+libraryDependencies += "org.mindrot" % "jbcrypt" % "0.4"
 
 libraryDependencies ++= Seq(
   caffeine,
