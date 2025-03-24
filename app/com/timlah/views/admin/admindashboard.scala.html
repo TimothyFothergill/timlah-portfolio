@@ -1,7 +1,8 @@
 @import com.timlah.views.html.main
+@import com.timlah.models.BlogPost
 @import com.timlah.models.components.button._
 @import com.timlah.components.button.html.StandardButton
-@()
+@(blogPosts: Seq[BlogPost], blogCount: Int)
 
 @main("Admin dashboard | Timlah's Techs", None) {
     <div class="content">
@@ -26,6 +27,33 @@
                     url = Right(com.timlah.controllers.routes.AdminController.logout())
                 )
             )
+        </p>
+        <p>
+            <h1> Timlah's Tech Blog </h1>
+            <p id="blogCount">Blog Posts found: @blogCount</p>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Publish Date</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @blogPosts.reverse.zipWithIndex.map{case (post, i) =>
+                <tr>
+                    <td>
+                        <p id="blogTitle"><a href="@com.timlah.controllers.routes.HomeController.blogBySlug(post.slug)">@post.title</a></p>
+                    </td>
+                    <td>@post.date.day @post.date.monthStr @post.date.year</td>
+                    <td><a href="@com.timlah.controllers.routes.AdminController.editPost(post.id)">Edit</a></td>
+                    <td><a href="@com.timlah.controllers.routes.AdminController.dropPost(post.id)">Delete</a></td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>    
         </p>
     </div>
 }

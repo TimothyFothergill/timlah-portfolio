@@ -10,14 +10,16 @@ import java.lang.ProcessBuilder.Redirect
 
 import com.timlah.models.admin.{AdminLoginDetails, NewBlogPostForm}
 import com.timlah.services.admin.AdminService
+import com.timlah.repositories.BlogPostRepository
 
-import play.api.mvc.{Cookie, Request, Result}
 import play.Logger
 import akka.http.scaladsl.model.DateTime
+import scala.concurrent.Future
 
 @Singleton
 class AdminController @Inject()(
   adminService              : AdminService,
+  blogService               : BlogPostRepository,
   cc                        : MessagesControllerComponents,
 )(implicit executionContext: ExecutionContext) extends MessagesAbstractController(cc) {
 
@@ -33,13 +35,14 @@ class AdminController @Inject()(
       }
     }
 
-    def dashboard() = Action { implicit request: Request[AnyContent] =>
+    def dashboard() = Action.async { implicit request: Request[AnyContent] =>
+      val getFutureBlogPosts = blogService.getAllBlogPosts.map(_.sortBy(_.id))
       request.session.get("username") match {
         case Some(username) => {
-          Ok(com.timlah.views.html.admin.admindashboard())
+          getFutureBlogPosts.map(i => Ok(com.timlah.views.html.admin.admindashboard(i, i.size)))
         }
         case None => {
-          Redirect(routes.HomeController.index())
+          getFutureBlogPosts.map(i => Redirect(routes.HomeController.index())) // Hacky... Very hacky.
         }
       }
     }
@@ -69,6 +72,69 @@ class AdminController @Inject()(
       }
     }
 
+    def editPost(id: Int) = Action.async { implicit request: MessagesRequest[AnyContent] =>
+      val futureBlogPost = blogService.getBlogEntryById(id)
+      request.session.get("username") match {
+        case Some(username) => {
+          futureBlogPost.map(i => 
+            i match {
+                case Some(blog) => {
+                  Ok(com.timlah.views.html.admin.admineditpost(
+                    blog, 
+                    NewBlogPostForm.newBlogPostForm.fill(NewBlogPostForm(
+                      title   = blog.title,
+                      slug    = blog.slug,
+                      content = blog.content,
+                      date    = ""
+                    )
+                    ))
+                  )
+                }
+                case None => { Redirect(routes.AdminController.dashboard()) }
+            }
+          )
+        }
+        case None => {
+          Future.successful(Redirect(routes.HomeController.index()))
+        }
+      }
+    }
+
+    def dropPost(id: Int) = Action { implicit request: MessagesRequest[AnyContent] => 
+      request.session.get("username") match {
+        case Some(username) => {
+          adminService.dropBlogPostInDatabase(id)
+          Redirect(routes.AdminController.dashboard())
+        }
+        case None => {
+          Redirect(routes.HomeController.index())
+        }
+      }
+    }
+
+    def editBlogPostSubmit(id: Int) = Action { implicit request: MessagesRequest[AnyContent] => 
+      val futureBlogPost = blogService.getBlogEntryById(id)
+      val boundForm = NewBlogPostForm.newBlogPostForm.bindFromRequest()
+      boundForm.fold(
+        formWithErrors => {
+          BadRequest(
+            com.timlah.views.html.admin.adminlogin(formWithErrors) // update to NewBlogPost when possible
+          )
+        },
+        submittedData => {
+          request.session.get("username") match {
+            case Some(username) => {
+              adminService.editBlogPostInDatabase(submittedData, id)
+              Redirect(routes.AdminController.dashboard())
+            }
+            case None => {
+              Redirect(routes.HomeController.index())
+            }
+          }
+        }
+      )        
+    }
+
     def newBlogPostSubmit() = Action { implicit request: MessagesRequest[AnyContent] => 
       val boundForm = NewBlogPostForm.newBlogPostForm.bindFromRequest()
       boundForm.fold(
@@ -88,8 +154,7 @@ class AdminController @Inject()(
             }
           }
         }
-      )
-        
+      )        
     }
 
     def loginSubmit() = Action { implicit request: MessagesRequest[AnyContent] => 

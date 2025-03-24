@@ -1,6 +1,6 @@
 package com.timlah.models.admin
 
-import com.timlah.models.Author
+import com.timlah.models.{Author, BlogPost}
 import java.util.Date
 
 import play.api.data._
