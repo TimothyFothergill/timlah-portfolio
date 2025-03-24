@@ -11,6 +11,7 @@ import scala.concurrent.duration._
 import java.security.SecureRandom
 import com.timlah.models.admin.NewBlogPostForm
 import com.timlah.models.{BlogPost, StoredBlogPost, Author}
+import com.timlah.views.html.admin.adminlogin
 
 class AdminService @Inject()(
     blogService: BlogPostRepository
@@ -18,7 +19,11 @@ class AdminService @Inject()(
     def checkUserDetails(adminLogin: AdminLoginDetails): Boolean = {
         val users: Future[Seq[AdminLoginDetails]] = blogService.getAllUsers
         val futureUsers = Await.result(users, 3.seconds)
-        BCrypt.checkpw(adminLogin.password, futureUsers.head.password)
+        if(futureUsers.head.username == adminLogin.username) {
+            BCrypt.checkpw(adminLogin.password, futureUsers.head.password)
+        } else {
+            false
+        }
     }
 
     def addNewBlogPostToDatabase(data: NewBlogPostForm) = {
