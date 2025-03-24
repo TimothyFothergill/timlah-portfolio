@@ -11,7 +11,6 @@ import scala.concurrent.duration._
 import java.security.SecureRandom
 import com.timlah.models.admin.NewBlogPostForm
 import com.timlah.models.{BlogPost, StoredBlogPost, Author}
-import com.timlah.views.html.admin.adminlogin
 
 class AdminService @Inject()(
     blogService: BlogPostRepository
