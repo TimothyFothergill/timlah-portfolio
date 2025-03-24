@@ -277,6 +277,6 @@ img {
     border-radius: 5px;
 }
 
-#thread__container {
-    background-color: rgba(33,37,41,0.95);
+#disqus_thread {
+    background-color: rgba(33,37,41,0.95) !important;
 }
