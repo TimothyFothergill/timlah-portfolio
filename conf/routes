@@ -48,6 +48,9 @@ GET     /admin/login                com.timlah.controllers.AdminController.login
 GET     /admin/logout               com.timlah.controllers.AdminController.logout()
 GET     /admin/dashboard            com.timlah.controllers.AdminController.dashboard()
 GET     /admin/dashboard/new-post   com.timlah.controllers.AdminController.newPost()
+GET     /admin/dashboard/edit/:id   com.timlah.controllers.AdminController.editPost(id: Int)
+GET     /admin/dashboard/drop/:id   com.timlah.controllers.AdminController.dropPost(id: Int)
 
 POST    /admin/login                com.timlah.controllers.AdminController.loginSubmit()
 POST    /admin/dashboard/new-post   com.timlah.controllers.AdminController.newBlogPostSubmit()
+POST    /admin/dashboard/edit/:id   com.timlah.controllers.AdminController.editBlogPostSubmit(id: Int)

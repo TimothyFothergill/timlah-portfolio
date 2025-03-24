@@ -45,6 +45,21 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
     db.run(insertBlogPost)
   }
 
+  def updateBlogPost(blogPost: StoredBlogPost) = {
+    val blogPosts = TableQuery[BlogPostTable]
+    val query = 
+      blogPosts.filter(_.id === blogPost.id)
+        .map(x => (x.title, x.slug, x.content))
+        .update((blogPost.title, blogPost.slug, blogPost.content))
+    db.run(query)
+  }
+
+  def dropBlogPost(id: Int) = {
+    val blogPosts = TableQuery[BlogPostTable]
+    val query = blogPosts.filter(_.id === id).delete
+    db.run(query)
+  }
+
   def getAllBlogPosts: Future[Seq[BlogPost]] = {
     val blogPosts = TableQuery[BlogPostTable]
     val query: Query[BlogPostTable, BlogPost, Seq] = blogPosts

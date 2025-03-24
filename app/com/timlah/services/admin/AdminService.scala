@@ -32,4 +32,24 @@ class AdminService @Inject()(
         val blogPost: StoredBlogPost = StoredBlogPost(latestBlogPostID + 1,Author.authorDefault,None,data.title,data.slug,data.content,data.date)
         blogService.insertBlogPost(blogPost)
     }
+
+    def dropBlogPostInDatabase(id: Int) = {
+        blogService.dropBlogPost(id)
+    }
+
+    def editBlogPostInDatabase(data: NewBlogPostForm, id: Int) = {
+        val currentBlogPost = blogService.getBlogEntryById(id)
+        currentBlogPost.map { blogPost =>
+            val storedBlogPost: StoredBlogPost = StoredBlogPost(
+                    id,
+                    Author.authorDefault,
+                    None,
+                    data.title,
+                    data.slug,
+                    data.content,
+                    "" // we're not updating dates for now
+                )
+                blogService.updateBlogPost(storedBlogPost)
+            }
+    }
 }
