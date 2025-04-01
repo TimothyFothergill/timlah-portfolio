@@ -2,7 +2,9 @@ package com.timlah.services
 
 import laika.api._
 import laika.format.{Markdown, HTML}
-import laika.markdown.github.GitHubFlavor
+import laika.ast._
+import laika.format.Markdown.GitHubFlavor
+import laika.api.format.TagFormatter
 
 class MarkupService {
 
