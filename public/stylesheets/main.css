@@ -27,6 +27,7 @@ main > .container {
 
 body {
     background-image: url("/assets/images/background128.png");
+    font-family: 'Manjari', sans-serif;
 }
 
 .animate-background {
