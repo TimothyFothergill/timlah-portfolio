@@ -102,6 +102,7 @@ class HomeController @Inject()(
         <meta property="og:site_name" content="Timlah's Techs">
         <meta property="og:type" content="website">
         <meta property="article:author" content="Timlah">
+        <meta name="fediverse:creator" content="@timlah@tech.lgbt">
         <meta name="twitter:card" content="summary_large_image">""")
   }
 
