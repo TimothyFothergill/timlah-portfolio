@@ -6,13 +6,21 @@ import play.api.data.format.Formatter
 import play.api.mvc.QueryStringBindable
 
 case class WordGameFormData(
-    guess: String
+    guessChar1: Char,
+    guessChar2: Char,
+    guessChar3: Char,
+    guessChar4: Char,
+    guessChar5: Char,
 )
 
 object WordGameFormData {
     val wordGameForm: Form[WordGameFormData] = Form(
         mapping(
-            "guess" -> nonEmptyText
+            "guess-char-1" -> char,
+            "guess-char-2" -> char,
+            "guess-char-3" -> char,
+            "guess-char-4" -> char,
+            "guess-char-5" -> char
         )(WordGameFormData.apply)(WordGameFormData.unapply)
     )
 }

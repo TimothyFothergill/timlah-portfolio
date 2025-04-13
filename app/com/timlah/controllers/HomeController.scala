@@ -21,6 +21,9 @@ import java.time.format.DateTimeFormatter
 import com.timlah.models.components.button.Button
 import com.timlah.components.button.html.StandardButton
 
+import play.api.Logger
+import play.api.Logging
+
 @Singleton
 class HomeController @Inject()(
   cc                        : MessagesControllerComponents,
@@ -31,21 +34,25 @@ class HomeController @Inject()(
   minigameWordGameService   : WordGameService,
   repository                : BlogPostRepository,
   actorSystem               : ActorSystem
-)(implicit executionContext: ExecutionContext) extends MessagesAbstractController(cc) {
+)(implicit executionContext: ExecutionContext) extends MessagesAbstractController(cc) with Logging  {
 
     def index() = Action { implicit request: Request[AnyContent] =>
+        logger.info("GET: / ")
       Ok(com.timlah.views.html.index())
     }
 
     def about() = Action { implicit request: Request[AnyContent] =>
+        logger.info("GET: /about ")
       Ok(com.timlah.views.html.about())
     }
 
     def projects() = Action { implicit request: Request[AnyContent] => {
+        logger.info("GET: /projects ")
         Ok(com.timlah.views.html.projects(currentProjects.currentProjects(), currentProjects.closedProjects()))
       }
     }
     def contactPage() = Action { implicit request: MessagesRequest[AnyContent] => {
+        logger.info("GET: /contact ")
         val boundForm = ContactData.contactForm
         val enquiryTypes = EnquiryType.values
         Ok(com.timlah.views.html.contact(boundForm, enquiryTypes.map(_.asString)))
@@ -53,17 +60,20 @@ class HomeController @Inject()(
     }
 
     def latestBlog(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+      logger.info("GET: /latest-blog ")
       val getFutureBlogPost = repository.getLatestBlogPost
       val futureSlug = Await.result(getFutureBlogPost.map(i => i.slug), 3 seconds)
       Redirect(routes.HomeController.blogBySlug(futureSlug))
     }
 
     def blogPosts() = Action.async { implicit request: Request[AnyContent] =>
+      logger.info("GET: /blog ")
       val getFutureBlogPost = repository.getAllBlogPosts.map(_.sortBy(_.id))
       getFutureBlogPost.map(i => Ok(com.timlah.views.html.blogposts(i, i.size, markupService)))
     }
 
     def blogBySlug(slug: String) = Action.async { implicit request: Request[AnyContent] =>
+      logger.info(s"GET: /blog/slug/${slug} ")
       val getFutureBlogPost = repository.getBlogEntryBySlug(slug)
       getFutureBlogPost.map(i =>
         Ok(com.timlah.views.html.blog(
@@ -79,6 +89,7 @@ class HomeController @Inject()(
     }
 
     def blogByID(id: Int) = Action.async { implicit request: Request[AnyContent] =>
+      logger.info(s"GET: /blog/id/${id} ")
       val getFutureBlogPost = repository.getBlogEntryById(id)
       getFutureBlogPost.map(i =>
         Ok(com.timlah.views.html.blog(
@@ -107,6 +118,7 @@ class HomeController @Inject()(
   }
 
     def contactSubmit() = Action { implicit request: MessagesRequest[AnyContent] => {
+      logger.info("POST: /contact ")
       val boundForm = ContactData.contactForm.bindFromRequest()
       val enquiryTypes = EnquiryType.values
       boundForm.fold(
@@ -124,6 +136,8 @@ class HomeController @Inject()(
           ||  data.contents.contains("SEO")
           ||  data.contents.contains("medicine")
           ||  data.contents.contains("cialis")
+          ||  data.contents.contains("CBD")
+          ||  data.contents.contains("cbd")
           ) {
             Redirect(routes.HomeController.index()).flashing("fail" -> "Contact message not sent.")
           } else {
@@ -160,6 +174,7 @@ class HomeController @Inject()(
   }
 
   def newWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
+    logger.info("GET: /word-up/new ")
     val maybeCookie = request.cookies.get("wordupData")
     maybeCookie match {
       case Some(cookie) => {
@@ -185,19 +200,26 @@ class HomeController @Inject()(
   }
 
   def currentWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
-    Ok(com.timlah.views.html.wordgame(WordGameFormData.wordGameForm, minigameWordGameService))
+    logger.info("GET: /word-up ")
+    Ok(com.timlah.views.html.games.wordgame(WordGameFormData.wordGameForm, minigameWordGameService))
   }
 
   def continueWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
-    println("Game in progress, continuing")
+    logger.info("POST: /word-up ")
     val boundForm = WordGameFormData.wordGameForm.bindFromRequest()
     boundForm.fold(
       formWithErrors => {
-        BadRequest(com.timlah.views.html.wordgame(formWithErrors, minigameWordGameService))
+        BadRequest(com.timlah.views.html.games.wordgame(formWithErrors, minigameWordGameService))
       },
       submittedData => {
-        val data = WordGameFormData(submittedData.guess.toUpperCase())
-        if (minigameWordGameService.compareSubmission(data.guess)) {
+        val guessedWord = 
+          submittedData.guessChar1.toString.toUpperCase + 
+          submittedData.guessChar2.toString.toUpperCase + 
+          submittedData.guessChar3.toString.toUpperCase + 
+          submittedData.guessChar4.toString.toUpperCase + 
+          submittedData.guessChar5.toString.toUpperCase
+
+        if (minigameWordGameService.compareSubmission(guessedWord)) {
           Redirect(routes.HomeController.currentWordGame()).flashing("success" -> "Great job!")
         } else {
           Redirect(routes.HomeController.currentWordGame())
