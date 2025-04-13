@@ -17,6 +17,7 @@
 }
 .wordup-character {
     height: 64px;
+    min-width: 64px;
     width: 64px;
     font-size: xx-large;
     border-radius: 10%;
@@ -26,7 +27,8 @@
     align-content: center;
     text-align: center;
     color: black;
-    font-weight: bolder;;
+    font-weight: bolder;
+    padding-top: 2%;
 }
 
 .wordup-char-green { 
@@ -59,6 +61,7 @@
     text-align: center;
     line-height: 40px;
     background-color: #f0f0f0;
+    color: #000;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -67,6 +70,7 @@
 
 .keyboard-key.greyed-out {
     background-color: #3a3434;
+    color: #fff;
     cursor: not-allowed;
 }
 
@@ -78,6 +82,36 @@
 }
 .wordup-stats {
     font-size: x-large;
+}
+.form-input-control {
+    background: none;
+    border: none;
+    text-align: center;
+    text-transform: uppercase;
+    width: 75%;
+}
+.wordup-active-character {
+    border: 2px solid #ffa500;
+}
+.wordup-active-character input:focus{
+    outline:none;
+}
+@keyframes glowPulse {
+    0% { box-shadow: 0 0 5px 2px #ffa500; }
+    50% { box-shadow: 0 0 10px 4px #fff; }
+    100% { box-shadow: 0 0 5px 2px #ffa500; }
+}
+.wordup-active-character input:focus::placeholder {
+    color: transparent;
+}
+
+.wordup-active-character:focus-within {
+    animation: glowPulse 1s infinite;
+}
+.wordup-action-button {
+    width: 25%;
+    margin-left: 2%;
+    border-radius: 5px;
 }
 
 @keyframes spin {

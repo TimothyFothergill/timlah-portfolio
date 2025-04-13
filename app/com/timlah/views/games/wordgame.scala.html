@@ -1,0 +1,192 @@
+@import helper._
+@import com.timlah.services.minigames.WordGameService
+@import com.timlah.services.minigames.WordGameFormData
+@import com.timlah.views.html.main
+
+@(wordGameFormData: Form[_], minigameWordGameService: WordGameService)(implicit request: MessagesRequestHeader, flash: Flash)
+
+@main("Word-Up | Timlah's Techs", None) {
+  <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/games/wordup.css")">
+
+  @if(flash.get("success").isDefined) {
+      <div id="flashed-messages">
+        <dl class="bg-success" id="flash-success">
+          @flash.get("success")
+        </dl>
+      </div>
+  }
+
+  @helper.form(action = com.timlah.controllers.routes.HomeController.continueWordGame(), Symbol("method") -> "POST") {
+    @helper.CSRF.formField
+    <div class="content shadows">
+      <h1>Word-Up</h1>
+
+      @if(flash.get("success").isDefined){
+        <p class="winning-message">Congratulations</p>
+        <p class="wordup-stats">The correct word was @minigameWordGameService.SelectedWord</p>
+        <p class="wordup-stats">Turns taken: @minigameWordGameService.guessedWordObjects.length turns</p>
+        <p class="wordup-stats">See you tomorrow, or play another game</p><br>
+      }else{
+        <p>This is a basic clone of a famous word game. Type your guess in the box, hit the Submit button, or hit Enter on the keyboard.</p>
+        <div role="presentation">
+          @if(minigameWordGameService.inProgress) {
+            @defining({
+              minigameWordGameService.guessedWordObjects.flatMap { word =>
+                word.word.collect {
+                  case char if char.status == 2 => char.character // Adjust condition as needed
+                }
+              }.toSet
+            }) { greyedOutCharacters =>
+            
+            <aside class="keyboard">
+              <p>Any incorrect characters will be highlighted here</p>
+              <div class="keyboard-row">
+                @for(char <- "QWERTYUIOP") {
+                  <div class="keyboard-key @if(greyedOutCharacters.contains(char)) {greyed-out}" id="keyboard-button-@char" aria-label="@char-keyboard-button">
+                    @char
+                  </div>
+                }
+              </div>
+              <div class="keyboard-row">
+                @for(char <- "ASDFGHJKL") {
+                  <div class="keyboard-key @if(greyedOutCharacters.contains(char)) {greyed-out}" id="keyboard-button-@char" aria-label="@char-keyboard-button">
+                    @char
+                  </div>
+                }
+              </div>
+              <div class="keyboard-row">
+                @for(char <- "ZXCVBNM") {
+                  <div class="keyboard-key @if(greyedOutCharacters.contains(char)) {greyed-out}" id="keyboard-button-@char" aria-label="@char-keyboard-button">
+                    @char
+                  </div>
+                }
+              </div>
+            </aside>
+          }
+          </div>
+        <div>
+              }
+        @for(word <- minigameWordGameService.guessedWordObjects) {
+          <div class="wordup-word">
+            @for(character <- word.word) {
+              @defining(character.status match {
+                case 0 => "wordup-char-green"
+                case 1 => "wordup-char-yellow"
+                case 2 => "wordup-char-grey"
+              }) { characterStatusClass =>
+                <div class="wordup-character @characterStatusClass">@character.character</div>
+              }
+            }
+          </div>
+        }
+
+        @if(minigameWordGameService.guessedWordObjects.length < 6) {
+          <div class="wordup-word" id="wordup-word">
+            <div class="wordup-character wordup-char-grey wordup-active-character">
+              @if(minigameWordGameService.inProgress) {
+                <input class="form-input-control" type="text" maxlength="1" name="guess-char-1" placeholder="H"></input>
+              }
+            </div>
+            <div class="wordup-character wordup-char-grey wordup-active-character">
+              @if(minigameWordGameService.inProgress) {
+                <input class="form-input-control" type="text" maxlength="1" name="guess-char-2" placeholder="E"></input>
+              }
+            </div>
+            <div class="wordup-character wordup-char-grey wordup-active-character">
+              @if(minigameWordGameService.inProgress) {
+                <input class="form-input-control" type="text" maxlength="1" name="guess-char-3" placeholder="L"></input>
+              }
+            </div>
+            <div class="wordup-character wordup-char-grey wordup-active-character">
+              @if(minigameWordGameService.inProgress) {
+                <input class="form-input-control" type="text" maxlength="1" name="guess-char-4" placeholder="L"></input>
+              }
+            </div>
+            <div class="wordup-character wordup-char-grey wordup-active-character">
+              @if(minigameWordGameService.inProgress) {
+                <input class="form-input-control" type="text" maxlength="1" name="guess-char-5" placeholder="O"></input>
+              }
+            </div>
+          </div>
+          @for(_ <- 1 until (6 - minigameWordGameService.guessedWordObjects.length)) {
+            <div class="wordup-word" id="wordup-word">
+              <div class="wordup-character wordup-char-grey">
+              </div>
+              <div class="wordup-character wordup-char-grey">
+              </div>
+              <div class="wordup-character wordup-char-grey">
+              </div>
+              <div class="wordup-character wordup-char-grey">
+              </div>
+              <div class="wordup-character wordup-char-grey">
+              </div>
+            </div>
+          }
+        }
+      }
+
+    }
+    <br />
+    @if(!minigameWordGameService.inProgress) {
+      @helper.form(action = com.timlah.controllers.routes.HomeController.setupNewWordGame(), Symbol("method") -> "GET") {
+        <button type="submit" class="wordup-action-button">New word</button>
+      }
+    } else {
+      <button type="submit" class="wordup-action-button">Submit guess</button>
+    }
+  </div>
+}
+
+<script>
+  const gameWordWrapper = document.getElementById("wordup-word");
+  const el = gameWordWrapper.querySelectorAll(".form-input-control");
+
+  el.forEach((element, index) => {
+    element.addEventListener("keyup", (event) => {
+      const { target, key } = event;
+      const maxlength = target.getAttribute("maxlength");
+      const length = target.value.length;
+
+      if (maxlength == length && index < el.length - 1) {
+        el[index + 1]?.focus();
+      }
+
+      if (key.toLowerCase() === "backspace" && length === 0 && index > 0) {
+        el[index - 1]?.focus();
+      }
+    });
+  });
+
+  function IsSuccessful() {
+    var success = document.getElementById("flash-success");
+
+    if(success) {
+      console.log("Success");
+      SetCookie(@minigameWordGameService.guessedWordObjects.length);
+    }
+  }
+
+  function SetCookie(num) {
+    const wordupCookieData = {
+      isComplete : @if(flash.get("success").isDefined){true}else{false},
+      word       : "@if(flash.get("success").isDefined){@minigameWordGameService.SelectedWord}else{UNFINISHEDGAME}",
+      turnsTaken : num
+    };
+    SaveWordupDataToCookie(wordupCookieData);
+  }
+
+  function SetStreakCookie() {
+    // TODO: Fully implement streak data
+    document.cookie = `wordupStreakData=1; path=/; SameSite=Lax`;
+  }
+
+  function SaveWordupDataToCookie(data) {
+    var midnight = new Date();
+    midnight.setHours(23,59,59,0);
+    const jsonData = JSON.stringify(data);
+    const encodedData = encodeURIComponent(jsonData);
+    document.cookie = `wordupData=${encodedData}; path=/; expires=${midnight}; SameSite=Lax`;
+  }
+
+  IsSuccessful();
+</script>

@@ -97,8 +97,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="@com.timlah.controllers.routes.HomeController.projects()"           >Projects  </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@com.timlah.controllers.routes.HomeController.newWordGame()"           >Word-Up  </a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    Games
+                </a>
+                <div class="dropdown-menu container navbar-dark bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="nav-link" href="@com.timlah.controllers.routes.HomeController.newWordGame()"           >Word-Up  </a>
+                </div>
+                <div class="dropdown-menu container navbar-dark bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="nav-link" href="@com.timlah.controllers.routes.HomeController.newWordGame()"           >Word-Up  </a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="@com.timlah.controllers.routes.HomeController.contactPage()"        >Contact Me</a>

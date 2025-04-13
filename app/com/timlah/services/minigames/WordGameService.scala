@@ -5,9 +5,7 @@ import scala.io.Source
 
 class WordGameService {
   
-    // eventually make sure these end up in their own separate file/service/something, or an api call from elsewhere...
     val words               : Seq[String]       = loadWords("resources/words.txt")
-    val ListOfWords         : Seq[String]       = Seq("HELLO","PLAYS","GAMES","CODER","APPLE")
     val NumberOfAttempts    : Int               = 6
     var inProgress          : Boolean           = false
     var hasWon              : Boolean           = false
@@ -26,7 +24,6 @@ class WordGameService {
         }
     }
 
-    // this would then be removed if ListOfWords gets from an api, if the api serves a /random endpoint
     def selectRandomWord(): String = {
         val randomIndex = Random.nextInt(words.size)
         words(randomIndex)
@@ -58,9 +55,7 @@ class WordGameService {
         }
     }
 
-    // do I want specific win and lose conditions?
     def winner(submission: String): Unit = {
-        println("in winner")
         attemptNumber += 1
         guessedWords = guessedWords.appended(submission)
         hasWon = true
@@ -69,7 +64,6 @@ class WordGameService {
     }
 
     def loser(submission: String): Unit = {
-        println("You lost, correct word was: " + SelectedWord) 
         attemptNumber += 1
         guessedWords = guessedWords.appended(submission)
         hasWon = false
