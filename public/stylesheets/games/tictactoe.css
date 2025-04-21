@@ -1,0 +1,39 @@
+.tic-tac-toe-square {
+    width:10em;
+    height:10em;
+    border:2px solid black;
+}
+.tic-tac-toe-square-button {
+    width: 100%;
+    height: 100%;
+    background: none;
+    color: #fff;
+    font-size: 48px;
+}
+.tic-tac-toe-square-button:hover, .tic-tac-toe-square-button:focus {
+    width: 100%;
+    height: 100%;
+    background-color: orange;
+    color: #000;
+    font-size: 62px;
+}
+.opponent-taken {
+    background-color: #000;
+    color: #fff;
+    font-size: 48px;
+}
+.opponent-taken:hover, .opponent-taken:focus {
+    background-color: #000;
+    color: #fff;
+    font-size: 48px;
+}
+.player-taken {
+    background-color: #fff;
+    color: #000;
+    font-size: 48px;
+}
+.player-taken:hover, .player-taken:focus {
+    background-color: #fff;
+    color: #000;
+    font-size: 48px;
+}

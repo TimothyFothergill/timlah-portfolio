@@ -29,6 +29,12 @@ GET     /word-up/restart            com.timlah.controllers.HomeController.setupN
 GET     /word-up/                   com.timlah.controllers.HomeController.currentWordGame()
 POST    /word-up                    com.timlah.controllers.HomeController.continueWordGame()
 
+GET     /tic-tac-toe/new            com.timlah.controllers.HomeController.newTicTacToeGame()
+GET     /tic-tac-toe/restart        com.timlah.controllers.HomeController.setupNewTicTacToeGame()
+GET     /tic-tac-toe                com.timlah.controllers.HomeController.currentTicTacToeGame()
+GET     /tic-tac-toe/     com.timlah.controllers.HomeController.currentTicTacToeGame()
+POST    /tic-tac-toe                com.timlah.controllers.HomeController.continueTicTacToeGame()
+
 # Galleries
 
 GET     /gallery/kitacon-2024       com.timlah.controllers.GalleryController.kitacon2024()

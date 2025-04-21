@@ -74,12 +74,6 @@
     cursor: not-allowed;
 }
 
-.winning-message {
-    margin-top: 20px;
-    font-size: xxx-large;
-    font-weight: bold;
-    animation: rainbow 3s linear infinite;
-}
 .wordup-stats {
     font-size: x-large;
 }
@@ -121,13 +115,4 @@
     to {
         transform: rotate(360deg);
     }
-}
-@keyframes rainbow {
-    0%   {color: red;         }
-    15%  {color: yellow;      }
-    30%  {color: pink;        }
-    45%  {color: green;       }
-    60%  {color: purple;      }
-    75%  {color: orange;      }
-    100% {color: lightskyblue;}
 }
