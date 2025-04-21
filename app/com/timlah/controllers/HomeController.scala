@@ -1,10 +1,10 @@
 package com.timlah.controllers
 
-import com.timlah.connectors.WalkAboutWithMeConnector
 import com.timlah.models.{BlogPost, ContactData, EnquiryType}
 import com.timlah.repositories.BlogPostRepository
-import com.timlah.services.{CurrentProjects, EmailService, GravatarProfileService, MarkupService, WalkAboutWithMeService}
+import com.timlah.services.{CurrentProjects, EmailService, GravatarProfileService, MarkupService}
 import com.timlah.services.minigames.{WordGameService,WordGameFormData}
+import com.timlah.services.minigames.tictactoe.TicTacToeService
 import play.api.mvc._
 import play.twirl.api.Html
 
@@ -21,19 +21,20 @@ import java.time.format.DateTimeFormatter
 import com.timlah.models.components.button.Button
 import com.timlah.components.button.html.StandardButton
 
-import play.api.Logger
 import play.api.Logging
+import com.timlah.models.minigames.tictactoe.TicTacToePiece
 
 @Singleton
 class HomeController @Inject()(
-  cc                        : MessagesControllerComponents,
-  currentProjects           : CurrentProjects,
-  emailService              : EmailService,
-  gravatarProfileService    : GravatarProfileService,
-  markupService             : MarkupService,
-  minigameWordGameService   : WordGameService,
-  repository                : BlogPostRepository,
-  actorSystem               : ActorSystem
+  cc                            : MessagesControllerComponents,
+  currentProjects               : CurrentProjects,
+  emailService                  : EmailService,
+  gravatarProfileService        : GravatarProfileService,
+  markupService                 : MarkupService,
+  minigameWordGameService       : WordGameService,
+  minigameTicTacToeGameService  : TicTacToeService,
+  repository                    : BlogPostRepository,
+  actorSystem                   : ActorSystem
 )(implicit executionContext: ExecutionContext) extends MessagesAbstractController(cc) with Logging  {
 
     def index() = Action { implicit request: Request[AnyContent] =>
@@ -173,6 +174,49 @@ class HomeController @Inject()(
     }
   }
 
+// All minigame related controls - Should be moved to a new controller
+def newTicTacToeGame() = Action { implicit request: MessagesRequest[AnyContent] => 
+  logger.info("GET: /tic-tac-toe/new ")
+    val maybeCookie = request.cookies.get("tictactoeData")
+    maybeCookie match {
+      case Some(cookie) => {
+        if(isCookieExpired(maybeCookie.get)) {
+          // cookie
+          Redirect(routes.HomeController.setupNewTicTacToeGame())
+        } else {
+          // cookie active
+          Redirect(routes.HomeController.currentTicTacToeGame())
+        }        
+      }
+      case None => {
+        // no cookie found
+        Redirect(routes.HomeController.setupNewTicTacToeGame())
+      } 
+    }
+}
+
+def setupNewTicTacToeGame() = Action { implicit request: MessagesRequest[AnyContent] => 
+  logger.info("GET: /tic-tac-toe/restart ")
+  minigameTicTacToeGameService.reset()
+  minigameTicTacToeGameService.setupGame()
+  Redirect(routes.HomeController.currentTicTacToeGame())
+}
+
+def currentTicTacToeGame() = Action { implicit request: MessagesRequest[AnyContent] => 
+  logger.info("GET: /tic-tac-toe/")
+  Ok(com.timlah.views.html.games.tictactoe(minigameTicTacToeGameService.board.get, minigameTicTacToeGameService))  
+}
+
+def continueTicTacToeGame() = Action { implicit request: MessagesRequest[AnyContent] => 
+  logger.info("POST: /tic-tac-toe/")
+  request.body.asFormUrlEncoded.flatMap(_.get("tic-tac-toe-square-button").flatMap(_.headOption)) match {
+    case Some(value) =>
+      minigameTicTacToeGameService.updateBoard(value.toInt)
+    case None => {}
+  }
+  Ok(com.timlah.views.html.games.tictactoe(minigameTicTacToeGameService.board.get, minigameTicTacToeGameService))  
+}
+
   def newWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
     logger.info("GET: /word-up/new ")
     val maybeCookie = request.cookies.get("wordupData")
@@ -227,4 +271,5 @@ class HomeController @Inject()(
       }
     )
   }
+  // End of minigame controls
 }

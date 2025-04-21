@@ -1,0 +1,200 @@
+@import com.timlah.views.html.main
+@import com.timlah.models.minigames.tictactoe._
+@import com.timlah.services.minigames.tictactoe.TicTacToeService
+@import com.timlah.models.minigames.tictactoe.TicTacToePiece._
+@import helper._
+
+@(board: TicTacToeBoard, service: TicTacToeService)(implicit request: MessagesRequestHeader, flash: Flash)
+
+
+@main("Tic-Tac-Toe | Timlah's Techs", None) {
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/games/tictactoe.css")">
+
+    @if(flash.get("success").isDefined) {
+        <div id="flashed-messages">
+          <dl class="bg-success" id="flash-success">
+            @flash.get("success")
+          </dl>
+        </div>
+    }
+
+    <div class="content shadows">
+        <h1>Tic-Tac-Toe</h1>
+        
+        @if(service.hasWon || service.hasLost || service.isDraw) {
+            @if(service.hasWon) {
+                <h2 class="winning-message">Congratulations</h2>
+                <p>You've beaten the bot. Play again?</p>
+            }
+            @if(service.hasLost) {
+                <h2>Better luck next time</h2>
+                <p>The bot wins this time! Play again?</p>
+            }
+            @if(service.isDraw) {
+                <h2>It's a draw</h2>
+                <p>No one's a loser here! Play again?</p>
+            }
+            @helper.form(action = com.timlah.controllers.routes.HomeController.newTicTacToeGame(), Symbol("method") -> "GET") {
+                <button type="submit">Play again</button>
+            }
+        }
+        @if(service.isDraw) {
+            <h2>Better luck next time</h2>
+            <p>The bot wins this time, want to try again?</p>
+            @helper.form(action = com.timlah.controllers.routes.HomeController.newTicTacToeGame(), Symbol("method") -> "GET") {
+                <button type="submit">Play again</button>
+            }
+        }
+        @if(!service.hasWon && !service.hasLost) {
+            @helper.form(action = com.timlah.controllers.routes.HomeController.continueTicTacToeGame(), Symbol("method") -> "POST") {
+                @helper.CSRF.formField
+                <p>The classic game of X's and O's. Will you beat the robot? Probably. It's not that smart.</p>
+                <table class="tic-tac-toe-board">
+                    <tbody>
+                        <tr>
+                            @defining(board.boardLayout.find(_.id == 1)){ ticTacToeSquare => 
+                                <td class="tic-tac-toe-square">
+                                    <button 
+                                    type="submit" 
+                                    name="tic-tac-toe-square-button" 
+                                    value="1" 
+                                    class="tic-tac-toe-square-button @if(ticTacToeSquare.get.state.get != NoPiece){
+                                        @if(ticTacToeSquare.get.state.get == service.playerPiece){player-taken}else{opponent-taken}
+                                    }" 
+                                    @if(ticTacToeSquare.get.state.get != NoPiece){disabled}
+                                    >
+                                    @ticTacToeSquare.get.state.get.asString
+                                </button>
+                            </td>
+                        }
+                        @defining(board.boardLayout.find(_.id == 2)) { ticTacToeSquare => 
+                            <td class="tic-tac-toe-square">
+                                <button 
+                                type="submit" 
+                                name="tic-tac-toe-square-button" 
+                                value="2" 
+                                class="tic-tac-toe-square-button @if(ticTacToeSquare.get.state.get != NoPiece){
+                                    @if(ticTacToeSquare.get.state.get == service.playerPiece){player-taken}else{opponent-taken}
+                                }" 
+                                @if(ticTacToeSquare.get.state.get != NoPiece){disabled}
+                                >
+                                @ticTacToeSquare.get.state.get.asString
+                            </button>
+                        </td>
+                    }
+                    @defining(board.boardLayout.find(_.id == 3)) { ticTacToeSquare => 
+                        <td class="tic-tac-toe-square">
+                            <button 
+                            type="submit" 
+                            name="tic-tac-toe-square-button" 
+                            value="3" 
+                            class="tic-tac-toe-square-button @if(ticTacToeSquare.get.state.get != NoPiece){
+                                @if(ticTacToeSquare.get.state.get == service.playerPiece){player-taken}else{opponent-taken}
+                            }" 
+                            @if(ticTacToeSquare.get.state.get != NoPiece){disabled}
+                            >
+                            @ticTacToeSquare.get.state.get.asString
+                        </button>
+                    </td>
+                }
+            </tr>
+            <tr>
+                @defining(board.boardLayout.find(_.id == 4)) { ticTacToeSquare => 
+                    <td class="tic-tac-toe-square">
+                        <button 
+                        type="submit" 
+                        name="tic-tac-toe-square-button" 
+                        value="4" 
+                        class="tic-tac-toe-square-button @if(ticTacToeSquare.get.state.get != NoPiece){
+                            @if(ticTacToeSquare.get.state.get == service.playerPiece){player-taken}else{opponent-taken}
+                        }" 
+                        @if(ticTacToeSquare.get.state.get != NoPiece){disabled}
+                        >
+                        @ticTacToeSquare.get.state.get.asString
+                    </button>
+                </td>
+            }
+            @defining(board.boardLayout.find(_.id == 5)) { ticTacToeSquare => 
+                <td class="tic-tac-toe-square">
+                    <button 
+                    type="submit" 
+                    name="tic-tac-toe-square-button" 
+                    value="5" 
+                    class="tic-tac-toe-square-button @if(ticTacToeSquare.get.state.get != NoPiece){
+                        @if(ticTacToeSquare.get.state.get == service.playerPiece){player-taken}else{opponent-taken}
+                    }" 
+                    @if(ticTacToeSquare.get.state.get != NoPiece){disabled}
+                    >
+                    @ticTacToeSquare.get.state.get.asString
+                </button>
+            </td>
+        }
+        @defining(board.boardLayout.find(_.id == 6)) { ticTacToeSquare => 
+            <td class="tic-tac-toe-square">
+                <button 
+                type="submit" 
+                name="tic-tac-toe-square-button" 
+                value="6" 
+                class="tic-tac-toe-square-button @if(ticTacToeSquare.get.state.get != NoPiece){
+                    @if(ticTacToeSquare.get.state.get == service.playerPiece){player-taken}else{opponent-taken}
+                }" 
+                @if(ticTacToeSquare.get.state.get != NoPiece){disabled}
+                >
+                @ticTacToeSquare.get.state.get.asString
+            </button>
+        </td>
+    }
+</tr>
+<tr>
+    @defining(board.boardLayout.find(_.id == 7)) { ticTacToeSquare => 
+        <td class="tic-tac-toe-square">
+            <button 
+            type="submit" 
+            name="tic-tac-toe-square-button" 
+            value="7" 
+            class="tic-tac-toe-square-button @if(ticTacToeSquare.get.state.get != NoPiece){
+                @if(ticTacToeSquare.get.state.get == service.playerPiece){player-taken}else{opponent-taken}
+            }" 
+            @if(ticTacToeSquare.get.state.get != NoPiece){disabled}
+            >
+            @ticTacToeSquare.get.state.get.asString
+        </button>
+    </td>
+}
+@defining(board.boardLayout.find(_.id == 8)) { ticTacToeSquare => 
+    <td class="tic-tac-toe-square">
+        <button 
+        type="submit" 
+        name="tic-tac-toe-square-button" 
+        value="8" 
+        class="tic-tac-toe-square-button @if(ticTacToeSquare.get.state.get != NoPiece){
+            @if(ticTacToeSquare.get.state.get == service.playerPiece){player-taken}else{opponent-taken}
+        }" 
+        @if(ticTacToeSquare.get.state.get != NoPiece){disabled}
+        >
+        @ticTacToeSquare.get.state.get.asString
+    </button>
+</td>
+}
+@defining(board.boardLayout.find(_.id == 9)) { ticTacToeSquare => 
+    <td class="tic-tac-toe-square">
+        <button 
+        type="submit" 
+        name="tic-tac-toe-square-button" 
+        value="9" 
+        class="tic-tac-toe-square-button @if(ticTacToeSquare.get.state.get != NoPiece){
+            @if(ticTacToeSquare.get.state.get == service.playerPiece){player-taken}else{opponent-taken}
+        }" 
+        @if(ticTacToeSquare.get.state.get != NoPiece){disabled}
+        >
+        @ticTacToeSquare.get.state.get.asString
+    </button>
+</td>
+}
+</tr>
+</tbody>
+</table>
+}
+</div>
+}
+}
