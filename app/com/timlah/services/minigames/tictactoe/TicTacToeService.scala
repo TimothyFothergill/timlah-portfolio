@@ -36,6 +36,7 @@ class TicTacToeService {
                 case _ => {
                     playerPiece = TicTacToePiece.XPiece
                     opponentPiece = TicTacToePiece.OPiece
+                    botDecision()
                 }
             }
         }
@@ -43,24 +44,28 @@ class TicTacToeService {
 
     def updateBoard(playerPiecePosition: Int) = {
         val currentBoard = board.get
-        if(currentBoard.boardLayout.filter(_.state == Some(TicTacToePiece.NoPiece)).length == 0) { isDraw = true }
         val updatedLayout = currentBoard.boardLayout.updated(playerPiecePosition - 1, TicTacToeSquare(playerPiecePosition, Some(playerPiece)))
         val updatedBoard = currentBoard.copy(boardLayout = updatedLayout)
         board = Some(updatedBoard)
         if(!checkForWinCondition()) {
             botDecision()
         }
+        if(currentBoard.boardLayout.filter(_.state == Some(TicTacToePiece.NoPiece)).length == 0 && !hasLost && !hasWon) { 
+            isDraw = true 
+        }
     }
 
     def botDecision() = {
         val currentBoard = board.get
         val emptySquares = currentBoard.boardLayout.filter(_.state == Some(TicTacToePiece.NoPiece))
-        if(emptySquares.length > 0) {
+        if(emptySquares.length > 1) {
             val randomSquare = emptySquares(Random.nextInt(emptySquares.size))
             
             val updatedLayout = currentBoard.boardLayout.updated(randomSquare.id - 1, TicTacToeSquare(randomSquare.id, Some(opponentPiece)))
             val updatedBoard = currentBoard.copy(boardLayout = updatedLayout)
             board = Some(updatedBoard)
+        } else {
+            isDraw = true
         }
         checkForWinCondition()
     }
