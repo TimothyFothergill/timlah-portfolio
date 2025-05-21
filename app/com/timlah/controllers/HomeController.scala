@@ -47,6 +47,11 @@ class HomeController @Inject()(
       Ok(com.timlah.views.html.about())
     }
 
+    def whatIUse() = Action { implicit request: Request[AnyContent] =>
+        logger.info("GET: /about/whatIUse ")
+      Ok(com.timlah.views.html.whatiuse())
+    }
+
     def projects() = Action { implicit request: Request[AnyContent] => {
         logger.info("GET: /projects ")
         Ok(com.timlah.views.html.projects(currentProjects.currentProjects(), currentProjects.closedProjects()))
