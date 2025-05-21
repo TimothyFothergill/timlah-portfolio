@@ -8,6 +8,7 @@ GET     /                           com.timlah.controllers.HomeController.index(
 GET     /projects                   com.timlah.controllers.HomeController.projects()
 GET     /contact                    com.timlah.controllers.HomeController.contactPage()
 GET     /about                      com.timlah.controllers.HomeController.about()
+GET     /about/whatiuse             com.timlah.controllers.HomeController.whatIUse()
 
 GET     /blog                       com.timlah.controllers.HomeController.blogPosts()
 GET     /latest-blog                com.timlah.controllers.HomeController.latestBlog()
