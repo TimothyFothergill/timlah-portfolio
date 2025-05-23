@@ -1,116 +1,156 @@
+@import com.timlah.components.header.html.header
+@import com.timlah.models.components.header.Header
+
 @()
 
 @main("What I Use | Timlah's Techs", None) {
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/views/whatiuse.css")">
 <div class="content shadows">
-    <h1>Tools, Software, Fonts etc</h1>
-    <h2>This Website</h2>
+    @header(Header(
+        text = "Tools, Software, Fonts etc"
+    ))
+    <p>
+        I like sharing the tools I enjoy using - This page documents the software, languages and tools 
+        that I use regularly when working on my projects (I also use most of these professionally).
+
+        This page documents what I currently use.
+    </p>
+    @header(Header(
+        text = "This Website",
+        headerLevel = Some(2)
+    ))
+    @header(Header(
+        text = "Languages, Frameworks and Libraries",
+        headerLevel = Some(3)
+    ))
     <table class="table table-dark">
         <thead>
             <tr>
                 <th scope="col">Technology</th>
                 <th scope="col">Decision for choice</th>
-                <th scope="col">Images, links, further info, etc</th>
+                <th scope="col" width="10%;">link</th>
             </tr>
         </thead>
         <tbody>
         <tr>
             <td>Scala</td>
             <td>Scala's my main language at work as of the time of writing - So, I wanted a website that I could build in the same language to help continually grow in this ecosystem.</td>
-            <td></td>
+            <td><a href="https://www.scala-lang.org/">scala-lang</a></td>
         </tr>
         <tr>
             <td>Play Framework</td>
             <td>My go-to framework for building a website in Scala. Session management, templating, configuration and more out of the box makes this a powerhouse.</td>
-            <td></td>
+            <td><a href="https://www.playframework.com/">play</a></td>
         </tr>
         <tr>
             <td>Slick</td>
             <td>Great library for connecting to databases.</td>
-            <td></td>
+            <td><a href="https://scala-slick.org/">slick</a></td>
         </tr>
         <tr>
             <td>Laika</td>
             <td>Markdown made easy with Scala - Powers the interpreting of blog posts.</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Heroku</td>
-            <td>I wanted a very simple, quick build tool that would support Scala. Heroku, whilst not the cheapest, also provides databases and schedulers with minimal configuration.</td>
-            <td></td>
+            <td><a href="https://github.com/typelevel/Laika">laika</a></td>
         </tr>
         <tr>
             <td>node.js</td>
             <td>Accessibility tests using axe-core, pulling the dependency in via npm and writing JavaScript tests for this is simple and flexible.</td>
-            <td></td>
+            <td><a href="https://nodejs.org/en">nodejs</a></td>
+        </tr>
+        </tbody>
+    </table>
+    @header(Header(
+        text = "Third-party and services",
+        headerLevel = Some(3)
+    ))
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Technology</th>
+                <th scope="col">Decision for choice</th>
+                <th scope="col" width="10%;">link</th>
+            </tr>
+        </thead>
+            <tr>
+            <td>Heroku</td>
+            <td>I wanted a very simple, quick build tool that would support Scala. Heroku, whilst not the cheapest, also provides databases and schedulers with minimal configuration.</td>
+            <td><a href="https://www.heroku.com/">heroku</a></td>
         </tr>
         <tr>
             <td>Google Analytics</td>
             <td>Simple, well known analytics platform. Let's me know that people have seen my stuff and I'm not just screaming into the void.</td>
-            <td></td>
+            <td><a href="https://analytics.google.com/">google analytics</a></td>
         </tr>
         <tr>
             <td>Manjari (Font)</td>
             <td>I mean, you're reading the website in the Manjari font. What do you think?</td>
-            <td></td>
+            <td><a href="https://fonts.google.com/specimen/Manjari">manjari</a></td>
         </tr>
         <tr>
             <td>ko-fi</td>
             <td>No fuss, simple way for people to donate towards the coffee fund.</td>
-            <td></td>
+            <td><a href="https://ko-fi.com/">kofi</a></td>
         </tr>
         <tr>
             <td>Disqus</td>
-            <td>Allows me to have a simple, working comment system, without having to manage the hosting of the content myself.</td>
-            <td></td>
+            <td>Allows me to have a simple, working comment system for my blog posts, without having to manage the hosting of the content myself.</td>
+            <td><a href="https://disqus.com/">disqus</a></td>
         </tr>
         </tbody>
     </table>
+    @header(Header(
+        text = "Third-party and services",
+        headerLevel = Some(3)
+    ))
     <h2>Software choices</h2>
     <table class="table table-dark">
         <thead>
             <tr>
                 <th scope="col">Technology</th>
                 <th scope="col">Decision for choice</th>
-                <th scope="col">Images, links, further info, etc</th>
+                <th scope="col" width="10%;">link</th>
             </tr>
         </thead>
         <tbody>
         <tr>
             <td>VS Code</td>
             <td>Great support for Scala (Metals) and easily jump between different languages, set up the way I like. Great extensions and community. Plus it looks nice with the `Dobri Next -A00- Black` theme.</td>
-            <td></td>
+            <td><a href="https://code.visualstudio.com/">vscode</a></td>
         </tr>
         <tr>
             <td>Obsidian</td>
-            <td>Helps me keep notes - and automated to allow me to create a daily todo list, displayed on my desktop.</td>
-            <td></td>
+            <td>Helps me keep notes - and automated with community plugins like <a href="https://github.com/SilentVoid13/Templater">Templater</a> to allow me to create a daily todo list, displayed on my desktop.</td>
+            <td><a href="https://obsidian.md/">obsidian</a></td>
         </tr>
         <tr>
             <td>Windows Desktop</td>
             <td>My desktop environment is in Windows, where I leverage WSL (Windows Subsystem for Linux) to do some tasks.</td>
-            <td></td>
+            <td><a href="https://learn.microsoft.com/en-us/windows/wsl/install">wsl</a></td>
         </tr>
         <tr>
             <td>Rainmeter</td>
             <td>For Windows, this gives me a really powerful way to customise my desktop to be more productive. Obsidian integration, custom buttons, better clocks, system information and even the weather.</td>
-            <td></td>
+            <td><a href="https://www.rainmeter.net/">rainmeter</a></td>
         </tr>
         <tr>
             <td>Linux Laptop (Ubuntu)</td>
             <td>I like Linux, it gives me all I need for development. Quick, reliable and Ubuntu is a good all-rounder for my needs. Your mileage may vary.</td>
-            <td></td>
+            <td><a href="https://ubuntu.com/">ubuntu</a></td>
         </tr>
         <tr>
             <td>Unity</td>
             <td>For game development, I still really like Unity, as it gives you a lot of power upfront.</td>
-            <td></td>
+            <td><a href="https://unity.com/">unity</a></td>
         </tr>
         <tr>
             <td>GIMP (GNU Image Manipulation Program)</td>
             <td>For editing of any images, sprites etc, this is a great free alternative to Photoshop.</td>
-            <td></td>
+            <td><a href="https://www.gimp.org/">gimp</a></td>
         </tr>
         </tbody>
     </table>
+    <div class="what-i-use-last-updated">
+        Last updated: 23-05-2025
+    </div>
 </div>
 }
