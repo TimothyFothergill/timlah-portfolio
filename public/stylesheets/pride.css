@@ -1,0 +1,42 @@
+
+.pride-container {
+    transition: transform 0.2s ease;
+}
+.pride-container:hover {
+    transform: scale(1.5);
+}
+.seg-1, .seg-2, .seg-3, .seg-4, .seg-5, .seg-6 {
+    width: 70px;
+    height: 5px;
+}
+.seg-1 {
+    background: #e50000;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.seg-2 {
+    background: #ff8d00;
+}
+.seg-3 {
+    background: #ffee00;
+}
+.seg-4 {
+    background: #028121;
+}
+.seg-5 {
+    background: #004cff;
+}
+.seg-6 {
+    background: #760088;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.seg-1:hover, .seg-2:hover, .seg-3:hover, .seg-4:hover, .seg-5:hover, .seg-6:hover {
+    transform: scale(1.1);
+}
+.pride-message {
+    display: none;
+}
+.pride-container:hover + .pride-message {
+    display: inline;
+}

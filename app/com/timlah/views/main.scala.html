@@ -58,6 +58,20 @@
     <header id="main-nav" aria-label="Navigation header">
     <nav class="navbar shadows navbar-expand-md navbar-dark bg-dark">
         <div class="container">
+            @defining(DateTime.now){ today =>
+                @if(today.month == 6) {
+                    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/pride.css")">
+                    <div class="pride-container">
+                        <div class="seg-1"></div>
+                        <div class="seg-2"></div>
+                        <div class="seg-3"></div>
+                        <div class="seg-4"></div>
+                        <div class="seg-5"></div>
+                        <div class="seg-6"></div>
+                    </div>
+                    <div class="pride-message">Happy pride &lt;3</div>
+                }
+            }
         <a class="navbar-brand" href="/">Timlah's Techs <b class="dev-status">@sys.env.getOrElse("DEV_STATUS", "")</b></a>
         <a href="javascript:void(0);" aria-label="Main Menu" class="menuIcon" onclick="addResponsiveClass()">
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
