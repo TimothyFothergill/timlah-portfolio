@@ -1,5 +1,7 @@
 
 .pride-container {
+    position: relative;
+    display: inline-block;
     transition: transform 0.2s ease;
 }
 .pride-container:hover {
@@ -11,7 +13,6 @@
 }
 .seg-1 {
     background: #e50000;
-    border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 .seg-2 {
@@ -28,15 +29,47 @@
 }
 .seg-6 {
     background: #760088;
-    border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-}
-.seg-1:hover, .seg-2:hover, .seg-3:hover, .seg-4:hover, .seg-5:hover, .seg-6:hover {
-    transform: scale(1.1);
 }
 .pride-message {
     display: none;
 }
 .pride-container:hover + .pride-message {
     display: inline;
+}
+.progress-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.progress-inner {
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 70px;
+    height: 70px;
+}
+
+.progress-inner div {
+    padding: 5px;
+}
+.progress-seg-1 {
+    background-color: #000000;
+}
+.progress-seg-2 {
+    background-color: #613915;
+}
+.progress-seg-3 {
+    background-color: #74D7EE;
+}
+.progress-seg-4 {
+    background-color: #FFAFC8;
+}
+.progress-seg-5 {
+    background-color: #FFFFFF;
 }
