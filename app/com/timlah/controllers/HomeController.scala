@@ -57,6 +57,11 @@ class HomeController @Inject()(
         Ok(com.timlah.views.html.projects(currentProjects.currentProjects(), currentProjects.closedProjects()))
       }
     }
+    def pride() = Action { implicit request: Request[AnyContent] => {
+        logger.info("GET: /pride ")
+        Ok(com.timlah.views.html.pride())
+      }
+    }
     def contactPage() = Action { implicit request: MessagesRequest[AnyContent] => {
         logger.info("GET: /contact ")
         val boundForm = ContactData.contactForm

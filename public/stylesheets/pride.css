@@ -11,9 +11,14 @@
     width: 70px;
     height: 5px;
 }
+.article-seg {
+    width: 100%;
+    height: 30px;
+}
 .seg-1 {
     background: #e50000;
     border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 .seg-2 {
     background: #ff8d00;
@@ -29,7 +34,17 @@
 }
 .seg-6 {
     background: #760088;
+    border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+.article-flag .seg-1,
+.article-flag .seg-2,
+.article-flag .seg-3,
+.article-flag .seg-4,
+.article-flag .seg-5,
+.article-flag .seg-6 {
+    width: 100%;
+    height: 30px;
 }
 .pride-message {
     display: none;
@@ -45,7 +60,6 @@
     overflow: hidden;
     z-index: 1;
 }
-
 .progress-inner {
     position: absolute;
     left: -15px;
@@ -54,9 +68,29 @@
     width: 70px;
     height: 70px;
 }
-
 .progress-inner div {
     padding: 5px;
+}
+.progress-container-article {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    z-index: 1;
+}
+.progress-inner-article {
+    position: absolute;
+    left: 0px;
+    top: 72px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 150px;
+    height: 100px;
+}
+
+.progress-inner-article div {
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 100px;
 }
 .progress-seg-1 {
     background-color: #000000;
@@ -64,12 +98,144 @@
 .progress-seg-2 {
     background-color: #613915;
 }
-.progress-seg-3 {
+.progress-seg-3, .transgender-seg-1 {
     background-color: #74D7EE;
 }
-.progress-seg-4 {
+.progress-seg-4, .transgender-seg-2 {
     background-color: #FFAFC8;
 }
-.progress-seg-5 {
+.progress-seg-5, .transgender-seg-3 {
     background-color: #FFFFFF;
+}
+.article-flag {
+    width: 27.5%;
+    margin: 2em;
+    display: inline-block;
+}
+@media (max-width: 768px) {
+    .article-flag {
+        width: 75%;
+        margin: 2em;
+        display: inline-block;
+    }
+}
+@media (min-width: 769px) and (max-width: 1400px) {
+    .article-flag {
+        width: 35%;
+        margin: 2em;
+        display: inline-block;
+    }
+}
+.article-flag .transgender-seg-1, 
+.article-flag .transgender-seg-2, 
+.article-flag .transgender-seg-3,
+.article-flag .lesbian-seg-1, 
+.article-flag .lesbian-seg-2, 
+.article-flag .lesbian-seg-3, 
+.article-flag .lesbian-seg-4, 
+.article-flag .lesbian-seg-5 {
+    height: 36px !important;
+} 
+.bisexual-seg-1 {
+    background-color: #d70371;
+}
+.bisexual-seg-2 {
+    background-color: #734f97;
+}
+.bisexual-seg-3 {
+    background-color: #0038a9;
+}
+.article-flag .bisexual-seg-1, 
+.article-flag .bisexual-seg-3 {
+    height: 72px !important;
+} 
+.article-flag .bisexual-seg-2 {
+    height: 36px !important;
+}
+.rounded-edges-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.rounded-edges-bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.flag-title {
+    padding: 20px;
+    text-align: center;
+}
+.lesbian-seg-1 {
+    background-color: #d62c00;
+}
+.lesbian-seg-2 {
+    background-color: #ff9956;
+}
+.lesbian-seg-3 {
+    background-color: #ffffff;
+}
+.lesbian-seg-4 {
+    background-color: #d362a4;
+}
+.lesbian-seg-5 {
+    background-color: #a40162;
+}
+.pansexual-seg-1 {
+    background-color: #ff218c;
+}
+.pansexual-seg-2 {
+    background-color: #ffd800;
+}
+.pansexual-seg-3 {
+    background-color: #20b2fe;
+}
+.polysexual-seg-1 {
+    background-color: #f61cb9;
+}
+.polysexual-seg-2 {
+    background-color: #06d569;
+}
+.polysexual-seg-3 {
+    background-color: #1c92f6;
+}
+.article-flag .pansexual-seg-1,
+.article-flag .pansexual-seg-2,
+.article-flag .pansexual-seg-3,
+.article-flag .polysexual-seg-1, 
+.article-flag .polysexual-seg-2, 
+.article-flag .polysexual-seg-3 {
+    height: 60px !important;
+}
+.asexual-seg-1 {
+    background-color: #000000;
+}
+.asexual-seg-2 {
+    background-color: #a0a0a0;
+}
+.asexual-seg-3 {
+    background-color: #ffffff;
+}
+.asexual-seg-4 {
+    background-color: #9a0778;
+}
+.nonbinary-seg-1 {
+    background-color: #f5ea2a;
+}
+.nonbinary-seg-2 {
+    background-color: #ffffff;
+}
+.nonbinary-seg-3 {
+    background-color: #9a59cf;
+}
+.nonbinary-seg-4 {
+    background-color: #2d2d2d;
+}
+.article-flag .asexual-seg-1,
+.article-flag .asexual-seg-2,
+.article-flag .asexual-seg-3,
+.article-flag .asexual-seg-4,
+.article-flag .nonbinary-seg-1,
+.article-flag .nonbinary-seg-2,
+.article-flag .nonbinary-seg-3,
+.article-flag .nonbinary-seg-4 {
+    height: 45px !important;
 }

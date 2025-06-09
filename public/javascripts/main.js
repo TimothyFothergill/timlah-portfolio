@@ -29,7 +29,8 @@ function randomMessage() {
         "Scala, Python, C#, JavaScript, Terraform, Bash... and so on!",
         "I really like making games, you know?",
         "I really like making websites, you know?",
-        "418? Why yes, I'll take a coffee!"
+        "418? Why yes, I'll take a coffee!",
+        "a11y ally!"
     ]
     var randomIndex = Math.floor(Math.random() * messages.length);
     x.innerHTML = messages[randomIndex];
