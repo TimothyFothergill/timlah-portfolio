@@ -15,6 +15,8 @@ GET     /latest-blog                com.timlah.controllers.HomeController.latest
 GET     /blog/id/:id                com.timlah.controllers.HomeController.blogByID(id: Int)
 GET     /blog/slug/:slug            com.timlah.controllers.HomeController.blogBySlug(slug: String)
 
+GET     /pride                      com.timlah.controllers.HomeController.pride()
+
 POST    /contact                    com.timlah.controllers.HomeController.contactSubmit()
 
 # NetBitPet related endpoints apis will go here...

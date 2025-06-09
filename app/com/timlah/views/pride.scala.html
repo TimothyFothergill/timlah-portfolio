@@ -1,8 +1,504 @@
 @()
 
 @main("Happy pride | Timlah's Techs", None) {
+    <script src="@routes.Assets.versioned("javascripts/views/pride.js")" type="text/javascript"></script>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/pride.css")">
     <div class="content shadows">
         <h1>Happy Pride</h1>
-        <p>Another year, another celebration of Pride. As a cis gay male, I feel it only right to share in the celebration of Pride.</p>
+        <p>Another year, another celebration of Pride. As a cis gay male, I feel it only right to share in the celebration of Pride. These flags are in no particular order.</p>
+        <p>Click the flags to get the HTML and CSS for them.</p>
+        <p>Note, clicking the HTML or CSS boxes will copy the code to your clipboard, unformatted.</p>
+        <div class="article-flag" id="traditional-pride-flag" onclick='displayCode("traditional-pride-flag")'>
+            <div class="seg-1 rounded-edges-top"></div>
+            <div class="seg-2 "></div>
+            <div class="seg-3 "></div>
+            <div class="seg-4 "></div>
+            <div class="seg-5 "></div>
+            <div class="seg-6 rounded-edges-bottom"></div>
+            <p class="flag-title">Traditional Pride flag</p>
+        </div>
+        <div id="traditional-pride-flag-code" hidden>
+            <pre>
+                <h3>HTML</h3>
+                <code class="html hljs language-shell" id="traditional-pride-flag-html" >
+
+                </code>
+            </pre>
+            <pre>
+                <h3>Stylesheet</h3>
+                <code class="css hljs language-shell" >
+.article-flag {
+    width: 27.5%;
+    margin: 2em;
+    display: inline-block;
+}
+.rounded-edges-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.rounded-edges-bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.seg-1 {
+    background: #e50000;
+}
+.seg-2 {
+    background: #ff8d00;
+}
+.seg-3 {
+    background: #ffee00;
+}
+.seg-4 {
+    background: #028121;
+}
+.seg-5 {
+    background: #004cff;
+}
+.seg-6 {
+    background: #760088;
+}
+.article-flag .seg-1,
+.article-flag .seg-2,
+.article-flag .seg-3,
+.article-flag .seg-4,
+.article-flag .seg-5,
+.article-flag .seg-6 {
+    height: 30px;
+}
+                </code>
+            </pre>
+        </div>
+        <div class="article-flag" id="transgender-pride-flag" onclick='displayCode("transgender-pride-flag")'>
+            <div class="transgender-seg-1 rounded-edges-top"></div>
+            <div class="transgender-seg-2"></div>
+            <div class="transgender-seg-3"></div>
+            <div class="transgender-seg-2"></div>
+            <div class="transgender-seg-1 rounded-edges-bottom"></div>
+            <p class="flag-title">Transgender Pride flag</p>
+        </div>
+        <div id="transgender-pride-flag-code" hidden>
+            <pre>
+                <h3>HTML</h3>
+                <code class="html hljs language-shell" id="transgender-pride-flag-html" >
+
+                </code>
+            </pre>
+            <pre>
+                <h3>Stylesheet</h3>
+                <code class="css hljs language-shell" >
+.article-flag {
+    width: 27.5%;
+    margin: 2em;
+    display: inline-block;
+}
+.rounded-edges-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.rounded-edges-bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.transgender-seg-1 {
+    background-color: #74D7EE;
+}
+.transgender-seg-2 {
+    background-color: #FFAFC8;
+}
+.transgender-seg-3 {
+    background-color: #FFFFFF;
+}
+.article-flag .transgender-seg-1, 
+.article-flag .transgender-seg-2, 
+.article-flag .transgender-seg-3 {
+    height: 36px;
+}
+                </code>
+            </pre>
+        </div>
+        <div class="article-flag" id="bisexual-pride-flag" onclick='displayCode("bisexual-pride-flag")'>
+            <div class="bisexual-seg-1 rounded-edges-top"></div>
+            <div class="bisexual-seg-2"></div>
+            <div class="bisexual-seg-3 rounded-edges-bottom"></div>
+            <p class="flag-title">Bisexual Pride flag</p>
+        </div>
+        <div id="bisexual-pride-flag-code" hidden>
+            <pre>
+                <h3>HTML</h3>
+                <code class="html hljs language-shell" id="bisexual-pride-flag-html" >
+
+                </code>
+            </pre>
+            <pre>
+                <h3>Stylesheet</h3>
+                <code class="css hljs language-shell" >
+.article-flag {
+    width: 27.5%;
+    margin: 2em;
+    display: inline-block;
+}
+.rounded-edges-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.rounded-edges-bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.bisexual-seg-1 {
+    background-color: #d70371;
+}
+.bisexual-seg-2 {
+    background-color: #734f97;
+}
+.bisexual-seg-3 {
+    background-color: #0038a9;
+}
+.article-flag .bisexual-seg-1, 
+.article-flag .bisexual-seg-3 {
+    height: 72px;
+} 
+.article-flag .bisexual-seg-2 {
+    height: 36px;
+}
+                </code>
+            </pre>
+        </div>
+        <div class="article-flag" id="lesbian-pride-flag" onclick='displayCode("lesbian-pride-flag")'>
+            <div class="lesbian-seg-1 rounded-edges-top"></div>
+            <div class="lesbian-seg-2"></div>
+            <div class="lesbian-seg-3"></div>
+            <div class="lesbian-seg-4"></div>
+            <div class="lesbian-seg-5 rounded-edges-bottom"></div>
+            <p class="flag-title">Lesbian Pride flag</p>
+        </div>
+        <div id="lesbian-pride-flag-code" hidden>
+            <pre>
+                <h3>HTML</h3>
+                <code class="html hljs language-shell" id="lesbian-pride-flag-html" >
+
+                </code>
+            </pre>
+            <pre>
+                <h3>Stylesheet</h3>
+                <code class="css hljs language-shell" >
+.article-flag {
+    width: 27.5%;
+    margin: 2em;
+    display: inline-block;
+}
+.rounded-edges-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.rounded-edges-bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.lesbian-seg-1 {
+    background-color: #d62c00;
+}
+.lesbian-seg-2 {
+    background-color: #ff9956;
+}
+.lesbian-seg-3 {
+    background-color: #ffffff;
+}
+.lesbian-seg-4 {
+    background-color: #d362a4;
+}
+.lesbian-seg-5 {
+    background-color: #a40162;
+}
+.article-flag .lesbian-seg-1, 
+.article-flag .lesbian-seg-2, 
+.article-flag .lesbian-seg-3,
+.article-flag .lesbian-seg-4,
+.article-flag .lesbian-seg-5, {
+    height: 36px;
+}
+                </code>
+            </pre>
+        </div>
+        <div class="article-flag" id="progress-pride-flag" onclick='displayCode("progress-pride-flag")'>
+            <div class="progress-container-article">
+                <div class="progress-inner-article">
+                    <div class="progress-seg-1">
+                        <div class="progress-seg-2">
+                            <div class="progress-seg-3">
+                                <div class="progress-seg-4">
+                                    <div class="progress-seg-5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="seg-1 article-seg rounded-edges-top"></div>
+            <div class="seg-2 article-seg"></div>
+            <div class="seg-3 article-seg"></div>
+            <div class="seg-4 article-seg"></div>
+            <div class="seg-5 article-seg"></div>
+            <div class="seg-6 article-seg"></div>
+            <p class="flag-title">Progress Pride flag</p>
+        </div>
+        <div id="progress-pride-flag-code" hidden>
+            <pre>
+                <p>Note: (This one could use some work, the size of the progress part <b>should</b> be larger.)</p>
+                <h3>HTML</h3>
+                <code class="html hljs language-shell" id="progress-pride-flag-html" >
+
+                </code>
+            </pre>
+            <pre>
+                <h3>Stylesheet</h3>
+                <code class="css hljs language-shell" >
+.article-flag {
+    width: 27.5%;
+    margin: 2em;
+    display: inline-block;
+}
+.rounded-edges-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.rounded-edges-bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.progress-container-article {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    z-index: 1;
+}
+.progress-inner-article {
+    position: absolute;
+    left: 0px;
+    top: 72px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 150px;
+    height: 100px;
+}
+.progress-inner-article div {
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 100px;
+}
+.progress-seg-1 {
+    background-color: #000000;
+}
+.progress-seg-2 {
+    background-color: #613915;
+}
+.progress-seg-3 {
+    background-color: #74D7EE;
+}
+.progress-seg-4 {
+    background-color: #FFAFC8;
+}
+.progress-seg-5 {
+    background-color: #FFFFFF;
+}
+
+                </code>
+            </pre>
+        </div>
+        <div class="article-flag" id="nonbinary-pride-flag" onclick='displayCode("nonbinary-pride-flag")'>
+            <div class="nonbinary-seg-1 rounded-edges-top"></div>
+            <div class="nonbinary-seg-2"></div>
+            <div class="nonbinary-seg-3"></div>
+            <div class="nonbinary-seg-4 rounded-edges-bottom"></div>
+            <p class="flag-title">Nonbinary Pride flag</p>
+        </div>
+        <div id="nonbinary-pride-flag-code" hidden>
+            <pre>
+                <h3>HTML</h3>
+                <code class="html hljs language-shell" id="nonbinary-pride-flag-html" >
+                
+                </code>
+            </pre>
+            <pre>
+                <h3>Stylesheet</h3>
+                <code class="css hljs language-shell" >
+.article-flag {
+    width: 27.5%;
+    margin: 2em;
+    display: inline-block;
+}
+.rounded-edges-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.rounded-edges-bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.nonbinary-seg-1 {
+    background-color: #f5ea2a;
+}
+.nonbinary-seg-2 {
+    background-color: #ffffff;
+}
+.nonbinary-seg-3 {
+    background-color: #9a59cf;
+}
+.nonbinary-seg-4 {
+    background-color: #2d2d2d;
+}
+.article-flag .nonbinary-seg-1,
+.article-flag .nonbinary-seg-2,
+.article-flag .nonbinary-seg-3,
+.article-flag .nonbinary-seg-4 {
+    height: 45px;
+}
+                </code>
+            </pre>
+        </div>
+        <div class="article-flag" id="pansexual-pride-flag" onclick='displayCode("pansexual-pride-flag")'>
+            <div class="pansexual-seg-1 rounded-edges-top"></div>
+            <div class="pansexual-seg-2"></div>
+            <div class="pansexual-seg-3 rounded-edges-bottom"></div>
+            <p class="flag-title">Pansexual Pride flag</p>
+        </div>
+        <div id="pansexual-pride-flag-code" hidden>
+            <pre>
+                <h3>HTML</h3>
+                <code class="html hljs language-shell" id="pansexual-pride-flag-html" >
+
+                </code>
+            </pre>
+            <pre>
+                <h3>Stylesheet</h3>
+                <code class="css hljs language-shell" >
+.article-flag {
+    width: 27.5%;
+    margin: 2em;
+    display: inline-block;
+}
+.rounded-edges-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.rounded-edges-bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.pansexual-seg-1 {
+    background-color: #ff218c;
+}
+.pansexual-seg-2 {
+    background-color: #ffd800;
+}
+.pansexual-seg-3 {
+    background-color: #20b2fe;
+}
+.article-flag .pansexual-seg-1, 
+.article-flag .pansexual-seg-2, 
+.article-flag .pansexual-seg-3 {
+    height: 60px;
+}
+                </code>
+            </pre>
+        </div>
+        <div class="article-flag" id="polysexual-pride-flag" onclick='displayCode("polysexual-pride-flag")'>
+            <div class="polysexual-seg-1 rounded-edges-top"></div>
+            <div class="polysexual-seg-2"></div>
+            <div class="polysexual-seg-3 rounded-edges-bottom"></div>
+            <p class="flag-title">Polysexual Pride flag</p>
+        </div>
+        <div id="polysexual-pride-flag-code" hidden>
+            <pre>
+                <h3>HTML</h3>
+                <code class="html hljs language-shell" id="polysexual-pride-flag-html" >
+                
+                </code>
+            </pre>
+            <pre>
+                <h3>Stylesheet</h3>
+                <code class="css hljs language-shell" >
+.article-flag {
+    width: 27.5%;
+    margin: 2em;
+    display: inline-block;
+}
+.rounded-edges-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.rounded-edges-bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.polysexual-seg-1 {
+    background-color: #f61cb9;
+}
+.polysexual-seg-2 {
+    background-color: #06d569;
+}
+.polysexual-seg-3 {
+    background-color: #1c92f6;
+}
+.article-flag .polysexual-seg-1, 
+.article-flag .polysexual-seg-2, 
+.article-flag .polysexual-seg-3 {
+    height: 60px;
+}
+                </code>
+            </pre>
+        </div>
+        <div class="article-flag" id="asexual-pride-flag" onclick='displayCode("asexual-pride-flag")'>
+            <div class="asexual-seg-1 rounded-edges-top"></div>
+            <div class="asexual-seg-2"></div>
+            <div class="asexual-seg-3"></div>
+            <div class="asexual-seg-4 rounded-edges-bottom"></div>
+            <p class="flag-title">Asexual Pride flag</p>
+        </div>
+        <div id="asexual-pride-flag-code" hidden>
+            <pre>
+                <h3>HTML</h3>
+                <code class="html hljs language-shell" id="asexual-pride-flag-html" >
+                
+                </code>
+            </pre>
+            <pre>
+                <h3>Stylesheet</h3>
+                <code class="css hljs language-shell" >
+.article-flag {
+    width: 27.5%;
+    margin: 2em;
+    display: inline-block;
+}
+.rounded-edges-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.rounded-edges-bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.asexual-seg-1 {
+    background-color: #000000;
+}
+.asexual-seg-2 {
+    background-color: #a0a0a0;
+}
+.asexual-seg-3 {
+    background-color: #ffffff;
+}
+.asexual-seg-4 {
+    background-color: #9a0778;
+}
+.article-flag .asexual-seg-1,
+.article-flag .asexual-seg-2,
+.article-flag .asexual-seg-3,
+.article-flag .asexual-seg-4 {
+    height: 45px;
+}
+                </code>
+            </pre>
+        </div>
     </div>
 }
