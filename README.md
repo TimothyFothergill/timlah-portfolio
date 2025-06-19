@@ -12,3 +12,21 @@ Notes:
 Backend written in Scala, using the Play framework.
 
 https://www.timlah.com
+
+## Running tests
+
+For unit tests
+```shell
+sbt test
+```
+
+For a11y and end-to-end tests:
+
+```shell
+npm install
+npm run test
+npm run e2e-test
+```
+
+a11y testing done with axe-core
+e2e testing done with playwright

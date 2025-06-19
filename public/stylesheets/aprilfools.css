@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Comic Neue';
+    src: url("/assets/fonts/ComicNeue-Regular.woff")        format("woff"),
+         url("/assets/fonts/ComicNeue-Italic.woff")         format("woff"),
+         url("/assets/fonts/ComicNeue-Light.woff")          format("woff"),
+         url("/assets/fonts/ComicNeue-LightItalic.woff")    format("woff"),
+         url("/assets/fonts/ComicNeue-Bold.woff")           format("woff"),
+         url("/assets/fonts/ComicNeue-BoldItalic.woff")     format("woff");
+}
+
 body {
-    font-family: 'Comic Neue', sans-serif !important;
+    font-family: 'Comic Neue' !important;
 }

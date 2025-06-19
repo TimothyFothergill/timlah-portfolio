@@ -145,6 +145,7 @@ class HomeController @Inject()(
           ||  data.contents.contains("hacker")
           ||  data.contents.contains("hacked")
           ||  data.contents.contains("SEO")
+          ||  data.contents.contains("seo")
           ||  data.contents.contains("medicine")
           ||  data.contents.contains("cialis")
           ||  data.contents.contains("CBD")
