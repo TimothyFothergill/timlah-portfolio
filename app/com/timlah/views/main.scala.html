@@ -46,7 +46,10 @@
         <link rel="canonical"   href="https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="article:author" content="Timlah">
-        @metadata.getOrElse(Html(""))
+        @metadata.getOrElse(Html("""<meta
+        name="description"
+        content="Timlah is a full-stack developer from Chepstow, UK. Come see what software and projects he's working on. a11y ally, loves crafting software and geek culture.">
+        """))
     </head>
     <body class="bg-dark text-white d-flex flex-column h-100">
     <!-- Bootstrap Bundle with Popper -->
@@ -87,7 +90,7 @@
                 }
             }
         <a class="navbar-brand" href="/">Timlah's Techs <b class="dev-status">@sys.env.getOrElse("DEV_STATUS", "")</b></a>
-        <a href="javascript:void(0);" aria-label="Main Menu" class="menuIcon" onclick="addResponsiveClass()">
+        <a href="javascript:void(0);" aria-label="Main Menu" class="menuIcon" onclick="addResponsiveClass()" title="Main menu navigation">
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
             </svg>
