@@ -58,6 +58,11 @@ body {
     padding-top:1.5rem!important;
 }
 
+.footer-container {
+    margin-right: 2rem;
+    border-top: 1px solid #000;
+}
+
 .nav-link:hover {
     color: #9f0000;
     text-decoration: underline;

@@ -1,0 +1,17 @@
+<img class="kofi-small" alt="Support Timlah on ko-fi" src="@routes.Assets.versioned("images/branding/ko-fi/kofi_button_blue.webp")" />
+<a href="https://ko-fi.com/timlah" class="sr-only sr-only-focusable" aria-label="Donate to me via Ko-Fi">Donate</a>
+<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+<script>
+    kofiWidgetOverlay.draw('timlah', {
+        'type': 'floating-chat',
+        'floating-chat.cssId': 'kofiWidget',
+        'floating-chat.donateButton.text': 'Coffee Fund',
+        'floating-chat.donateButton.background-color': '#000',
+        'floating-chat.donateButton.text-color': '#fff'
+    });
+</script>
+<script>
+    // helps the ko-fi widget be more accessible
+    document.getElementById("kofi-wo-containerkofiWidget").setAttribute("title","Ko-fi Widget");
+    document.getElementById("kofi-wo-containerkofiWidget").setAttribute("aria-hidden","true");
+</script>
