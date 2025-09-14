@@ -5,10 +5,10 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.13.8"
+scalaVersion := "2.13.11"
 
 libraryDependencies += guice
-libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
+// libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 libraryDependencies += "com.typesafe.play" %% "play-mailer" % "8.0.1"
 libraryDependencies += "com.typesafe.play" %% "play-mailer-guice" % "8.0.1"
 libraryDependencies += "org.typelevel" %% "laika-io" % "1.3.1"
@@ -31,6 +31,11 @@ libraryDependencies += "com.typesafe.akka" %% "akka-actor-typed" % AkkaVersion
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test
+)
+
+dependencyOverrides ++= Seq(
+  "com.typesafe.play" %% "twirl-api" % "1.6.8",
+  "org.scala-lang.modules" %% "scala-xml" % "2.2.0"
 )
 
 // Adds additional packages into Twirl
