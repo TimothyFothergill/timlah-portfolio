@@ -37,6 +37,10 @@ body {
     font-family: 'Manjari';
 }
 
+html {
+    scrollbar-color: #ffa500 black;
+}
+
 .animate-background {
     animation: bgpan 180s linear infinite;
 }
@@ -47,7 +51,7 @@ body {
 }
 
 .nav-link {
-    color: orange;
+    color: #ffa500;
     font-size: 20px;
 }
 
@@ -84,7 +88,7 @@ body {
     font-size: 24px;
 }
 @keyframes zoom-left {
-    0%      {color: orange;     margin-left:-200px; }
+    0%      {color: #ffa500;     margin-left:-200px; }
     100%    {color: white;      margin-left:1em;    }
 }
 
