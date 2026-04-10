@@ -132,24 +132,26 @@ class HomeController @Inject()(
       logger.info("POST: /contact ")
       val boundForm = ContactData.contactForm.bindFromRequest()
       val enquiryTypes = EnquiryType.values
+      val badWords = Seq(
+        "bitcoin",
+        "btc",
+        "hacker",
+        "hacked",
+        "seo",
+        "medicine",
+        "cialis",
+        "cbd"
+      )
       boundForm.fold(
         formWithErrors => {
           BadRequest(com.timlah.views.html.contact(formWithErrors, enquiryTypes.map(_.asString)))
         },
         submittedData => {
-          val data = ContactData(submittedData.name, submittedData.email, submittedData.subject, submittedData.enquiry, submittedData.contents)
+          val data = ContactData(submittedData.name, submittedData.email, submittedData.subject, submittedData.enquiry, submittedData.contents, submittedData.capture)
           if (
-              data.contents.contains("bitcoin")
-          ||  data.contents.contains("BTC")
-          ||  data.contents.contains("btc")
-          ||  data.contents.contains("hacker")
-          ||  data.contents.contains("hacked")
-          ||  data.contents.contains("SEO")
-          ||  data.contents.contains("seo")
-          ||  data.contents.contains("medicine")
-          ||  data.contents.contains("cialis")
-          ||  data.contents.contains("CBD")
-          ||  data.contents.contains("cbd")
+            badWords.exists(data.contents.toLowerCase.contains) ||
+            data.email.contains("sales") ||
+            data.capture.nonEmpty
           ) {
             Redirect(routes.HomeController.index()).flashing("fail" -> "Contact message not sent.")
           } else {

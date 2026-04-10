@@ -6,21 +6,23 @@ import play.api.data.format.Formatter
 import play.api.mvc.QueryStringBindable
 
 case class ContactData(
-  name    : String        ,
-  email   : String        ,
-  subject : Option[String],
-  enquiry : String        ,
-  contents: String
+  name      : String        ,
+  email     : String        ,
+  subject   : Option[String],
+  enquiry   : String        ,
+  contents  : String        ,
+  capture   : String        ,
 )
 
 object ContactData {
   val contactForm: Form[ContactData] = Form(
    mapping(
-    "name"      -> nonEmptyText    ,
-    "email"     -> email           ,
-    "subject"   -> optional(text)  ,
-    "enquiry"   -> text            ,
-    "contents"  -> nonEmptyText
+    "name"        -> nonEmptyText    ,
+    "email"       -> email           ,
+    "subject"     -> optional(text)  ,
+    "enquiry"     -> text            ,
+    "contents"    -> nonEmptyText    ,
+    "capture"     -> text            ,
    )(ContactData.apply)(ContactData.unapply))
 }
 
