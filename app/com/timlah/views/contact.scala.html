@@ -48,6 +48,8 @@
             Symbol("id") -> "enquiryType"
         )
         <dl><dt><label for="subject">Subject:   </label></dt><dd><input type="text" name="subject" id="subject" size="30"></dd></dl>
+        <dl style="display:none !important;" aria-hidden="true"><dt><label for="capture">Please leave this field empty</label></dt><dd><input type="text" name="capture" id="capture" autocomplete="off"></dd></dl>
+        </dl>
         @contactForm("contents").hasErrors match {
         case true => {
                 <dl>

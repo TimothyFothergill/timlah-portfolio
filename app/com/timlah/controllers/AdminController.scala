@@ -12,7 +12,7 @@ import com.timlah.models.admin.{AdminLoginDetails, NewBlogPostForm}
 import com.timlah.services.admin.AdminService
 import com.timlah.repositories.BlogPostRepository
 
-import play.Logger
+import play.api.Logging
 import akka.http.scaladsl.model.DateTime
 import scala.concurrent.Future
 
@@ -21,7 +21,7 @@ class AdminController @Inject()(
   adminService              : AdminService,
   blogService               : BlogPostRepository,
   cc                        : MessagesControllerComponents,
-)(implicit executionContext: ExecutionContext) extends MessagesAbstractController(cc) {
+)(implicit executionContext: ExecutionContext) extends MessagesAbstractController(cc) with Logging {
 
     def login() = Action { implicit request: MessagesRequest[AnyContent] =>
       request.session.get("username") match {
@@ -169,7 +169,7 @@ class AdminController @Inject()(
                 val data = AdminLoginDetails(submittedData.username, submittedData.password)
                 var authenticated = adminService.checkUserDetails(data)
                 if(authenticated) {
-                  Logger.info(s"Successful sign-in: ${submittedData.username} @ ${DateTime.now}")
+                  logger.info(s"Successful sign-in: ${submittedData.username} @ ${DateTime.now}")
                   Redirect(routes.AdminController.dashboard())
                     .withNewSession
                     .withSession("username" -> submittedData.username)
