@@ -15,7 +15,7 @@ class MarkupService {
     .build
 
   def markdownFileToHTML(): Either[String, String] = {
-    val file = scala.io.Source.fromResource("latest-blog.md")
+    val file  = scala.io.Source.fromResource("latest-blog.md")
     val lines =
       try file.getLines().toList.filterNot(_.isEmpty)
       finally file.close()
