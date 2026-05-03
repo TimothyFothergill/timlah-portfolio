@@ -8,13 +8,13 @@
 // case class NewNetBitPetData(
 //     name            : String,
 //     netBitPetType   : NetBitPet
-// ) 
+// )
 
 // object NewNetBitPetData {
 //     val newPetForm: Form[NewNetBitPetData] = Form(
 //         mapping(
 //             "name" -> nonEmptyText  ,
-//             "netBitPetType" -> 
+//             "netBitPetType" ->
 //         )
 //     )
 

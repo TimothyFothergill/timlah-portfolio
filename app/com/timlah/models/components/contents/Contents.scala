@@ -7,5 +7,5 @@ case class Contents(
 )
 
 object Contents {
-    val default: Contents = Contents()
+  val default: Contents = Contents()
 }

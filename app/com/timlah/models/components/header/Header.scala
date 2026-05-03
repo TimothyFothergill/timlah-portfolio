@@ -9,5 +9,5 @@ case class Header(
 )
 
 object Header {
-    implicit val defaultHeader = Header()
+  implicit val defaultHeader: Header = Header()
 }

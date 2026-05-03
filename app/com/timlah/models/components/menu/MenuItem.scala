@@ -8,5 +8,5 @@ case class MenuItem(
 )
 
 object MenuItem {
-    val default: MenuItem = MenuItem()
+  val default: MenuItem = MenuItem()
 }

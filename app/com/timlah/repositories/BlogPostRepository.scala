@@ -18,8 +18,10 @@ import javax.inject.Inject
 import scala.concurrent.Await
 import com.timlah.models.StoredBlogPost
 
-class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(
-  implicit executionContext: ExecutionContext,
+class BlogPostRepository @Inject() (
+    protected val dbConfigProvider: DatabaseConfigProvider
+)(implicit
+    executionContext: ExecutionContext
 ) extends HasDatabaseConfigProvider[JdbcProfile] {
 
   def getAllUsers: Future[Seq[AdminLoginDetails]] = {
@@ -30,13 +32,14 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
 
   def checkUserDetails(adminForm: AdminLoginDetails): Future[Boolean] = {
     val userDetailsTable = TableQuery[AdminLoginTable]
-    val query: Query[AdminLoginTable, AdminLoginDetails, Seq] = userDetailsTable.filter(_.username === adminForm.username)
-    val queryResult: Future[Seq[AdminLoginDetails]] = db.run[Seq[AdminLoginDetails]](query.result)
+    val query: Query[AdminLoginTable, AdminLoginDetails, Seq] =
+      userDetailsTable.filter(_.username === adminForm.username)
+    val queryResult: Future[Seq[AdminLoginDetails]] =
+      db.run[Seq[AdminLoginDetails]](query.result)
     for {
       userDetails: Seq[AdminLoginDetails] <- queryResult
       user = userDetails.head
-    } 
-    yield user.password == adminForm.password
+    } yield user.password == adminForm.password
   }
 
   def insertBlogPost(blogPost: StoredBlogPost) = {
@@ -47,8 +50,9 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
 
   def updateBlogPost(blogPost: StoredBlogPost) = {
     val blogPosts = TableQuery[BlogPostTable]
-    val query = 
-      blogPosts.filter(_.id === blogPost.id)
+    val query     =
+      blogPosts
+        .filter(_.id === blogPost.id)
         .map(x => (x.title, x.slug, x.content))
         .update((blogPost.title, blogPost.slug, blogPost.content))
     db.run(query)
@@ -56,19 +60,20 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
 
   def dropBlogPost(id: Int) = {
     val blogPosts = TableQuery[BlogPostTable]
-    val query = blogPosts.filter(_.id === id).delete
+    val query     = blogPosts.filter(_.id === id).delete
     db.run(query)
   }
 
   def getAllBlogPosts: Future[Seq[BlogPost]] = {
-    val blogPosts = TableQuery[BlogPostTable]
+    val blogPosts                                  = TableQuery[BlogPostTable]
     val query: Query[BlogPostTable, BlogPost, Seq] = blogPosts
     db.run[Seq[BlogPost]](query.result)
   }
 
-  def getBlogEntryById(id : Int) : Future[Option[BlogPost]] = {
-    val blogPosts = TableQuery[BlogPostTable]
-    val query: Query[BlogPostTable, BlogPost, Seq] = blogPosts.filter(_.id === id)
+  def getBlogEntryById(id: Int): Future[Option[BlogPost]] = {
+    val blogPosts                                  = TableQuery[BlogPostTable]
+    val query: Query[BlogPostTable, BlogPost, Seq] =
+      blogPosts.filter(_.id === id)
     val queryResult: Future[Seq[BlogPost]] = db.run[Seq[BlogPost]](query.result)
     for {
       posts: Seq[BlogPost] <- queryResult
@@ -76,9 +81,10 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
     } yield post
   }
 
-  def getBlogEntryBySlug(slug: String) : Future[Option[BlogPost]] = {
-    val blogPosts = TableQuery[BlogPostTable]
-    val query: Query[BlogPostTable, BlogPost, Seq] = blogPosts.filter(_.slug === slug)
+  def getBlogEntryBySlug(slug: String): Future[Option[BlogPost]] = {
+    val blogPosts                                  = TableQuery[BlogPostTable]
+    val query: Query[BlogPostTable, BlogPost, Seq] =
+      blogPosts.filter(_.slug === slug)
     val queryResult: Future[Seq[BlogPost]] = db.run[Seq[BlogPost]](query.result)
     for {
       posts: Seq[BlogPost] <- queryResult
@@ -86,57 +92,76 @@ class BlogPostRepository @Inject()(protected val dbConfigProvider: DatabaseConfi
     } yield post
   }
 
-  def getBlogPostCount: Future[Int] = { getAllBlogPosts.map(_.size) }
+  def getBlogPostCount: Future[Int]       = { getAllBlogPosts.map(_.size) }
   def getLatestBlogPost: Future[BlogPost] = {
-    val blogPosts = TableQuery[BlogPostTable]
+    val blogPosts                                  = TableQuery[BlogPostTable]
     val query: Query[BlogPostTable, BlogPost, Seq] = blogPosts
     val queryResult: Future[Seq[BlogPost]] = db.run[Seq[BlogPost]](query.result)
     queryResult.map(_.maxBy(_.id))
   }
 }
 
-class StoredBlogPostTable(tag: Tag) extends Table[StoredBlogPost](tag, sys.env.getOrElse("ACTIVE_TABLE", "")) {
-  implicit val configColumnType : JdbcType[Author] with BaseTypedType[Author] = MappedColumnType.base[Author, String](
-    author => Json.stringify(Json.toJson(author)),
-    column => Json.parse(column).as[Author]
-  )
+class StoredBlogPostTable(tag: Tag)
+    extends Table[StoredBlogPost](tag, sys.env.getOrElse("ACTIVE_TABLE", "")) {
+  implicit val configColumnType: JdbcType[Author] with BaseTypedType[Author] =
+    MappedColumnType.base[Author, String](
+      author => Json.stringify(Json.toJson(author)),
+      column => Json.parse(column).as[Author]
+    )
 
-  override def * = (id, author, coauthor, title, slug, content, date) <> ((StoredBlogPost.apply _).tupled, StoredBlogPost.unapply)
-  val id        : Rep[Int]              = column[Int             ]("id"       , O.AutoInc, O.PrimaryKey)
-  val author    : Rep[Author]           = column[Author          ]("author"     )
-  val coauthor  : Rep[Option[Author]]   = column[Option[Author]  ]("coauthor"   )
-  val title     : Rep[String]           = column[String          ]("title"      )
-  val slug      : Rep[String]           = column[String          ]("slug"       )
-  val content   : Rep[String]           = column[String          ]("content"    )
-  val date      : Rep[String]           = column[String          ]("date"       )
+  override def * = (id, author, coauthor, title, slug, content, date) <> (
+    (StoredBlogPost.apply _).tupled,
+    StoredBlogPost.unapply
+  )
+  val id: Rep[Int]                  = column[Int]("id", O.AutoInc, O.PrimaryKey)
+  val author: Rep[Author]           = column[Author]("author")
+  val coauthor: Rep[Option[Author]] = column[Option[Author]]("coauthor")
+  val title: Rep[String]            = column[String]("title")
+  val slug: Rep[String]             = column[String]("slug")
+  val content: Rep[String]          = column[String]("content")
+  val date: Rep[String]             = column[String]("date")
 }
 
-class BlogPostTable(tag: Tag) extends Table[BlogPost](tag, sys.env.getOrElse("ACTIVE_TABLE", "")) {
+class BlogPostTable(tag: Tag)
+    extends Table[BlogPost](tag, sys.env.getOrElse("ACTIVE_TABLE", "")) {
 
-  implicit val configColumnType : JdbcType[Author] with BaseTypedType[Author] = MappedColumnType.base[Author, String](
-    author => Json.stringify(Json.toJson(author)),
-    column => Json.parse(column).as[Author]
+  implicit val configColumnType: JdbcType[Author] with BaseTypedType[Author] =
+    MappedColumnType.base[Author, String](
+      author => Json.stringify(Json.toJson(author)),
+      column => Json.parse(column).as[Author]
+    )
+  implicit val dateTimeFormat: OFormat[DateTime] = Json.format[DateTime]
+  implicit val dateTimeColumnType
+      : JdbcType[DateTime] with BaseTypedType[DateTime] =
+    MappedColumnType.base[DateTime, String](
+      dateTime => Json.stringify(Json.toJson(dateTime)),
+      column => Json.parse(column).as[DateTime]
+    )
+
+  override def * = (id, author, coauthor, title, slug, content, date) <> (
+    BlogPost.tupled,
+    BlogPost.unapply
   )
-  implicit val dateTimeFormat     : OFormat[DateTime] = Json.format[DateTime]
-  implicit val dateTimeColumnType : JdbcType[DateTime] with BaseTypedType[DateTime] = MappedColumnType.base[DateTime, String](
-    dateTime => Json.stringify(Json.toJson(dateTime)),
-    column => Json.parse(column).as[DateTime]
-  )
 
-  override def * = (id, author, coauthor, title, slug, content, date) <> (BlogPost.tupled, BlogPost.unapply)
-
-  val id        : Rep[Int]              = column[Int             ]("id"       , O.AutoInc, O.PrimaryKey)
-  val author    : Rep[Author]           = column[Author          ]("author"     )
-  val coauthor  : Rep[Option[Author]]   = column[Option[Author]  ]("coauthor"   )
-  val title     : Rep[String]           = column[String          ]("title"      )
-  val slug      : Rep[String]           = column[String          ]("slug"       )
-  val content   : Rep[String]           = column[String          ]("content"    )
-  val date      : Rep[DateTime]         = column[DateTime        ]("date"       )
+  val id: Rep[Int]                  = column[Int]("id", O.AutoInc, O.PrimaryKey)
+  val author: Rep[Author]           = column[Author]("author")
+  val coauthor: Rep[Option[Author]] = column[Option[Author]]("coauthor")
+  val title: Rep[String]            = column[String]("title")
+  val slug: Rep[String]             = column[String]("slug")
+  val content: Rep[String]          = column[String]("content")
+  val date: Rep[DateTime]           = column[DateTime]("date")
 }
 
-class AdminLoginTable(tag: Tag) extends Table[AdminLoginDetails](tag, sys.env.getOrElse("USER_TABLE", "user")) {
+class AdminLoginTable(tag: Tag)
+    extends Table[AdminLoginDetails](
+      tag,
+      sys.env.getOrElse("USER_TABLE", "user")
+    ) {
 
-  override def * = (username, password) <> ((AdminLoginDetails.apply _).tupled, AdminLoginDetails.unapply)
+  override def * = (username, password) <> (
+    (AdminLoginDetails.apply _).tupled,
+    AdminLoginDetails.unapply
+  )
   val username: Rep[String] = column[String]("username")
   val password: Rep[String] = column[String]("password")
 }

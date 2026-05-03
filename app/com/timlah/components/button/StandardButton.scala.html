@@ -9,7 +9,7 @@
         }
     }
     case Right(call) => {
-        @if(call != "") {
+        @if(call.toString() != "") {
             <a href="@call">
         }
     }
@@ -27,5 +27,5 @@
 </button>
 @url match {
     case Left(link) => { @if(link != "") { </a> } }
-    case Right(call) => { @if(call != "") { </a> } }
+    case Right(call) => { @if(call.toString() != "") { </a> } }
 }

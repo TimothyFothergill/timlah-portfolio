@@ -9,19 +9,20 @@ import play.api.data.format.Formatter
 import play.api.mvc.QueryStringBindable
 
 case class NewBlogPostForm(
-  title     : String          ,
-  slug      : String          ,
-  content   : String          ,
-  date      : String
+    title: String,
+    slug: String,
+    content: String,
+    date: String
 )
 
 object NewBlogPostForm {
 
   val newBlogPostForm: Form[NewBlogPostForm] = Form(
     mapping(
-        "title"   -> nonEmptyText,
-        "slug"    -> nonEmptyText,
-        "content" -> nonEmptyText,
-        "date"    -> nonEmptyText,
-    )(NewBlogPostForm.apply)(NewBlogPostForm.unapply))
+      "title"   -> nonEmptyText,
+      "slug"    -> nonEmptyText,
+      "content" -> nonEmptyText,
+      "date"    -> nonEmptyText
+    )(NewBlogPostForm.apply)(NewBlogPostForm.unapply)
+  )
 }

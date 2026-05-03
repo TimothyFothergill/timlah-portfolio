@@ -9,9 +9,9 @@ case class Button(
     id: String = "",
     jsScript: String = "",
     text: String = "",
-    url: Either[String, Call] = Left(""),
+    url: Either[String, Call] = Left("")
 )
 
 object Button {
-    implicit val defaultButton = Button()
+  implicit val defaultButton: Button = Button()
 }

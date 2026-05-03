@@ -15,16 +15,19 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 @Singleton
-class DesignSystemController @Inject()(
-  cc                        : MessagesControllerComponents
-)(implicit executionContext: ExecutionContext) extends MessagesAbstractController(cc) {
-    def index() = Action { implicit request: Request[AnyContent] => {
-        Ok(com.timlah.views.html.designsystem.index())
-      }      
+class DesignSystemController @Inject() (
+    cc: MessagesControllerComponents
+)(implicit executionContext: ExecutionContext)
+    extends MessagesAbstractController(cc) {
+  def index() = Action { implicit request: Request[AnyContent] =>
+    {
+      Ok(com.timlah.views.html.designsystem.index())
     }
+  }
 
-    def menu() = Action { implicit request: Request[AnyContent] => {
-        Ok(com.timlah.views.html.designsystem.menu())
-      }
+  def menu() = Action { implicit request: Request[AnyContent] =>
+    {
+      Ok(com.timlah.views.html.designsystem.menu())
     }
+  }
 }
