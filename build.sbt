@@ -25,7 +25,7 @@ libraryDependencies ++=
   Seq(
     "com.andersen-gott" %% "scravatar" % "1.0.4"
   )
-val AkkaVersion = "2.6.8"
+val AkkaVersion = "2.6.21"
 libraryDependencies += "com.typesafe.akka" %% "akka-actor-typed" % AkkaVersion
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor-typed"         % AkkaVersion,
@@ -35,6 +35,10 @@ libraryDependencies ++= Seq(
 dependencyOverrides ++= Seq(
   "com.typesafe.play"      %% "twirl-api" % "1.6.8",
   "org.scala-lang.modules" %% "scala-xml" % "2.2.0"
+)
+
+libraryDependencies ++= Seq(
+  "org.scalatestplus.play" %% "scalatestplus-play" % "6.0.2" % Test
 )
 
 // Adds additional packages into Twirl
