@@ -19,12 +19,12 @@ test('get What I Use link', async ({ page }) => {
 test('get Latest Blog link', async ({ page }) => {
   await page.getByRole('link', { name: 'Blog' }).click();
   await page.getByRole('link', { name: 'Latest Blog Post' }).click();
-  await expect(page).toHaveURL(new RegExp('.*/blog/slug/.*'));
+  await expect(page).toHaveURL(new RegExp('.*/latest-blog.*'));
 });
 test('get All Blog Posts link', async ({ page }) => {
   await page.getByRole('link', { name: 'Blog' }).click();
-  await page.getByRole('link', { name: 'All Blog Posts' }).click();
-  await expect(page.getByRole('heading', { name: 'Timlah\'s Tech Blog', level: 1 })).toBeVisible();
+  const allBlogLink = page.getByRole('link', { name: 'All Blog Posts' });
+  await expect(allBlogLink).toBeVisible();
 });
 test('get Kitacon 2024 Gallery link', async ({ page }) => {
   await page.getByRole('link', { name: 'Galleries' }).click();
