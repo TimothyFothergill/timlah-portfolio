@@ -45,23 +45,19 @@ class HomeController @Inject() (
     with Logging {
 
   def index() = Action { implicit request: Request[AnyContent] =>
-    logger.info("GET: / ")
     Ok(com.timlah.views.html.index())
   }
 
   def about() = Action { implicit request: Request[AnyContent] =>
-    logger.info("GET: /about ")
     Ok(com.timlah.views.html.about())
   }
 
   def whatIUse() = Action { implicit request: Request[AnyContent] =>
-    logger.info("GET: /about/whatIUse ")
     Ok(com.timlah.views.html.whatiuse())
   }
 
   def projects() = Action { implicit request: Request[AnyContent] =>
     {
-      logger.info("GET: /projects ")
       Ok(
         com.timlah.views.html.projects(
           currentProjects.currentProjects(),
@@ -72,13 +68,11 @@ class HomeController @Inject() (
   }
   def pride() = Action { implicit request: Request[AnyContent] =>
     {
-      logger.info("GET: /pride ")
       Ok(com.timlah.views.html.pride())
     }
   }
   def contactPage() = Action { implicit request: MessagesRequest[AnyContent] =>
     {
-      logger.info("GET: /contact ")
       val boundForm    = ContactData.contactForm
       val enquiryTypes = EnquiryType.values
       Ok(com.timlah.views.html.contact(boundForm, enquiryTypes.map(_.asString)))
@@ -87,7 +81,6 @@ class HomeController @Inject() (
 
   def latestBlog(): Action[AnyContent] = Action {
     implicit request: Request[AnyContent] =>
-      logger.info("GET: /latest-blog ")
       val getFutureBlogPost = repository.getLatestBlogPost
       val futureSlug        =
         Await.result(getFutureBlogPost.map(i => i.slug), 3 seconds)
@@ -95,7 +88,6 @@ class HomeController @Inject() (
   }
 
   def blogPosts() = Action.async { implicit request: Request[AnyContent] =>
-    logger.info("GET: /blog ")
     val getFutureBlogPost = repository.getAllBlogPosts.map(_.sortBy(_.id))
     getFutureBlogPost.map(i =>
       Ok(com.timlah.views.html.blogposts(i, i.size, markupService))
@@ -104,7 +96,6 @@ class HomeController @Inject() (
 
   def blogBySlug(slug: String) = Action.async {
     implicit request: Request[AnyContent] =>
-      logger.info(s"GET: /blog/slug/${slug} ")
       val getFutureBlogPost = repository.getBlogEntryBySlug(slug)
       getFutureBlogPost.map(i =>
         Ok(
@@ -130,7 +121,6 @@ class HomeController @Inject() (
 
   def blogByID(id: Int) = Action.async {
     implicit request: Request[AnyContent] =>
-      logger.info(s"GET: /blog/id/${id} ")
       val getFutureBlogPost = repository.getBlogEntryById(id)
       getFutureBlogPost.map(i =>
         Ok(
@@ -177,7 +167,6 @@ class HomeController @Inject() (
   def contactSubmit() = Action {
     implicit request: MessagesRequest[AnyContent] =>
       {
-        logger.info("POST: /contact ")
         val boundForm    = ContactData.contactForm.bindFromRequest()
         val enquiryTypes = EnquiryType.values
         val badWords     = Seq(
@@ -251,7 +240,6 @@ class HomeController @Inject() (
 // All minigame related controls - Should be moved to a new controller
   def newTicTacToeGame() = Action {
     implicit request: MessagesRequest[AnyContent] =>
-      logger.info("GET: /tic-tac-toe/new ")
       val maybeCookie = request.cookies.get("tictactoeData")
       maybeCookie match {
         case Some(cookie) => {
@@ -272,7 +260,6 @@ class HomeController @Inject() (
 
   def setupNewTicTacToeGame() = Action {
     implicit request: MessagesRequest[AnyContent] =>
-      logger.info("GET: /tic-tac-toe/restart ")
       minigameTicTacToeGameService.reset()
       minigameTicTacToeGameService.setupGame()
       Redirect(routes.HomeController.currentTicTacToeGame())
@@ -280,7 +267,6 @@ class HomeController @Inject() (
 
   def currentTicTacToeGame() = Action {
     implicit request: MessagesRequest[AnyContent] =>
-      logger.info("GET: /tic-tac-toe/")
       Ok(
         com.timlah.views.html.games.tictactoe(
           minigameTicTacToeGameService.board.get,
@@ -291,7 +277,6 @@ class HomeController @Inject() (
 
   def continueTicTacToeGame() = Action {
     implicit request: MessagesRequest[AnyContent] =>
-      logger.info("POST: /tic-tac-toe/")
       request.body.asFormUrlEncoded.flatMap(
         _.get("tic-tac-toe-square-button").flatMap(_.headOption)
       ) match {
@@ -308,7 +293,6 @@ class HomeController @Inject() (
   }
 
   def newWordGame() = Action { implicit request: MessagesRequest[AnyContent] =>
-    logger.info("GET: /word-up/new ")
     val maybeCookie = request.cookies.get("wordupData")
     maybeCookie match {
       case Some(cookie) => {
@@ -336,7 +320,6 @@ class HomeController @Inject() (
 
   def currentWordGame() = Action {
     implicit request: MessagesRequest[AnyContent] =>
-      logger.info("GET: /word-up ")
       Ok(
         com.timlah.views.html.games
           .wordgame(WordGameFormData.wordGameForm, minigameWordGameService)
