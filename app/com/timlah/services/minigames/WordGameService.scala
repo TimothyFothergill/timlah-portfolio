@@ -33,7 +33,6 @@ class WordGameService {
     if (!inProgress || hasWon || hasLost) {
       SelectedWord = selectRandomWord()
       inProgress = true
-      print("new game: " + SelectedWord)
     }
   }
 
