@@ -7,9 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node test/accessibility/test-accessibility.js",
-    "test-full": "node test/accessibility/test-accessibility.js",
-    "e2e-test": "npx playwright test"
+    "test": "npm run test:a11y && npm run test:e2e",
+    "test:a11y": "node test/accessibility/test-accessibility.js",
+    "test:e2e": "npx playwright test"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +17,6 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
     "@playwright/test": "^1.59.1",
-    "@types/node": "^25.6.0",
     "playwright": "^1.59.1"
   }
 }
