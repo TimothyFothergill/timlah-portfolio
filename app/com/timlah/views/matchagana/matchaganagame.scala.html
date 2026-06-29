@@ -1,0 +1,135 @@
+@import com.timlah.views.html.main
+@import com.timlah.models.matchagana.Matchagana
+
+@import com.timlah.components.button.html.StandardButton
+@import com.timlah.components.header.html.header
+@import com.timlah.models.components.button._
+@import com.timlah.models.components.header.Header
+
+
+@(kanaSeq: Seq[Matchagana], mode: String)
+<link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/matchagana/matchagana.css")">
+@main("Matchagana - Romaji to Kana matching quiz | Timlah's Techs", None) {
+    <div class="content shadows" id="matchagana-game">
+        <div class="matchagana-game-container">
+            <h2>Match @mode.capitalize to Romaji</h2>
+                <h3 class="kana" id="currentKana"></h3>
+                <p> Choose the correct Romaji </p>
+                @StandardButton(Button(
+                    ariaLabel = "romaji-choice-a",
+                    additionalClasses = " ",
+                    id = "romaji-choice-a",
+                    text = "Match-a-Hiragana",
+                    jsScript = "submitChoice('a')"
+                ))
+                @StandardButton(Button(
+                    ariaLabel = "romaji-choice-b",
+                    additionalClasses = " ",
+                    id = "romaji-choice-b",
+                    text = "Match-a-Hiragana",
+                    jsScript = "submitChoice('b')"
+                ))
+                @StandardButton(Button(
+                    ariaLabel = "romaji-choice-c",
+                    additionalClasses = " ",
+                    id = "romaji-choice-c",
+                    text = "Match-a-Hiragana",
+                    jsScript = "submitChoice('c')"
+                ))
+                @StandardButton(Button(
+                    ariaLabel = "submit-results",
+                    additionalClasses = " ",
+                    id = "submit-results",
+                    text = "Finish game",
+                    url = Right(com.timlah.controllers.matchagana.routes.MatchaganaController.displayResultsPage()),
+                    attributes = "hidden"
+                ))
+        </div>
+    </div>
+}
+
+<script>
+    var count = 0;
+    var submittedChoices = [];
+    var playedKana = [];
+    const kanaSeq = [@kanaSeq.map{kana => 
+        {
+            romaji:"@kana.romaji",
+            hiragana:"@kana.hiragana",
+            katakana:"@kana.katakana"
+        },
+    }];
+
+    const clusters = [
+        "a", "i", "u", "e", "o", "ka", "ga", "ku", "gu",
+        "ke", "ge", "ko", "go", "sa", "za", "si", "zi",
+        "su", "zu", "se", "ze", "so", "zo", "ta", "da",
+        "ti", "di", "tu", "du", "te", "de", "to", "do",
+        "na", "ni", "nu", "ne", "no", "ha", "ba", "pa",
+        "hi", "bi", "pi", "hu", "bu", "pu", "he", "be",
+        "pe", "ho", "bo", "po", "ma", "mi", "mu", "me",
+        "mo", "ya", "yu", "yo", "ra", "ri", "ru", "re",
+        "ro", "wa", "wo", "n"
+    ];
+
+    nextKana();
+
+    function submitChoice(choice) {
+        if(count == 0) { document.cookie = `matchaganaActiveSession=; path=/; Max-Age=-99999999;`}
+        count = count + 1;
+        const buttonId = "romaji-choice-"+choice;
+        submittedChoices.push(document.getElementById(buttonId).innerText);
+        playedKana.push(document.getElementById('currentKana').innerText);
+        updateCookie(submittedChoices, playedKana);
+        if(count == kanaSeq.length) {
+            console.log("game finished");
+            enableSubmission();
+        } else {
+            console.log(count);
+            nextKana();
+        }
+    };
+
+    function updateCookie(submittedChoices, kana) {
+        const jsonData = JSON.stringify({submittedChoices, kana});
+        document.cookie = 'matchaganaActiveSession=' + encodeURIComponent(jsonData) + '; path=/; SameSite=Strict';
+    }
+
+    function nextKana() {
+        const currentKana = document.getElementById('currentKana');
+        const nextKana = kanaSeq[count];
+        currentKana.innerText = nextKana.hiragana;
+        setupButtons(nextKana);
+    };
+
+    function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function setupButtons(nextKana) {
+        const answer = nextKana.romaji;
+
+        const pool = clusters.filter(item => item !== answer);
+        const picked = shuffle(pool.slice()).slice(0, 2);
+        while (picked.length < 2) picked.push('');
+
+        const options = shuffle([answer, picked[0], picked[1]]);
+        
+        ['a', 'b', 'c'].forEach((letter, i) => {
+            const btn = document.getElementById('romaji-choice-' + letter);
+            if (!btn) return;
+            btn.innerText = options[i];
+        });
+    }
+
+    function enableSubmission() {
+        document.getElementById('romaji-choice-a').hidden = true;
+        document.getElementById('romaji-choice-b').hidden = true;
+        document.getElementById('romaji-choice-c').hidden = true;
+        document.getElementById("submit-results").hidden = false;
+    };
+</script>

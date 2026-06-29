@@ -1,0 +1,17 @@
+.kana {
+    color: #D4AF37;
+}
+
+.matchagana-game-container {
+    display: flex;
+    justify-content: center;    
+}
+
+.matchagana-mode-selector-container {
+    display: flex;
+    justify-content: center;
+}
+
+.matchagana-mode-container {
+    padding: 2em;
+}

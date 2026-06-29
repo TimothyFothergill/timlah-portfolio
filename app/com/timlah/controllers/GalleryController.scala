@@ -324,4 +324,129 @@ class GalleryController @Inject() (
       )
     )
   }
-}
+
+    def severnbridge2026() = Action { implicit request: Request[AnyContent] =>
+      Ok(
+        com.timlah.views.html.galleries.severnbridge2026(
+          Seq(
+            ExternalImage(
+              None,
+              "Underpass to bridge artwork",
+              "https://i.ibb.co/9kGcJM3h/001-underpass-1.jpg"
+            ),
+            ExternalImage(
+              None,
+              "",
+              "https://i.ibb.co/pjtFJQPT/002-underpass-2.jpg"
+            ),
+            ExternalImage(
+              None,
+              "",
+              "https://i.ibb.co/kgQRSgVg/003-underpass-3.jpg"
+            ),
+            ExternalImage(
+              None,
+              "",
+              "https://i.ibb.co/wFCjpDGS/004-underpass-4.jpg"
+            ),
+            ExternalImage(
+              None,
+              "",
+              "https://i.ibb.co/Ng4KmbRV/005-underpass-5.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Path from underpass to the bridge",
+              "https://i.ibb.co/ZqHvH3C/006-path-to-bridge-1.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Start of Wye Bridge",
+              "https://i.ibb.co/zWTWzZft/007-start-of-bridge-7.jpg"
+            ),
+            ExternalImage(
+              None,
+              "",
+              "https://i.ibb.co/pvSt74Mz/008-start-of-bridge-8.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Overlooking from the Welsh side of the bridge",
+              "https://i.ibb.co/KpjQJ4q1/009-overlooking-welsh-side-of-bridge-9.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Time for a lot of steps!",
+              "https://i.ibb.co/YBFKgVrX/010-on-bridge-10.jpg"
+            ),
+            ExternalImage(
+              None,
+              "",
+              "https://i.ibb.co/bgDJrCT7/011-on-bridge-11.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Overlooking the bridge at England",
+              "https://i.ibb.co/ZR1zL9Jk/012-bridge-england-side-12.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Plaques for those who worked on the bridge",
+              "https://i.ibb.co/v4m6R42w/013-bridge-plaque-13.jpg"
+            ),
+            ExternalImage(
+              None,
+              "",
+              "https://i.ibb.co/YFRCPj2P/014-bridge-plaque-2-14.jpg"
+            ),
+            ExternalImage(
+              None,
+              "A footpath to footbridge over the M48",
+              "https://i.ibb.co/ZzVdCXx1/015-footpath-to-services-15.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Footbridge over the M48",
+              "https://i.ibb.co/W4Jp415p/016-footbridge-to-services-16.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Severn View Moto, free to park for 2 hours",
+              "https://i.ibb.co/twctdjk5/017-severn-view-moto-services-17.jpg",
+              linkContent = Some("https://moto-way.com/services/severn-view/")
+            ),
+            ExternalImage(
+              None,
+              "Cheeky Costa",
+              "https://i.ibb.co/5gKzgCxd/018-costa-in-services-18.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Going home to Wales",
+              "https://i.ibb.co/BV56L43w/019-england-to-wales-bridge-side-19.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Near the military base on Wales side",
+              "https://i.ibb.co/nG8XTfM/020-england-to-wales-bridge-side-passing-military-base-20.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Path down to the underpass",
+              "https://i.ibb.co/1YT5ZJJF/021-path-from-bridge-to-underpass-21.jpg"
+            ),
+            ExternalImage(
+              None,
+              "Catbus in the underpass!",
+              "https://i.ibb.co/QvnwVhj8/022-underpass-entrance-from-bridge-22.jpg"
+            ),
+            ExternalImage(
+              None,
+              "More incredible underpass art",
+              "https://i.ibb.co/W428t7Jz/023-underpass-23.jpg"
+            ),
+          )
+        )
+      )
+    }
+  }

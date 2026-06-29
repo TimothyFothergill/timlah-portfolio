@@ -1,0 +1,49 @@
+@import com.timlah.views.html.main
+@import com.timlah.components.gallery.html.gallery
+@import com.timlah.models.components.ExternalImage
+
+@import com.timlah.components.header.html.header
+@import com.timlah.models.components.header.Header
+
+@(images: Seq[ExternalImage] = Seq())
+@main("Severn Bridge Walk 2026 | Timlah's Techs", None) {
+    <div class="content shadows">
+        @header(Header(
+            text = "Severn Bridge Walk 2026"
+        ))
+        <p>I went for a near 2 hour 40 minute walk across the Severn Bridge, to England from Wales - and back!
+        A small break at the services, before returning home. A long walk, so wanted to share
+        some of the pictures I took of the journey. Enjoy!</p>
+
+        <br><br>
+
+        @gallery(images, maxImagesPerRow = 5)
+        <br><br>
+        @header(Header(
+            text = "Stats",
+            headerLevel = Some(2)
+        ))
+        <p>
+        These stats include extra to get home
+            <ul>
+                <li>Start time: 10:18</li>
+                <li>Time taken: 01:21:40</li>
+                <li>Time at services: 11:39</li>
+                <li>Time left services: 12:05</li>
+                <li>Time taken: 01:19:32</li>
+                <li>End time: 13:24</li>
+                <br><br>
+            </ul>
+        @header(Header(
+            text = "Other stats",
+            headerLevel = Some(3)
+        ))
+            <ul>
+                <li>~24 degrees celsius</li>
+                <li>Windy!</li>
+                <li>Total 17,642 steps</li>
+                <li>Total 11km walked</li>
+            </ul>
+        </p>
+    </div>
+}

@@ -19,6 +19,7 @@
     @if(id.nonEmpty){id="@id"}
     @if(ariaLabel != ""){aria-label="@ariaLabel"} 
     @if(jsScript.nonEmpty){onClick="@jsScript"}
+    @attributes
 >
 @if(icon.nonEmpty) {
     @icon.get.asIcon

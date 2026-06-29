@@ -1,7 +1,7 @@
 .buttonpanel {
     background-color: rgba(33,37,41,0.95); /* #212529 */
     width: fit-content;
-    padding: 1.5em;
+    padding: 0.5em;
     border-radius: 0.25em;
     border-color: black;
     border-style: solid;
