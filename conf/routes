@@ -4,62 +4,67 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           com.timlah.controllers.HomeController.index()
-GET     /projects                   com.timlah.controllers.HomeController.projects()
-GET     /contact                    com.timlah.controllers.HomeController.contactPage()
-GET     /about                      com.timlah.controllers.HomeController.about()
-GET     /about/whatiuse             com.timlah.controllers.HomeController.whatIUse()
+GET     /                                       com.timlah.controllers.HomeController.index()
+GET     /projects                               com.timlah.controllers.HomeController.projects()
+GET     /contact                                com.timlah.controllers.HomeController.contactPage()
+GET     /about                                  com.timlah.controllers.HomeController.about()
+GET     /about/whatiuse                         com.timlah.controllers.HomeController.whatIUse()
 
-GET     /blog                       com.timlah.controllers.HomeController.blogPosts()
-GET     /latest-blog                com.timlah.controllers.HomeController.latestBlog()
-GET     /blog/id/:id                com.timlah.controllers.HomeController.blogByID(id: Int)
-GET     /blog/slug/:slug            com.timlah.controllers.HomeController.blogBySlug(slug: String)
+GET     /blog                                   com.timlah.controllers.HomeController.blogPosts()
+GET     /latest-blog                            com.timlah.controllers.HomeController.latestBlog()
+GET     /blog/id/:id                            com.timlah.controllers.HomeController.blogByID(id: Int)
+GET     /blog/slug/:slug                        com.timlah.controllers.HomeController.blogBySlug(slug: String)
 
-GET     /pride                      com.timlah.controllers.HomeController.pride()
+GET     /pride                                  com.timlah.controllers.HomeController.pride()
 
-POST    /contact                    com.timlah.controllers.HomeController.contactSubmit()
+POST    /contact                                com.timlah.controllers.HomeController.contactSubmit()
 
 # NetBitPet related endpoints apis will go here...
 
-# GET     /netbitpet/create           com.timlah.controllers.netbitpet.NetBitPetController.createPet()
-# GET     /netbitpet/play             com.timlah.controllers.netbitpet.NetBitPetController.createPet()
-# GET     /checkCookie                com.timlah.controllers.HomeController.checkCookie()
+# GET     /netbitpet/create                     com.timlah.controllers.netbitpet.NetBitPetController.createPet()
+# GET     /netbitpet/play                       com.timlah.controllers.netbitpet.NetBitPetController.createPet()
+# GET     /checkCookie                          com.timlah.controllers.HomeController.checkCookie()
 
 # Minigame related endpoints
 
-GET     /word-up/new                com.timlah.controllers.HomeController.newWordGame()
-GET     /word-up/restart            com.timlah.controllers.HomeController.setupNewWordGame()
-GET     /word-up/                   com.timlah.controllers.HomeController.currentWordGame()
-POST    /word-up                    com.timlah.controllers.HomeController.continueWordGame()
+GET     /word-up/new                            com.timlah.controllers.HomeController.newWordGame()
+GET     /word-up/restart                        com.timlah.controllers.HomeController.setupNewWordGame()
+GET     /word-up/                               com.timlah.controllers.HomeController.currentWordGame()
+POST    /word-up                                com.timlah.controllers.HomeController.continueWordGame()
 
-GET     /tic-tac-toe/new            com.timlah.controllers.HomeController.newTicTacToeGame()
-GET     /tic-tac-toe/restart        com.timlah.controllers.HomeController.setupNewTicTacToeGame()
-GET     /tic-tac-toe                com.timlah.controllers.HomeController.currentTicTacToeGame()
-GET     /tic-tac-toe/     com.timlah.controllers.HomeController.currentTicTacToeGame()
-POST    /tic-tac-toe                com.timlah.controllers.HomeController.continueTicTacToeGame()
+GET     /tic-tac-toe/new                        com.timlah.controllers.HomeController.newTicTacToeGame()
+GET     /tic-tac-toe/restart                    com.timlah.controllers.HomeController.setupNewTicTacToeGame()
+GET     /tic-tac-toe                            com.timlah.controllers.HomeController.currentTicTacToeGame()
+GET     /tic-tac-toe/                           com.timlah.controllers.HomeController.currentTicTacToeGame()
+POST    /tic-tac-toe                            com.timlah.controllers.HomeController.continueTicTacToeGame()
+
+# Matchagana
+GET     /matchagana                             com.timlah.controllers.matchagana.MatchaganaController.index()
+GET     /matchagana/finished                    com.timlah.controllers.matchagana.MatchaganaController.displayResultsPage()
+GET     /matchagana/:mode                       com.timlah.controllers.matchagana.MatchaganaController.selectPlayMode(mode: String)
 
 # Galleries
-
-GET     /gallery/kitacon-2024       com.timlah.controllers.GalleryController.kitacon2024()
+GET     /gallery/kitacon-2024                   com.timlah.controllers.GalleryController.kitacon2024()
+GET     /gallery/severn-bridge-walk-2026        com.timlah.controllers.GalleryController.severnbridge2026()
 
 # Design System
 
-GET     /design-system              com.timlah.controllers.DesignSystemController.index()
-GET     /design-system/menu         com.timlah.controllers.DesignSystemController.menu()
+GET     /design-system                          com.timlah.controllers.DesignSystemController.index()
+GET     /design-system/menu                     com.timlah.controllers.DesignSystemController.menu()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file                           controllers.Assets.at(path="/public", file)
 
 # Admin panel
-GET     /admin                      com.timlah.controllers.AdminController.login()
-GET     /admin/login                com.timlah.controllers.AdminController.login()
-GET     /admin/logout               com.timlah.controllers.AdminController.logout()
-GET     /admin/dashboard            com.timlah.controllers.AdminController.dashboard()
-GET     /admin/dashboard/new-post   com.timlah.controllers.AdminController.newPost()
-GET     /admin/dashboard/edit/:id   com.timlah.controllers.AdminController.editPost(id: Int)
-GET     /admin/dashboard/drop/:id   com.timlah.controllers.AdminController.dropPost(id: Int)
+GET     /admin                                  com.timlah.controllers.AdminController.login()
+GET     /admin/login                            com.timlah.controllers.AdminController.login()
+GET     /admin/logout                           com.timlah.controllers.AdminController.logout()
+GET     /admin/dashboard                        com.timlah.controllers.AdminController.dashboard()
+GET     /admin/dashboard/new-post               com.timlah.controllers.AdminController.newPost()
+GET     /admin/dashboard/edit/:id               com.timlah.controllers.AdminController.editPost(id: Int)
+GET     /admin/dashboard/drop/:id               com.timlah.controllers.AdminController.dropPost(id: Int)
 
-POST    /admin/login                com.timlah.controllers.AdminController.loginSubmit()
-POST    /admin/dashboard/new-post   com.timlah.controllers.AdminController.newBlogPostSubmit()
-POST    /admin/dashboard/edit/:id   com.timlah.controllers.AdminController.editBlogPostSubmit(id: Int)
+POST    /admin/login                            com.timlah.controllers.AdminController.loginSubmit()
+POST    /admin/dashboard/new-post               com.timlah.controllers.AdminController.newBlogPostSubmit()
+POST    /admin/dashboard/edit/:id               com.timlah.controllers.AdminController.editBlogPostSubmit(id: Int)

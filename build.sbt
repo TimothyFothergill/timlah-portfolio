@@ -41,6 +41,9 @@ libraryDependencies ++= Seq(
   "org.scalatestplus.play" %% "scalatestplus-play" % "6.0.2" % Test
 )
 
+// unicode library
+libraryDependencies += "com.ibm.icu" % "icu4j" % "78.3"
+
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.timlah.controllers._"
 

@@ -1,0 +1,46 @@
+@import com.timlah.views.html.main
+
+@import com.timlah.components.button.html.StandardButton
+@import com.timlah.components.header.html.header
+@import com.timlah.models.components.button._
+@import com.timlah.models.components.header.Header
+
+@()
+<link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/matchagana/matchagana.css")">
+@main("Matchagana - Romaji to Kana matching quiz | Timlah's Techs", None) {
+    <div class="content shadows" id="matchagana-index">
+        <div class="matchagana-mode-selector-container" id="matchagana-mode-selector">
+            <div class="matchagana-mode-container" id="match-a-hiragana">
+                @header(Header(
+                    text = "まちゃがな",
+                    headerLevel = Some(2),
+                    additionalClasses = "kana"
+                ))
+                <p>Match Hiragana to Romaji</p>
+                    @StandardButton(Button(
+                        ariaLabel = "match-a-hiragana",
+                        additionalClasses = " ",
+                        text = "Match-a-Hiragana",
+                        url = Right(com.timlah.controllers.matchagana.routes.MatchaganaController.selectPlayMode("hiragana"))
+                ))
+            </div>
+            <div class="matchagana-mode-container" id="match-a-katakana">
+                @header(Header(
+                    text = "マチャガナ",
+                    headerLevel = Some(2),
+                    additionalClasses = "kana"
+                ))
+                <p>Match Katakana to Romaji</p>
+                    @StandardButton(Button(
+                        ariaLabel = "match-a-katakana",
+                        additionalClasses = " ",
+                        text = "Match-a-Katakana",
+                        url = Right(com.timlah.controllers.matchagana.routes.MatchaganaController.selectPlayMode("katakana"))
+                    ))
+                </div>
+            </div>
+            <p class="kana">Choose the correct Romaji to match the kana. Earn points and memorise kana!</p>
+            <p>Looking to practice Hiragana before you play? Check <a href="https://en.wikipedia.org/wiki/Hiragana#Writing_system">Wiki: Hiragana</a></p>
+        </div>
+    </div>
+}

@@ -9,7 +9,8 @@ case class Button(
     id: String = "",
     jsScript: String = "",
     text: String = "",
-    url: Either[String, Call] = Left("")
+    url: Either[String, Call] = Left(""),
+    attributes: String = ""
 )
 
 object Button {
