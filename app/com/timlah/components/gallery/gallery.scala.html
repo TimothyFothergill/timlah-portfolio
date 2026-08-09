@@ -5,21 +5,21 @@
 <link rel="stylesheet"  media="screen" href="@routes.Assets.versioned("stylesheets/components/gallery/gallery.css")">
 <div class="gallery-selected" id="gallerySelectedDiv">
     <p id="gallerySelectedTitle">@Html(images.head.title)</p>
-    <a href="@images.head.url" id="gallerySelectedUrl">
-        <img src="@images.head.url" @if(images.head.alt.nonEmpty){role="img" alt="@images.head.alt"}else{aria-label="Currently selected gallery image"} id="gallerySelectedImage">
-    </a>
+<a href="javascript:void(0);" onclick="showImagePopup()" id="gallerySelectedUrl">
+    <img src="@images.head.url" @if(images.head.alt.nonEmpty){role="img" alt="@images.head.alt"}else{aria-label="Currently selected gallery image"} id="gallerySelectedImage">
+</a>
 </div>
 <hr>
 Select an image below for a larger view
 <hr>
 <div class="gallery">
-    @if(images.length > maxColumns * maxImagesPerRow) { 
+    @if(images.length > maxColumns * maxImagesPerRow) {
         @for((image,id) <- images.take(maxColumns * maxImagesPerRow).zipWithIndex) {
             <div class="gallery-item" style="flex: 0 1 calc(@(width/(maxImagesPerRow + 1).toDouble) - 2.5em");>
-                <a onclick="UpdateSelectedImage('@id', '@Html(image.alt)', '@Html(image.title)', '@image.url')" href="#">
+                <a onclick="UpdateSelectedImage('@id', '@Html(image.alt)', '@Html(image.title)', '@image.url')" href="javascript:void(0);">
                     <img src="@image.url" @if(image.alt.nonEmpty){alt="@image.alt"}else{aria-label="Image @id"} @if(image.landscape){width="@{width}px"}else{height="@{height}px"}>
                 </a>
-                @image.linkContent match { 
+                @image.linkContent match {
                     case Some(content) => {<a href="@content"><p class="gallery-title">@Html(image.title)</p></a>}
                     case None => {<p class="gallery-title">@Html(image.title)</p>}
                 }
@@ -31,10 +31,10 @@ Select an image below for a larger view
     }} else {
         @for((image,id) <- images.zipWithIndex) {
             <div class="gallery-item" style="flex: 0 1 calc(@(width/(maxImagesPerRow + 1).toDouble)% - 2.5em");>
-                <a onclick="UpdateSelectedImage('@id', '@Html(image.alt)', '@Html(image.title)', '@image.url')" href="#">
+                <a onclick="UpdateSelectedImage('@id', '@Html(image.alt)', '@Html(image.title)', '@image.url')" href="javascript:void(0);">
                     <img src="@image.url" @if(image.alt.nonEmpty){alt="@image.alt"}else{aria-label="Image @id"} @if(image.landscape){width="@{width}px"}else{height="@{height}px"}>
                 </a>
-                @image.linkContent match { 
+                @image.linkContent match {
                     case Some(content) => {<a href="@content"><p class="gallery-title">@Html(image.title)</p></a>}
                     case None => {<p class="gallery-title">@Html(image.title)</p>}
                 }
@@ -45,32 +45,82 @@ Select an image below for a larger view
     }
 }
 </div>
+<div id="gallery-modal" hidden>
+    <button id="prev-button" class="gallery-chevron" onclick="navigateImage(-1)">‹</button>
+    <img id="modal-image" />
+    <button id="next-button" class="gallery-chevron" onclick="navigateImage(1)">›</button>
+</div>
 
 <script type="text/javascript">
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var images = [
-            @for((image, id) <- images.zipWithIndex) {
-                {
-                    id: "@id",
-                    title: "@image.linkContent match { 
-                        case None => {Html(image.title)}
-                        case Some(content) => {<a href='@content'>@Html(image.title)</a>}
-                    }",
-                    url: "@image.url",
-                    alt: "@Html(image.alt)",
-                },
-            }
-        ];
+  const modal = document.getElementById('gallery-modal');
+  const img = document.getElementById('modal-image');
+  var images = [];
+  var currentIndex = 0;
+  document.addEventListener("DOMContentLoaded", function() {
+    images = [
+        @for((image, id) <- images.zipWithIndex) {
+            {
+                id: "@id",
+                title: "@image.linkContent match {
+                    case None => {Html(image.title)}
+                    case Some(content) => {<a href='@content'>@Html(image.title)</a>}
+                }",
+                url: "@image.url",
+                alt: "@Html(image.alt)",
+            },
+        }
+    ];
     });
+
+  document.addEventListener("keyup", (event) => {
+    if(event.keyCode == 37) { // arrow Left
+      navigateImage(-1);
+    }
+    if(event.keyCode == 39) {  // arrow Right
+      navigateImage(1);
+    }
+    if(event.keyCode == 27) {  // escape
+      modal.hidden = true;
+    }
+  })
+
     function UpdateSelectedImage(id, alt, title, url) {
         var selectedTitle = document.getElementById("gallerySelectedTitle");
         var selectedImage = document.getElementById("gallerySelectedImage");
         var selectedUrl = document.getElementById("gallerySelectedUrl");
-        
+
         selectedTitle.innerHTML = title;
         selectedImage.src = url;
         selectedImage.alt = alt;
-        selectedUrl.href = url;
+    }
+
+    function showImagePopup(url) {
+        modal.hidden = false;
+        const src = document.getElementById('gallerySelectedImage').getAttribute('src');
+
+        img.src = src;
+
+        img.onclick = function() {
+          modal.hidden = true;
+        };
+
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+              modal.hidden = true;
+            }
+        };
+
+        document.body.appendChild(modal);
+        modal.appendChild(img);
+    }
+
+
+    function navigateImage(direction) {
+        currentIndex += direction;
+        if (currentIndex < 0) currentIndex = images.length - 1;
+        if (currentIndex >= images.length) currentIndex = 0;
+
+        const src = images[currentIndex].url;
+        img.src = src;
     }
 </script>
