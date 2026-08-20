@@ -100,12 +100,9 @@ Select an image below for a larger view
 
         img.src = src;
 
-        img.onclick = function() {
-          modal.hidden = true;
-        };
-
         modal.onclick = function(e) {
             if (e.target === modal) {
+              currentIndex = 0;
               modal.hidden = true;
             }
         };

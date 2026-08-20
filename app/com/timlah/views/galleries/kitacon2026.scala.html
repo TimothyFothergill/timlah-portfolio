@@ -1,0 +1,28 @@
+@import com.timlah.views.html.main
+@import com.timlah.components.gallery.html.gallery
+@import com.timlah.models.components.ExternalImage
+
+@import com.timlah.components.header.html.header
+@import com.timlah.models.components.header.Header
+
+@(images: Seq[ExternalImage] = Seq())
+@main("Kitacon 2026 | Timlah's Techs", None) {
+    <div class="content shadows">
+        @header(Header(
+            text = "Kitacon 2026"
+        ))
+        <p>Another year of <a href="https://www.kitacon.org/" aria-label="External link to Kitacon's website">Kitacon</a>,
+        a not-for-profit, Japanese Anime & Geek Culture Convention. I wanted to provide a way to show off the great work the
+        organisers and attendees alike. Please enjoy this microscopic look at "Con Life".
+
+        Worth adding, this year there were a lot of moments to give to charity; where the convention managed to raise an incredible
+        £4292 for Cancer Research UK. They raised money <a href="https://www.justgiving.com/page/kitacon2026charity">through their
+        JustGiving page.</a>
+
+        The theme for this year's convention was around spy's, so Spy x Family, etc. I went as Taro Sakamoto from
+        <a href="https://www.imdb.com/title/tt17069148/">Sakamoto Days</a>.</p>
+        <br><br>
+
+        @gallery(images, maxImagesPerRow = 5)
+    </div>
+}
