@@ -46,6 +46,7 @@ GET     /matchagana/:mode                       com.timlah.controllers.matchagan
 # Galleries
 GET     /gallery/kitacon-2024                   com.timlah.controllers.GalleryController.kitacon2024()
 GET     /gallery/severn-bridge-walk-2026        com.timlah.controllers.GalleryController.severnbridge2026()
+GET     /gallery/kitacon-2026                   com.timlah.controllers.GalleryController.kitacon2026()
 
 # Design System
 
