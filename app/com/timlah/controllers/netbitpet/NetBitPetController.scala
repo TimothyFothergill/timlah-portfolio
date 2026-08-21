@@ -23,11 +23,6 @@ class NetBitPetController @Inject() (
     }
   }
 
-  // def newPet() = Action { implicit request: MessagesRequest[AnyContent] => {
-
-  //   }
-  // }
-
   def playerPetApi(playerNetBitPet: PlayerNetBitPet) = Action {
     implicit request: MessagesRequest[AnyContent] =>
       {
